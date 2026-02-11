@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FlaskConical, Activity } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DemoTooltip } from "@/components/demo-tooltip";
+import { useOrg } from "@/lib/hooks/use-org";
 import { EvalScorecard, type ScorecardData } from "@/components/evaluations/eval-scorecard";
 import { EvalResultsTable, type EvalHistoryRow } from "@/components/evaluations/eval-results-table";
 import { BeforeAfterChart, type BeforeAfterRow } from "@/components/evaluations/before-after-chart";
@@ -15,18 +16,20 @@ interface EvalResponse {
 }
 
 export default function EvaluationsPage() {
+  const { orgId } = useOrg();
   const [data, setData] = useState<EvalResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/evaluations")
+    setLoading(true);
+    fetch(`/api/evaluations?org_id=${orgId}`)
       .then((r) => r.json())
       .then((d: EvalResponse) => {
         setData(d);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [orgId]);
 
   if (loading) {
     return (

@@ -449,6 +449,369 @@ for (const d of criticalDecisions) {
 }
 console.log(`✅ ${criticalDecisions.length} critical decisions`);
 
+// ── Queue Decisions — spread across ALL agent types and ALL orgs ───────────────
+const queueDecisions = [
+  // ── DSN Software — Revenue Cadence ──
+  {
+    id: 'dec_rc_dsn_1', org_id: 'org_dsn', agent_id: 'agent_revenue_cadence', type: 'renewal_risk', severity: 'critical', status: 'pending',
+    title: 'MedStar Dental Group — Pipeline Coverage Gap',
+    summary: 'Pipeline coverage dropped to 2.1x (target 3.5x). 4 enterprise deals stalled in Stage 3 for 21+ days. Q1 forecast at risk.',
+    impact_dollars: 234000, confidence: 0.91,
+    account_name: 'MedStar Dental Group', account_arr: 234000,
+    due_date: daysAgo(-30),
+    evidence: JSON.stringify([
+      { source: "Salesforce", type: "pipeline_coverage", detail: "Current pipeline coverage: 2.1x against $1.12M Q1 target. Target coverage: 3.5x. Gap represents $1.57M in needed pipeline." },
+      { source: "Salesforce", type: "deal_stagnation", detail: "4 enterprise deals totaling $234K stalled in Stage 3 (Proposal/Negotiation) for 21+ days. Average stage duration benchmark: 12 days." },
+      { source: "Gong", type: "call_analysis", detail: "Win rate for deals aging >21 days in Stage 3 drops from 45% to 18%. Buyer sentiment in last calls trending negative on 3 of 4 deals." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "pipeline_review", detail: "Urgent pipeline review with sales leadership. Identify unstick actions for 4 stalled deals.", system: "salesforce", requires_approval: true },
+      { type: "forecast_adjustment", detail: "Adjust Q1 forecast to reflect realistic pipeline coverage. Flag risk to board.", system: "salesforce", requires_approval: true },
+      { type: "prospecting_blitz", detail: "Launch 2-week prospecting sprint to rebuild pipeline coverage to 3.0x minimum.", system: "outreach", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", field: "Forecast.Q1_Risk_Flag", from: "None", to: "At Risk — Pipeline Coverage" },
+      { system: "Salesforce", action: "Update 4 stalled opportunities with next-step action plans" },
+      { system: "Slack", action: "Alert #sales-leadership channel with pipeline coverage dashboard" }
+    ]}),
+    created_at: hoursAgo(2),
+  },
+  {
+    id: 'dec_rc_dsn_2', org_id: 'org_dsn', agent_id: 'agent_revenue_cadence', type: 'anomaly', severity: 'high', status: 'pending',
+    title: 'Rep Performance Alert — Northwest Region',
+    summary: '3 of 8 reps below 60% attainment at month 2. Activity levels down 35%. Coaching intervention recommended.',
+    impact_dollars: 89000, confidence: 0.87,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-14),
+    evidence: JSON.stringify([
+      { source: "Salesforce", type: "rep_attainment", detail: "Northwest region: 3 of 8 reps below 60% attainment at month 2. Region trailing at 52% vs 74% company average." },
+      { source: "Outreach", type: "activity_metrics", detail: "Email volume down 35%, call volume down 28%, meetings booked down 41% vs prior month across underperforming reps." },
+      { source: "Gong", type: "coaching_signals", detail: "Talk-to-listen ratio for underperforming reps: 72:28 (benchmark: 55:45). Discovery questions per call: 2.1 (benchmark: 5.4)." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "coaching_plan", detail: "Schedule 1:1 coaching sessions with 3 underperforming reps. Focus on discovery methodology.", system: "calendar", requires_approval: true },
+      { type: "activity_targets", detail: "Set daily activity minimums: 40 emails, 25 calls, 3 meetings/week per rep.", system: "outreach", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", field: "Region.Performance_Flag", from: "On Track", to: "Needs Attention" },
+      { system: "Slack", action: "Notify #sales-managers with rep performance dashboard" }
+    ]}),
+    created_at: hoursAgo(4),
+  },
+  {
+    id: 'dec_rc_dsn_3', org_id: 'org_dsn', agent_id: 'agent_revenue_cadence', type: 'expansion', severity: 'medium', status: 'pending',
+    title: 'Upsell Opportunity — Valley Dental Associates',
+    summary: 'Usage patterns indicate readiness for enterprise imaging module. 3 similar accounts converted at 72% rate.',
+    impact_dollars: 45000, confidence: 0.78,
+    account_name: 'Valley Dental Associates', account_arr: 67000,
+    due_date: daysAgo(-45),
+    evidence: JSON.stringify([
+      { source: "Product Analytics", type: "usage_pattern", detail: "Valley Dental imaging feature usage: 847 scans/month, up 62% in 90 days. Currently on basic imaging tier. Enterprise tier threshold: 500 scans/month." },
+      { source: "Salesforce", type: "lookalike_analysis", detail: "3 similar-profile accounts (multi-location dental, 5-8 chairs, high imaging volume) converted to enterprise imaging at 72% rate in last 6 months." },
+      { source: "HubSpot", type: "engagement", detail: "Office manager attended enterprise imaging webinar (Jan 22). Downloaded ROI calculator (Jan 28). High intent signals." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "upsell_outreach", detail: "Send personalized enterprise imaging proposal with ROI analysis based on their usage data.", system: "email", requires_approval: true },
+      { type: "demo_schedule", detail: "Schedule live demo of advanced imaging analytics and AI-assisted diagnostics.", system: "calendar", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", action: "Create upsell opportunity: Valley Dental — Enterprise Imaging ($45K)" },
+      { system: "Email", action: "Draft personalized proposal to office manager" }
+    ]}),
+    created_at: hoursAgo(6),
+  },
+  // ── DSN Software — Support Deflection ──
+  {
+    id: 'dec_sd_dsn_1', org_id: 'org_dsn', agent_id: 'agent_support_deflect', type: 'support_resolution', severity: 'high', status: 'pending',
+    title: 'KB Gap Detected — EDI Claim Filing',
+    summary: '142 tickets in 30 days on EDI claim filing errors. No KB article exists. Auto-resolution could deflect 78% of these.',
+    impact_dollars: 12000, confidence: 0.93,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-20),
+    evidence: JSON.stringify([
+      { source: "Zendesk", type: "ticket_cluster", detail: "142 tickets in 30 days matching EDI claim filing error patterns. Top error codes: EDI-4010 (invalid payer ID), EDI-5023 (missing attachment), EDI-3001 (format rejection)." },
+      { source: "Zendesk", type: "resolution_analysis", detail: "Average handle time: 18 minutes. 78% resolved with same 3-step troubleshooting flow. No KB article exists for this workflow." },
+      { source: "Product Analytics", type: "feature_usage", detail: "EDI claim filing module usage up 34% after recent payer network expansion. New payer IDs causing most errors." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "kb_creation", detail: "Create KB article: 'Troubleshooting EDI Claim Filing Errors' with step-by-step resolution for top 3 error codes.", system: "zendesk", requires_approval: true },
+      { type: "auto_resolution", detail: "Enable auto-resolution flow for EDI-4010 and EDI-5023 errors. Estimated deflection: 78%.", system: "zendesk", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Zendesk", action: "Create KB article with 3 troubleshooting flows" },
+      { system: "Zendesk", action: "Configure auto-resolution trigger for EDI error codes" }
+    ]}),
+    created_at: hoursAgo(3),
+  },
+  {
+    id: 'dec_sd_dsn_2', org_id: 'org_dsn', agent_id: 'agent_support_deflect', type: 'support_resolution', severity: 'medium', status: 'pending',
+    title: 'Auto-Resolution Candidate — Password Resets',
+    summary: '312 password reset tickets/month. Current manual resolution. Proposed auto-resolution flow ready for approval.',
+    impact_dollars: 8000, confidence: 0.95,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-30),
+    evidence: JSON.stringify([
+      { source: "Zendesk", type: "ticket_volume", detail: "312 password reset tickets in last 30 days. Average handle time: 6 minutes. Total agent time: 31.2 hours/month." },
+      { source: "Zendesk", type: "resolution_pattern", detail: "100% of password resets follow identical 3-step process: verify identity, generate reset link, confirm access. Zero escalations." },
+      { source: "Cost Analysis", type: "savings_estimate", detail: "At $15/ticket average cost, auto-resolution saves $4,680/month ($56K/year). Implementation cost: $0 (built-in Zendesk workflow)." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "auto_resolution", detail: "Enable self-service password reset flow with identity verification. Estimated deflection: 95%.", system: "zendesk", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Zendesk", action: "Enable self-service password reset workflow with MFA verification" },
+      { system: "Zendesk", action: "Add password reset link to help center homepage" }
+    ]}),
+    created_at: hoursAgo(5),
+  },
+  {
+    id: 'dec_sd_dsn_3', org_id: 'org_dsn', agent_id: 'agent_support_deflect', type: 'anomaly', severity: 'low', status: 'pending',
+    title: 'Sentiment Alert — Billing Module',
+    summary: 'CSAT on billing-related tickets dropped 0.4 pts. Investigating root cause — may be related to recent v4.2 update.',
+    impact_dollars: 5000, confidence: 0.72,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-60),
+    evidence: JSON.stringify([
+      { source: "Zendesk", type: "csat_trend", detail: "Billing module CSAT: 3.8 (was 4.2 thirty days ago). 12 negative survey responses in last 2 weeks citing 'confusing new interface'." },
+      { source: "Product Analytics", type: "release_correlation", detail: "v4.2 billing module update deployed Jan 15. CSAT decline began Jan 20. Correlation coefficient: 0.87." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "investigation", detail: "Escalate to product team for v4.2 billing UX review. Collect specific feedback from negative survey respondents.", system: "jira", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Jira", action: "Create investigation ticket: 'v4.2 Billing Module CSAT Decline'" },
+      { system: "Zendesk", action: "Tag billing tickets for sentiment tracking" }
+    ]}),
+    created_at: hoursAgo(8),
+  },
+  // ── Campspot — Revenue Cadence ──
+  {
+    id: 'dec_rc_camp_1', org_id: 'org_campspot', agent_id: 'agent_camp_revenue', type: 'expansion', severity: 'critical', status: 'pending',
+    title: 'Seasonal Pricing Optimization — Summer 2026',
+    summary: 'Dynamic pricing analysis shows 22% revenue uplift opportunity across 45 parks. Competitor benchmark data confirms underpricing on premium waterfront sites.',
+    impact_dollars: 156000, confidence: 0.88,
+    account_name: 'Great Outdoor Parks Network', account_arr: 78000,
+    due_date: daysAgo(-45),
+    evidence: JSON.stringify([
+      { source: "Analytics", type: "pricing_analysis", detail: "Dynamic pricing model identifies 22% revenue uplift across 45 parks. Premium waterfront sites underpriced by avg $18/night vs market." },
+      { source: "Competitor Intel", type: "benchmark", detail: "Competitor parks (KOA, Thousand Trails) pricing premium waterfront 28-35% above standard sites. Great Outdoor Parks Network at only 12% premium." },
+      { source: "Product Analytics", type: "booking_patterns", detail: "Summer 2025 waterfront sites: 98% occupancy, 45-day advance booking. Price elasticity analysis shows demand sustains at +22% pricing." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "pricing_update", detail: "Implement dynamic pricing tiers for 45 parks. Phase 1: waterfront premium sites (+22%). Phase 2: seasonal demand curves.", system: "analytics", requires_approval: true },
+      { type: "exec_outreach", detail: "Present pricing optimization report to Great Outdoor Parks Network leadership with projected $156K revenue impact.", system: "email", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Pricing Engine", action: "Update rate cards for 45 parks — waterfront premium adjustment" },
+      { system: "Email", action: "Draft pricing optimization proposal to park network leadership" }
+    ]}),
+    created_at: hoursAgo(1),
+  },
+  {
+    id: 'dec_rc_camp_2', org_id: 'org_campspot', agent_id: 'agent_camp_revenue', type: 'expansion', severity: 'high', status: 'pending',
+    title: 'Expansion Opportunity — Jellystone Portfolio',
+    summary: '12 new parks opening in 2026. Current pilot with 8 parks shows 94% satisfaction. Expansion proposal timing optimal.',
+    impact_dollars: 112000, confidence: 0.84,
+    account_name: "Yogi Bear's Jellystone Parks", account_arr: 112000,
+    due_date: daysAgo(-35),
+    evidence: JSON.stringify([
+      { source: "Salesforce", type: "expansion_intel", detail: "Yogi Bear's Jellystone Parks: 12 new park openings scheduled for 2026. Current Campspot deployment across 8 pilot parks." },
+      { source: "Product Analytics", type: "pilot_success", detail: "8 pilot parks: 94% operator satisfaction, 23% booking increase vs prior system, 15% reduction in support tickets." },
+      { source: "Sales Intel", type: "timing", detail: "Jellystone VP of Operations presenting technology roadmap to board in March. Expansion proposal needed by Feb 28 for inclusion." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "expansion_proposal", detail: "Prepare enterprise expansion proposal for 12 new parks. Include pilot success metrics and volume pricing.", system: "salesforce", requires_approval: true },
+      { type: "exec_meeting", detail: "Schedule VP-to-VP meeting before March board presentation. Present ROI from 8-park pilot.", system: "calendar", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", action: "Create expansion opportunity: Jellystone 12-Park Rollout ($112K)" },
+      { system: "Email", action: "Draft expansion proposal with pilot success data" }
+    ]}),
+    created_at: hoursAgo(3),
+  },
+  {
+    id: 'dec_rc_camp_3', org_id: 'org_campspot', agent_id: 'agent_camp_revenue', type: 'anomaly', severity: 'medium', status: 'pending',
+    title: 'Channel Mix Optimization',
+    summary: 'OTA channel producing 40% of bookings but 62% of support load. Direct booking incentive could shift 15% of volume.',
+    impact_dollars: 34000, confidence: 0.76,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-50),
+    evidence: JSON.stringify([
+      { source: "Analytics", type: "channel_analysis", detail: "OTA channels (Booking.com, Hipcamp): 40% of total bookings but generating 62% of support tickets. Cost per OTA booking: $8.40 vs $2.10 direct." },
+      { source: "Product Analytics", type: "direct_booking", detail: "Parks with direct booking incentives (loyalty points, early access) see 15-20% shift from OTA to direct within 90 days." },
+      { source: "Financial", type: "margin_impact", detail: "OTA commission: 15-18%. Direct booking margin improvement: $34K/year across current portfolio at 15% volume shift." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "channel_strategy", detail: "Launch direct booking incentive program across top 20 parks. Offer 5% loyalty discount for direct reservations.", system: "analytics", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Booking Engine", action: "Configure direct booking loyalty incentive for 20 parks" },
+      { system: "Slack", action: "Present channel mix analysis to #revenue-ops" }
+    ]}),
+    created_at: hoursAgo(7),
+  },
+  // ── Campspot — Support Deflection ──
+  {
+    id: 'dec_sd_camp_1', org_id: 'org_campspot', agent_id: 'agent_camp_support', type: 'support_resolution', severity: 'high', status: 'pending',
+    title: 'Integration Failure Spike — OTA Channel Manager',
+    summary: '18 parks reporting OTA sync failures since Jan 28. Root cause: Booking.com API rate limit change. Fix requires config update across all affected parks.',
+    impact_dollars: 28000, confidence: 0.90,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-10),
+    evidence: JSON.stringify([
+      { source: "Intercom", type: "ticket_spike", detail: "18 parks reported OTA sync failures since Jan 28. Booking.com availability not updating, causing double-bookings and lost reservations." },
+      { source: "Engineering", type: "root_cause", detail: "Booking.com updated API rate limits from 100/min to 60/min on Jan 27. Our sync engine exceeding new limits for parks with 50+ sites." },
+      { source: "Financial", type: "impact", detail: "Estimated 340 failed bookings across 18 parks. Average booking value: $82. Revenue impact: $27,880." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "config_update", detail: "Deploy rate limit adjustment to OTA sync engine. Reduce batch size from 100 to 50 per cycle. Add exponential backoff.", system: "engineering", requires_approval: true },
+      { type: "park_notification", detail: "Send bulk notification to 18 affected parks with resolution timeline and manual sync instructions.", system: "intercom", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Engineering", action: "Deploy OTA sync rate limit fix to production" },
+      { system: "Intercom", action: "Send resolution notification to 18 affected parks" }
+    ]}),
+    created_at: hoursAgo(2),
+  },
+  {
+    id: 'dec_sd_camp_2', org_id: 'org_campspot', agent_id: 'agent_camp_support', type: 'support_resolution', severity: 'medium', status: 'pending',
+    title: 'Self-Service Portal Adoption Gap',
+    summary: 'Only 23% of park operators using self-service rate management. Training campaign could reduce 180 monthly tickets.',
+    impact_dollars: 15000, confidence: 0.82,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-40),
+    evidence: JSON.stringify([
+      { source: "Product Analytics", type: "adoption", detail: "Self-service rate management portal: 23% adoption (74 of 322 active park operators). 77% still submitting rate change tickets." },
+      { source: "Intercom", type: "ticket_analysis", detail: "180 monthly tickets for rate changes that could be self-service. Average handle time: 12 minutes. Agent cost: $15K/year." },
+      { source: "Product Analytics", type: "training_impact", detail: "Parks that completed onboarding tutorial: 89% self-service adoption vs 12% for those who skipped." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "training_campaign", detail: "Launch targeted email/in-app training campaign for 248 non-adopting park operators. Include video walkthrough and incentive.", system: "intercom", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Intercom", action: "Launch self-service training campaign to 248 park operators" },
+      { system: "Product", action: "Add in-app tooltip for rate management self-service" }
+    ]}),
+    created_at: hoursAgo(9),
+  },
+  // ── Condo Control — Pipeline ──
+  {
+    id: 'dec_pl_condo_1', org_id: 'org_condocontrol', agent_id: 'agent_condo_pipeline', type: 'renewal_risk', severity: 'critical', status: 'pending',
+    title: 'Competitive Win-Back — Harborview HOA Portfolio',
+    summary: 'Lost 3 buildings (18 units) to BuildingLink last quarter. Intelligence shows dissatisfaction with BuildingLink\'s amenity booking. Win-back window: 45 days.',
+    impact_dollars: 96000, confidence: 0.86,
+    account_name: 'Harborview Management Corp', account_arr: 96000,
+    due_date: daysAgo(-45),
+    evidence: JSON.stringify([
+      { source: "Salesforce", type: "churn_analysis", detail: "Harborview Management Corp churned 3 buildings (18 units) to BuildingLink in Q4 2025. Lost ARR: $96K. Cited 'better amenity booking' as reason." },
+      { source: "Sales Intel", type: "competitor_dissatisfaction", detail: "BuildingLink reviews from Harborview buildings: 2.8/5 on amenity booking. 4 negative reviews in 60 days citing 'worse than Condo Control' for pool/gym scheduling." },
+      { source: "Salesforce", type: "relationship", detail: "Former champion (Property Director Maria Santos) still responds to our CSM emails. Expressed regret about switch in informal conversation Jan 15." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "winback_campaign", detail: "Launch targeted win-back: present enhanced amenity booking features (released Q1) + competitive migration package.", system: "salesforce", requires_approval: true },
+      { type: "exec_outreach", detail: "VP Sales outreach to Harborview CEO with 'welcome back' offer: 3 months free + dedicated migration support.", system: "email", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", action: "Create win-back opportunity: Harborview Management Corp ($96K)" },
+      { system: "Email", action: "Draft win-back proposal with competitive comparison" }
+    ]}),
+    created_at: hoursAgo(4),
+  },
+  {
+    id: 'dec_pl_condo_2', org_id: 'org_condocontrol', agent_id: 'agent_condo_pipeline', type: 'expansion', severity: 'high', status: 'pending',
+    title: 'New Market Entry — Florida Condo Boom',
+    summary: '12 new condo developments in Miami-Dade completing in Q2-Q3. 8 management companies actively evaluating platforms. First-mover advantage critical.',
+    impact_dollars: 240000, confidence: 0.79,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-25),
+    evidence: JSON.stringify([
+      { source: "Market Intel", type: "new_construction", detail: "12 new condo developments (2,400+ units) completing in Miami-Dade Q2-Q3 2026. Total addressable market: $240K ARR." },
+      { source: "Sales Intel", type: "active_evaluations", detail: "8 management companies actively evaluating platforms: 3 in RFP stage, 5 in research stage. BuildingLink and AppFolio also pursuing." },
+      { source: "Salesforce", type: "market_position", detail: "Condo Control has 0 Miami-Dade customers. Nearest reference: Fort Lauderdale (2 buildings). Competitor BuildingLink has 15 Miami buildings." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "market_entry", detail: "Launch Miami-Dade market entry campaign: local sales rep hire, 3 targeted demos, partnership with 2 local property management associations.", system: "salesforce", requires_approval: true },
+      { type: "competitive_pricing", detail: "Prepare Miami-Dade introductory pricing: 20% discount for first-year commitments before June 1.", system: "salesforce", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", action: "Create market opportunity: Miami-Dade Expansion ($240K pipeline)" },
+      { system: "Marketing", action: "Launch targeted Miami-Dade digital campaign" }
+    ]}),
+    created_at: hoursAgo(6),
+  },
+  {
+    id: 'dec_pl_condo_3', org_id: 'org_condocontrol', agent_id: 'agent_condo_pipeline', type: 'expansion', severity: 'medium', status: 'pending',
+    title: 'Regulatory Compliance Opportunity — NYC Local Law 97',
+    summary: 'NYC emissions reporting mandate affects 2,400+ buildings. Our compliance module is positioned but needs marketing push.',
+    impact_dollars: 67000, confidence: 0.81,
+    account_name: 'Metro Property Managers', account_arr: 45000,
+    due_date: daysAgo(-55),
+    evidence: JSON.stringify([
+      { source: "Market Intel", type: "regulatory", detail: "NYC Local Law 97 emissions reporting deadline: May 1, 2026. Affects 2,400+ buildings over 25,000 sq ft. Non-compliance penalties: $268/ton CO2." },
+      { source: "Product Analytics", type: "module_readiness", detail: "Condo Control emissions compliance module: launched Q4 2025, 12 buildings onboarded, 98% accuracy on test reports. Ready for scale." },
+      { source: "Salesforce", type: "customer_opportunity", detail: "Metro Property Managers: 45 NYC buildings affected. Current customer ($45K ARR) but not using compliance module. Upsell potential: $67K." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "compliance_campaign", detail: "Launch NYC LL97 compliance campaign targeting existing customers with NYC buildings. Webinar + direct outreach.", system: "marketing", requires_approval: true },
+      { type: "upsell_outreach", detail: "Direct outreach to Metro Property Managers: present compliance module demo with their building portfolio data.", system: "email", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Salesforce", action: "Create upsell opportunity: Metro PM — Compliance Module ($67K)" },
+      { system: "Marketing", action: "Launch LL97 compliance awareness campaign" }
+    ]}),
+    created_at: hoursAgo(10),
+  },
+  // ── Condo Control — Support Deflection ──
+  {
+    id: 'dec_sd_condo_1', org_id: 'org_condocontrol', agent_id: 'agent_condo_support', type: 'support_resolution', severity: 'high', status: 'pending',
+    title: 'Access Control Integration Failures',
+    summary: '34 buildings reporting Salto/ButterflyMX integration errors after firmware update. Bulk config fix prepared — needs approval.',
+    impact_dollars: 18000, confidence: 0.91,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-12),
+    evidence: JSON.stringify([
+      { source: "Zendesk", type: "ticket_cluster", detail: "34 buildings reported Salto and ButterflyMX integration errors since Feb 5. All correlate with firmware update v2.8.1 pushed by hardware vendors." },
+      { source: "Engineering", type: "root_cause", detail: "Firmware v2.8.1 changed BLE handshake protocol. Our integration SDK needs config update to match new protocol parameters." },
+      { source: "Zendesk", type: "impact_assessment", detail: "Affected buildings: 34. Residents impacted: ~4,200. Key fob provisioning and visitor access broken. Manual override in use." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "bulk_fix", detail: "Deploy bulk config update to 34 affected buildings. Update BLE handshake parameters to match firmware v2.8.1.", system: "engineering", requires_approval: true },
+      { type: "notification", detail: "Send resolution notification to all 34 building managers with expected fix timeline (2 hours post-approval).", system: "zendesk", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Engineering", action: "Deploy BLE config update to 34 buildings" },
+      { system: "Zendesk", action: "Bulk resolve 34 integration failure tickets" }
+    ]}),
+    created_at: hoursAgo(1),
+  },
+  {
+    id: 'dec_sd_condo_2', org_id: 'org_condocontrol', agent_id: 'agent_condo_support', type: 'support_resolution', severity: 'medium', status: 'pending',
+    title: 'Resident Portal Onboarding Bottleneck',
+    summary: 'Average resident onboarding takes 12 days. Automated welcome flow could reduce to 2 days. Draft workflow ready.',
+    impact_dollars: 9000, confidence: 0.85,
+    account_name: null, account_arr: null,
+    due_date: daysAgo(-35),
+    evidence: JSON.stringify([
+      { source: "Product Analytics", type: "onboarding_metrics", detail: "Average resident portal onboarding: 12 days from move-in to first login. Industry benchmark: 3 days. 40% never complete onboarding." },
+      { source: "Zendesk", type: "ticket_analysis", detail: "89 monthly tickets from property managers requesting manual resident setup. Average handle time: 15 minutes per resident." },
+      { source: "Product Analytics", type: "automation_potential", detail: "Draft automated welcome flow: email invite → SSO setup → profile completion → amenity tour. Estimated reduction: 12 days → 2 days." }
+    ]),
+    recommended_action: JSON.stringify({ actions: [
+      { type: "workflow_automation", detail: "Deploy automated resident welcome flow. Trigger on new resident record creation. Include email, SMS, and in-app onboarding.", system: "product", requires_approval: true }
+    ]}),
+    action_preview: JSON.stringify({ changes: [
+      { system: "Product", action: "Enable automated resident welcome workflow" },
+      { system: "Zendesk", action: "Add self-service resident setup to help center" }
+    ]}),
+    created_at: hoursAgo(11),
+  },
+];
+
+for (const d of queueDecisions) {
+  insertDecision.run(d.id, d.org_id, d.agent_id, d.type, d.severity, d.status, d.title, d.summary, d.impact_dollars, d.confidence, d.evidence, d.recommended_action, d.action_preview, null, null, d.due_date, d.account_name, d.account_arr, d.created_at);
+}
+console.log(`✅ ${queueDecisions.length} queue decisions (revenue_cadence + support_deflection + pipeline)`);
+
 // 12 High severity decisions
 const highAccounts = [
   { name: 'Mountain View Dental Associates', arr: 78000, type: 'renewal_risk', agentId: 'agent_nrr', orgId: 'org_dsn', summary: 'Usage declining 18% over 45 days across 4 operatories. 2 open P2 tickets for EDI claim rejections. Office manager on PIP. Renewal in 68 days.' },
