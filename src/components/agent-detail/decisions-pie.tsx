@@ -12,7 +12,7 @@ const STATUS_COLORS: Record<string, string> = {
   pending: "#f59e0b",
   approved: "#10b981",
   rejected: "#f43f5e",
-  auto_resolved: "#3b82f6",
+  auto_resolved: "#E63029",
   escalated: "#8b5cf6",
 };
 
@@ -41,9 +41,9 @@ export function DecisionsPie({ decisions }: { decisions: Decision[] }) {
   const acceptanceRate = decisions.length > 0 ? ((approved / decisions.length) * 100).toFixed(1) : "0";
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium text-zinc-300">Decision Outcomes</CardTitle>
+        <CardTitle className="text-sm font-medium text-[var(--text-secondary)]">Decision Outcomes</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-52">
@@ -69,12 +69,12 @@ export function DecisionsPie({ decisions }: { decisions: Decision[] }) {
               <Legend
                 iconType="circle"
                 iconSize={8}
-                formatter={(value: string) => <span className="text-xs text-zinc-400">{value}</span>}
+                formatter={(value: string) => <span className="text-xs text-[var(--text-secondary)]">{value}</span>}
               />
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <p className="text-xs text-zinc-500 mt-2">Acceptance rate: {acceptanceRate}%</p>
+        <p className="text-xs text-[var(--text-muted)] mt-2">Acceptance rate: {acceptanceRate}%</p>
       </CardContent>
     </Card>
   );

@@ -41,9 +41,9 @@ export function CostTrendChart({ runs }: { runs: Run[] }) {
   }, [runs]);
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium text-zinc-300">Cumulative Cost (30 days)</CardTitle>
+        <CardTitle className="text-sm font-medium text-[var(--text-secondary)]">Cumulative Cost (30 days)</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-52">
@@ -51,8 +51,8 @@ export function CostTrendChart({ runs }: { runs: Run[] }) {
             <AreaChart data={chartData} margin={{ top: 4, right: 4, bottom: 0, left: -10 }}>
               <defs>
                 <linearGradient id="costGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#E63029" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#E63029" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#1a1a24" vertical={false} />
@@ -74,7 +74,7 @@ export function CostTrendChart({ runs }: { runs: Run[] }) {
                 labelStyle={{ color: "#a1a1aa" }}
                 formatter={(value) => [`$${Number(value).toFixed(2)}`, "Cumulative Cost"]}
               />
-              <Area type="monotone" dataKey="cost" stroke="#3b82f6" fill="url(#costGradient)" strokeWidth={2} />
+              <Area type="monotone" dataKey="cost" stroke="#E63029" fill="url(#costGradient)" strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
         </div>

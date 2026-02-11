@@ -15,6 +15,8 @@ import { RunsTable } from "@/components/agent-detail/runs-table";
 import { DecisionsTable } from "@/components/agent-detail/decisions-table";
 import { AgentConfig } from "@/components/agent-detail/agent-config";
 import { AgentMemory } from "@/components/agent-detail/agent-memory";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
 
 interface Agent {
   id: string;
@@ -101,21 +103,21 @@ export default function AgentDetailPage() {
   if (isLoading || !agent) {
     return (
       <div className="space-y-6">
-        <Skeleton className="h-6 w-32 bg-[#111118]" />
+        <Skeleton className="h-6 w-32 bg-[var(--skeleton)]" />
         <div className="flex items-start gap-4">
-          <Skeleton className="h-12 w-12 rounded-xl bg-[#111118]" />
+          <Skeleton className="h-12 w-12 rounded-xl bg-[var(--skeleton)]" />
           <div className="space-y-2 flex-1">
-            <Skeleton className="h-8 w-64 bg-[#111118]" />
-            <Skeleton className="h-4 w-48 bg-[#111118]" />
+            <Skeleton className="h-8 w-64 bg-[var(--skeleton)]" />
+            <Skeleton className="h-4 w-48 bg-[var(--skeleton)]" />
           </div>
         </div>
         <div className="grid grid-cols-5 gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-24 bg-[#111118] rounded-xl" />
+            <Skeleton key={i} className="h-24 bg-[var(--skeleton)] rounded-xl" />
           ))}
         </div>
-        <Skeleton className="h-10 w-96 bg-[#111118] rounded-lg" />
-        <Skeleton className="h-80 bg-[#111118] rounded-xl" />
+        <Skeleton className="h-10 w-96 bg-[var(--skeleton)] rounded-lg" />
+        <Skeleton className="h-80 bg-[var(--skeleton)] rounded-xl" />
       </div>
     );
   }
@@ -135,8 +137,12 @@ export default function AgentDetailPage() {
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       <AgentHeader agent={agent} />
 
+      <DemoTooltip content="Key performance indicators for this specific agent. Value Created represents direct dollar impact attributed to agent actions." side="right">
+        <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Agent Performance</h2>
+      </DemoTooltip>
       <AgentStats
         totalRuns={agent.total_runs}
         successRate={successRate}
@@ -146,7 +152,7 @@ export default function AgentDetailPage() {
       />
 
       <Tabs defaultValue="overview">
-        <TabsList variant="line" className="border-b border-[#1a1a24] w-full justify-start">
+        <TabsList variant="line" className="border-b border-[var(--card-border)] w-full justify-start">
           <TabsTrigger value="overview" className="text-sm">Overview</TabsTrigger>
           <TabsTrigger value="runs" className="text-sm">Runs</TabsTrigger>
           <TabsTrigger value="decisions" className="text-sm">Decisions</TabsTrigger>
@@ -171,10 +177,16 @@ export default function AgentDetailPage() {
         </TabsContent>
 
         <TabsContent value="config" className="mt-4">
+          <DemoTooltip content="Agent capabilities define what systems it can access and what actions it can take. Changes require governance approval." side="right">
+            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">Configuration</h3>
+          </DemoTooltip>
           <AgentConfig config={agentConfig} model={agent.model} />
         </TabsContent>
 
         <TabsContent value="memory" className="mt-4">
+          <DemoTooltip content="Agents learn patterns from historical data, improving accuracy over time. All learned patterns are explainable and auditable." side="right">
+            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">Memory</h3>
+          </DemoTooltip>
           <AgentMemory agentType={agent.type} />
         </TabsContent>
       </Tabs>

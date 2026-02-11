@@ -30,7 +30,7 @@ export function IntegrationStatusBanner({ integrations }: IntegrationStatusBanne
 
   return (
     <Card className={cn(
-      "border-[#1a1a24] bg-[#111118]",
+      "border-[var(--card-border)] bg-[var(--card-bg)]",
       allHealthy ? "border-emerald-500/20" : "border-amber-500/20"
     )}>
       <CardContent className="pt-0">
@@ -45,22 +45,22 @@ export function IntegrationStatusBanner({ integrations }: IntegrationStatusBanne
             )} />
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-sm text-zinc-300">
-              <span className="font-semibold text-white">{connected}</span> integrations connected
+            <span className="text-sm text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--text-primary)]">{connected}</span> integrations connected
             </span>
-            <span className="text-sm text-zinc-600">|</span>
+            <span className="text-sm text-[var(--text-muted)]">|</span>
             <span className="text-sm text-emerald-400">
               <span className="font-semibold">{healthy}</span> healthy
             </span>
-            <span className="text-sm text-zinc-600">|</span>
+            <span className="text-sm text-[var(--text-muted)]">|</span>
             <span className={cn(
               "text-sm",
-              degraded > 0 ? "text-amber-400" : "text-zinc-400"
+              degraded > 0 ? "text-amber-400" : "text-[var(--text-secondary)]"
             )}>
               <span className="font-semibold">{degraded}</span> degraded
             </span>
-            <span className="text-sm text-zinc-600">|</span>
-            <span className="text-sm text-zinc-400">Last sync: {syncText}</span>
+            <span className="text-sm text-[var(--text-muted)]">|</span>
+            <span className="text-sm text-[var(--text-secondary)]">Last sync: {syncText}</span>
           </div>
         </div>
       </CardContent>

@@ -40,40 +40,40 @@ export function OperatorHoursChart({ kpiData }: OperatorHoursChartProps) {
   const boardPackHours = latestSnap?.board_pack_hours?.toFixed(0) || "8";
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
       <CardHeader>
-        <CardTitle className="text-white">Operator Hours Saved</CardTitle>
+        <CardTitle className="text-[var(--text-primary)]">Operator Hours Saved</CardTitle>
         <CardDescription>Weekly hours reclaimed by agent automation</CardDescription>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={weeklyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
             <XAxis
               dataKey="week"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
+              stroke="var(--chart-text)"
+              tick={{ fill: "var(--chart-text)", fontSize: 12 }}
             />
             <YAxis
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
+              stroke="var(--chart-text)"
+              tick={{ fill: "var(--chart-text)", fontSize: 12 }}
               tickFormatter={(v) => `${v}h`}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#18181b",
-                border: "1px solid #27272a",
+                backgroundColor: "var(--card-bg)",
+                border: "1px solid var(--card-border)",
                 borderRadius: "8px",
-                color: "#fafafa",
+                color: "var(--text-primary)",
               }}
               formatter={(value) => [`${Number(value).toFixed(1)} hours`, "Hours Saved"]}
             />
-            <Bar dataKey="hours" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="hours" fill="#E63029" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-[#1a1a24]">
-          <span className="text-sm text-zinc-400">Board Pack Generation:</span>
-          <span className="text-sm font-semibold text-white">{boardPackHours} hours</span>
+        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-[var(--card-border)]">
+          <span className="text-sm text-[var(--text-secondary)]">Board Pack Generation:</span>
+          <span className="text-sm font-semibold text-[var(--text-primary)]">{boardPackHours} hours</span>
           <span className="text-xs text-emerald-400">↓79% from 38 hours</span>
         </div>
       </CardContent>

@@ -30,11 +30,11 @@ interface IntegrationCardProps {
 }
 
 const iconMap: Record<string, { icon: React.ElementType; color: string }> = {
-  Salesforce: { icon: Database, color: "text-blue-400" },
+  Salesforce: { icon: Database, color: "text-[var(--primary)]" },
   Zendesk: { icon: Headphones, color: "text-emerald-400" },
   Snowflake: { icon: Snowflake, color: "text-cyan-400" },
   Slack: { icon: MessageSquare, color: "text-purple-400" },
-  Jira: { icon: CheckSquare, color: "text-blue-400" },
+  Jira: { icon: CheckSquare, color: "text-[var(--primary)]" },
   "Google Slides": { icon: Presentation, color: "text-yellow-400" },
 };
 
@@ -78,7 +78,7 @@ function formatTimeAgo(ts: number): string {
 
 export function IntegrationCard({ integration }: IntegrationCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const iconInfo = iconMap[integration.name] || { icon: Database, color: "text-zinc-400" };
+  const iconInfo = iconMap[integration.name] || { icon: Database, color: "text-[var(--text-secondary)]" };
   const Icon = iconInfo.icon;
 
   const isHealthy = integration.health_score >= 0.9;
@@ -93,23 +93,23 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
   const configData = integration.config ? safeParseJSON(integration.config) : null;
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118] hover:border-zinc-700 transition-colors">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--border)] transition-colors">
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className={cn("w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center")}>
+            <div className={cn("w-10 h-10 rounded-lg bg-[var(--surface)] flex items-center justify-center")}>
               <Icon className={cn("w-5 h-5", iconInfo.color)} />
             </div>
             <div>
-              <CardTitle className="text-white text-sm">{integration.name}</CardTitle>
-              <Badge variant="secondary" className="text-[10px] mt-1 bg-zinc-800 text-zinc-400">
+              <CardTitle className="text-[var(--text-primary)] text-sm">{integration.name}</CardTitle>
+              <Badge variant="secondary" className="text-[10px] mt-1 bg-[var(--surface)] text-[var(--text-secondary)]">
                 {typeLabels[integration.type] || integration.type}
               </Badge>
             </div>
           </div>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="p-1 rounded hover:bg-zinc-800 text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="p-1 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
           >
             {expanded ? (
               <ChevronDown className="w-4 h-4" />
@@ -129,10 +129,10 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
         {/* Health Bar */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs text-zinc-500">Health</span>
-            <span className="text-xs text-zinc-400">{Math.round(integration.health_score * 100)}%</span>
+            <span className="text-xs text-[var(--text-muted)]">Health</span>
+            <span className="text-xs text-[var(--text-secondary)]">{Math.round(integration.health_score * 100)}%</span>
           </div>
-          <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
             <div
               className={cn("h-full rounded-full transition-all", healthBarColor)}
               style={{ width: `${integration.health_score * 100}%` }}
@@ -142,30 +142,30 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
 
         {/* Last sync */}
         <div className="flex items-center justify-between text-xs">
-          <span className="text-zinc-500">Last sync</span>
-          <span className="text-zinc-400">{formatTimeAgo(integration.last_sync_at)}</span>
+          <span className="text-[var(--text-muted)]">Last sync</span>
+          <span className="text-[var(--text-secondary)]">{formatTimeAgo(integration.last_sync_at)}</span>
         </div>
 
         {/* Footer stats */}
-        <div className="pt-2 border-t border-zinc-800 space-y-1">
+        <div className="pt-2 border-t border-[var(--card-border)] space-y-1">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-zinc-500">Data points synced</span>
-            <span className="text-zinc-300">{(dataSynced[integration.name] || 0).toLocaleString()}</span>
+            <span className="text-[var(--text-muted)]">Data points synced</span>
+            <span className="text-[var(--text-secondary)]">{(dataSynced[integration.name] || 0).toLocaleString()}</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-zinc-500">Agents using</span>
-            <span className="text-zinc-300">{agentsUsing[integration.name] || 0}</span>
+            <span className="text-[var(--text-muted)]">Agents using</span>
+            <span className="text-[var(--text-secondary)]">{agentsUsing[integration.name] || 0}</span>
           </div>
         </div>
 
         {/* Expanded details */}
         {expanded && (
-          <div className="pt-3 border-t border-zinc-800 space-y-3">
+          <div className="pt-3 border-t border-[var(--card-border)] space-y-3">
             {/* Config */}
             {configData && (
               <div>
-                <p className="text-xs text-zinc-500 mb-1">Configuration</p>
-                <pre className="text-xs font-mono text-zinc-400 bg-zinc-900/50 p-2 rounded overflow-x-auto whitespace-pre-wrap">
+                <p className="text-xs text-[var(--text-muted)] mb-1">Configuration</p>
+                <pre className="text-xs font-mono text-[var(--text-secondary)] bg-[var(--surface)] p-2 rounded overflow-x-auto whitespace-pre-wrap">
                   {JSON.stringify(configData, null, 2)}
                 </pre>
               </div>
@@ -173,14 +173,14 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
 
             {/* Simulated sync history */}
             <div>
-              <p className="text-xs text-zinc-500 mb-2">Recent Syncs</p>
+              <p className="text-xs text-[var(--text-muted)] mb-2">Recent Syncs</p>
               <div className="space-y-1.5">
                 {[5, 35, 65, 125, 245].map((minAgo, i) => (
                   <div key={i} className="flex items-center justify-between text-xs">
-                    <span className="text-zinc-400">{minAgo < 60 ? `${minAgo}m ago` : `${Math.round(minAgo / 60)}h ago`}</span>
+                    <span className="text-[var(--text-secondary)]">{minAgo < 60 ? `${minAgo}m ago` : `${Math.round(minAgo / 60)}h ago`}</span>
                     <div className="flex items-center gap-1.5">
                       <div className={cn("w-1.5 h-1.5 rounded-full", i === 2 && isDegraded ? "bg-amber-400" : "bg-emerald-400")} />
-                      <span className="text-zinc-500">{i === 2 && isDegraded ? "Partial" : "Success"}</span>
+                      <span className="text-[var(--text-muted)]">{i === 2 && isDegraded ? "Partial" : "Success"}</span>
                     </div>
                   </div>
                 ))}
@@ -189,10 +189,10 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
 
             {/* Agent bindings */}
             <div>
-              <p className="text-xs text-zinc-500 mb-1">Agent Bindings</p>
+              <p className="text-xs text-[var(--text-muted)] mb-1">Agent Bindings</p>
               <div className="flex flex-wrap gap-1">
                 {getAgentBindings(integration.name).map((agent) => (
-                  <Badge key={agent} variant="secondary" className="text-[10px] bg-zinc-800 text-zinc-400">
+                  <Badge key={agent} variant="secondary" className="text-[10px] bg-[var(--surface)] text-[var(--text-secondary)]">
                     {agent}
                   </Badge>
                 ))}

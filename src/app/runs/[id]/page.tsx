@@ -54,8 +54,8 @@ function safeParse<T>(val: T | string | null): T | null {
 const severityColors: Record<string, string> = {
   critical: "bg-rose-500/10 text-rose-400",
   high: "bg-amber-500/10 text-amber-400",
-  medium: "bg-blue-500/10 text-blue-400",
-  low: "bg-zinc-500/10 text-zinc-400",
+  medium: "bg-[var(--primary-10)] text-[var(--primary)]",
+  low: "bg-[var(--badge-muted-bg)] text-[var(--badge-muted-text)]",
 };
 
 export default function RunDetailPage() {
@@ -95,23 +95,23 @@ export default function RunDetailPage() {
   if (runLoading || !run) {
     return (
       <div className="space-y-6">
-        <Skeleton className="h-6 w-32 bg-[#111118]" />
+        <Skeleton className="h-6 w-32 bg-[var(--skeleton)]" />
         <div className="space-y-2">
-          <Skeleton className="h-8 w-64 bg-[#111118]" />
-          <Skeleton className="h-4 w-48 bg-[#111118]" />
+          <Skeleton className="h-8 w-64 bg-[var(--skeleton)]" />
+          <Skeleton className="h-4 w-48 bg-[var(--skeleton)]" />
         </div>
         <div className="flex gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-10 w-36 bg-[#111118] rounded-lg" />
+            <Skeleton key={i} className="h-10 w-36 bg-[var(--skeleton)] rounded-lg" />
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
           <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={i} className="h-28 bg-[#111118] rounded-xl" />
+              <Skeleton key={i} className="h-28 bg-[var(--skeleton)] rounded-xl" />
             ))}
           </div>
-          <Skeleton className="h-96 bg-[#111118] rounded-xl" />
+          <Skeleton className="h-96 bg-[var(--skeleton)] rounded-xl" />
         </div>
       </div>
     );
@@ -133,23 +133,23 @@ export default function RunDetailPage() {
 
           {/* Decisions created */}
           {run.decisions_created > 0 && decisions.length > 0 && (
-            <Card className="bg-[#111118] border-[#1a1a24]">
+            <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-zinc-300">
+                <CardTitle className="text-sm font-medium text-[var(--text-secondary)]">
                   Decisions Created ({run.decisions_created})
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   {decisions.slice(0, run.decisions_created).map((d) => (
-                    <div key={d.id} className="flex items-center justify-between bg-[#0a0a0f] rounded-lg px-3 py-2.5">
+                    <div key={d.id} className="flex items-center justify-between bg-[var(--surface)] rounded-lg px-3 py-2.5">
                       <div className="flex items-center gap-2 min-w-0">
                         <Badge variant="outline" className={cn("text-[10px] border-transparent capitalize shrink-0", severityColors[d.severity])}>
                           {d.severity}
                         </Badge>
-                        <span className="text-xs text-zinc-300 truncate">{d.title}</span>
+                        <span className="text-xs text-[var(--text-secondary)] truncate">{d.title}</span>
                       </div>
-                      <Badge variant="outline" className="text-[10px] border-[#2a2a34] text-zinc-400 capitalize shrink-0 ml-2">
+                      <Badge variant="outline" className="text-[10px] border-[var(--border)] text-[var(--text-muted)] capitalize shrink-0 ml-2">
                         {d.status.replace("_", " ")}
                       </Badge>
                     </div>
@@ -161,7 +161,7 @@ export default function RunDetailPage() {
 
           {/* Error display */}
           {run.status === "failed" && run.error && (
-            <Card className="bg-[#111118] border-rose-500/30">
+            <Card className="bg-[var(--card-bg)] border-rose-500/30">
               <CardHeader className="pb-2">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-rose-400" />

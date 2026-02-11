@@ -35,7 +35,7 @@ const actionConfig: Record<
 > = {
   "decision.created": {
     icon: AlertCircle,
-    color: "text-blue-400",
+    color: "text-[var(--primary)]",
     label: "created decision",
   },
   "decision.approved": {
@@ -55,12 +55,12 @@ const actionConfig: Record<
   },
   "agent.deployed": {
     icon: Bot,
-    color: "text-blue-400",
+    color: "text-[var(--primary)]",
     label: "deployed",
   },
   "agent.configured": {
     icon: Settings,
-    color: "text-zinc-400",
+    color: "text-[var(--text-muted)]",
     label: "configured agent",
   },
   "policy.created": {
@@ -79,7 +79,7 @@ function getActionDisplay(action: string) {
   return (
     actionConfig[action] || {
       icon: Activity,
-      color: "text-zinc-400",
+      color: "text-[var(--text-muted)]",
       label: action.replace(".", " "),
     }
   );
@@ -99,11 +99,11 @@ function parseDetails(details: string): string {
 
 export function ActivityFeed({ entries }: ActivityFeedProps) {
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-zinc-400" />
-          <h3 className="text-sm font-semibold text-white">Recent Activity</h3>
+          <Clock className="w-4 h-4 text-[var(--text-muted)]" />
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">Recent Activity</h3>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
@@ -119,7 +119,7 @@ export function ActivityFeed({ entries }: ActivityFeedProps) {
                 className="flex items-start gap-3 py-2.5 relative"
               >
                 {index < entries.length - 1 && (
-                  <div className="absolute left-[9px] top-8 bottom-0 w-px bg-zinc-800/60" />
+                  <div className="absolute left-[9px] top-8 bottom-0 w-px bg-[var(--border)]/60" />
                 )}
                 <div
                   className={cn(
@@ -130,13 +130,13 @@ export function ActivityFeed({ entries }: ActivityFeedProps) {
                   <Icon className="w-[14px] h-[14px]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-zinc-300 leading-relaxed">
-                    <span className="text-zinc-500">{entry.actor}</span>{" "}
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    <span className="text-[var(--text-muted)]">{entry.actor}</span>{" "}
                     {display.label}
                     {detail && (
                       <>
                         :{" "}
-                        <span className="text-white font-medium">
+                        <span className="text-[var(--text-primary)] font-medium">
                           {detail.length > 50
                             ? detail.slice(0, 50) + "…"
                             : detail}
@@ -144,7 +144,7 @@ export function ActivityFeed({ entries }: ActivityFeedProps) {
                       </>
                     )}
                   </p>
-                  <p className="text-[11px] text-zinc-600 mt-0.5">
+                  <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
                     {timeAgo(entry.created_at)}
                   </p>
                 </div>

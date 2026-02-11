@@ -16,6 +16,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { formatCurrency, formatPercent } from "@/lib/utils";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
 
 interface DashboardData {
   kpi: {
@@ -95,34 +97,37 @@ export default function DashboardPage() {
     return (
       <div className="space-y-6">
         <div>
-          <Skeleton className="h-8 w-80 bg-[#111118]" />
-          <Skeleton className="h-4 w-60 bg-[#111118] mt-2" />
+          <Skeleton className="h-8 w-80 bg-[var(--skeleton)]" />
+          <Skeleton className="h-4 w-60 bg-[var(--skeleton)] mt-2" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-28 bg-[#111118] rounded-xl" />
+            <Skeleton key={i} className="h-28 bg-[var(--skeleton)] rounded-xl" />
           ))}
         </div>
-        <Skeleton className="h-14 bg-[#111118] rounded-xl" />
+        <Skeleton className="h-14 bg-[var(--skeleton)] rounded-xl" />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Skeleton className="h-72 bg-[#111118] rounded-xl" />
-          <Skeleton className="h-72 bg-[#111118] rounded-xl" />
+          <Skeleton className="h-72 bg-[var(--skeleton)] rounded-xl" />
+          <Skeleton className="h-72 bg-[var(--skeleton)] rounded-xl" />
         </div>
-        <Skeleton className="h-80 bg-[#111118] rounded-xl" />
+        <Skeleton className="h-80 bg-[var(--skeleton)] rounded-xl" />
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       {/* Row 1: Welcome + KPI Cards */}
       <div>
-        <h1 className="text-2xl font-semibold text-white">
-          Agent OS — Command Center
-        </h1>
-        <p className="text-zinc-400 mt-1 text-sm">
+        <DemoTooltip content="Real-time metrics calculated from agent activity across all connected systems. Updated every 15 seconds." side="right">
+          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+            GENCAP OS — Command Center
+          </h1>
+        </DemoTooltip>
+        <p className="text-[var(--text-secondary)] mt-1 text-sm">
           Portfolio intelligence for{" "}
-          <span className="text-white font-medium">{orgName}</span>
+          <span className="text-[var(--text-primary)] font-medium">{orgName}</span>
         </p>
       </div>
 
@@ -143,7 +148,7 @@ export default function DashboardPage() {
           trend="up"
           trendLabel="+8%"
           icon={<Headphones className="w-4 h-4" />}
-          accentColor="text-blue-400"
+          accentColor="text-[var(--primary)]"
         />
         <KpiCard
           title="Hours Saved"
@@ -166,19 +171,36 @@ export default function DashboardPage() {
       </div>
 
       {/* Row 2: Decision Summary Bar */}
-      <DecisionSummaryBar
-        decisionCounts={data?.decisionCounts ?? []}
-        totalExposure={data?.valueAtRisk ?? 0}
-      />
+      <div>
+        <DemoTooltip content="Agents continuously monitor your customer base and flag findings requiring human review. Critical items have the highest dollar exposure." side="right">
+          <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Decision Summary</h2>
+        </DemoTooltip>
+        <DecisionSummaryBar
+          decisionCounts={data?.decisionCounts ?? []}
+          totalExposure={data?.valueAtRisk ?? 0}
+        />
+      </div>
 
       {/* Row 3: Two columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <AgentMiniCards agents={data?.agents ?? []} />
-        <ActivityFeed entries={data?.recentActivity ?? []} />
+      <div>
+        <DemoTooltip content="Your deployed AI agent fleet. Each agent is specialized for a specific operational function with governed permissions." side="right">
+          <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Active Agents & Activity</h2>
+        </DemoTooltip>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <AgentMiniCards agents={data?.agents ?? []} />
+          <ActivityFeed entries={data?.recentActivity ?? []} />
+        </div>
       </div>
 
       {/* Row 4: KPI Trend Chart */}
-      {kpiData && kpiData.length > 0 && <KpiTrendChart data={kpiData} />}
+      {kpiData && kpiData.length > 0 && (
+        <div>
+          <DemoTooltip content="90-day trend showing business impact. The inflection point marks agent deployment — before and after is clearly visible." side="right">
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">KPI Trends</h2>
+          </DemoTooltip>
+          <KpiTrendChart data={kpiData} />
+        </div>
+      )}
     </div>
   );
 }

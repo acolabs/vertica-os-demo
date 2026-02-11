@@ -48,16 +48,16 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed left-0 top-0 bottom-0 w-64 bg-[#111118] border-r border-[#1a1a24] flex flex-col z-50">
+    <nav className="fixed left-0 top-0 bottom-0 w-64 bg-[var(--nav-bg)] border-r border-[var(--nav-border)] flex flex-col z-50">
       {/* Logo */}
-      <div className="p-6 border-b border-[#1a1a24]">
+      <div className="p-6 border-b border-[var(--nav-border)]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-            <Shield className="w-5 h-5 text-blue-500" />
+          <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
+            <Shield className="w-5 h-5 text-[var(--primary)]" />
           </div>
           <div>
-            <h1 className="text-base font-semibold text-white tracking-tight">AGENT OS</h1>
-            <p className="text-[11px] text-zinc-500">powered by Arc Agency</p>
+            <h1 className="text-base font-semibold text-[var(--text-primary)] tracking-tight">GENCAP OS</h1>
+            <p className="text-[11px] text-[var(--text-muted)]">powered by Adapt Agents</p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ export function Nav() {
       <div className="flex-1 overflow-y-auto py-4 px-3">
         {navSections.map((section) => (
           <div key={section.label} className="mb-6">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider px-3 mb-2">
+            <p className="text-[11px] font-medium text-[var(--text-muted)] uppercase tracking-wider px-3 mb-2">
               {section.label}
             </p>
             {section.items.map((item) => {
@@ -81,8 +81,8 @@ export function Nav() {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                     isActive
-                      ? "bg-blue-500/10 text-blue-400"
-                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                      ? "bg-[var(--nav-active-bg)] text-[var(--nav-text-active)]"
+                      : "text-[var(--nav-text)] hover:text-[var(--text-primary)] hover:bg-[var(--card-hover)]"
                   )}
                 >
                   <item.icon className="w-4 h-4" />
@@ -95,8 +95,8 @@ export function Nav() {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-[#1a1a24]">
-        <p className="text-[11px] text-zinc-600 text-center">GenCap Agent OS v1.0</p>
+      <div className="p-4 border-t border-[var(--nav-border)]">
+        <p className="text-[11px] text-[var(--text-muted)] text-center">GENCAP OS v1.0</p>
       </div>
     </nav>
   );

@@ -19,8 +19,8 @@ export function AgentStats({ totalRuns, successRate, avgDuration, totalCost, val
       label: "Total Runs",
       value: totalRuns.toLocaleString(),
       icon: Activity,
-      color: "text-blue-400",
-      bg: "bg-blue-500/10",
+      color: "text-[var(--primary)]",
+      bg: "bg-[var(--primary-10)]",
     },
     {
       label: "Success Rate",
@@ -40,8 +40,8 @@ export function AgentStats({ totalRuns, successRate, avgDuration, totalCost, val
       label: "Total Cost",
       value: formatCurrency(totalCost),
       icon: DollarSign,
-      color: "text-zinc-400",
-      bg: "bg-zinc-500/10",
+      color: "text-[var(--text-muted)]",
+      bg: "bg-[var(--badge-muted-bg)]",
     },
     {
       label: "Value Created",
@@ -57,17 +57,17 @@ export function AgentStats({ totalRuns, successRate, avgDuration, totalCost, val
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
-          <Card key={stat.label} className="bg-[#111118] border-[#1a1a24] py-4">
+          <Card key={stat.label} className="bg-[var(--card-bg)] border-[var(--card-border)] py-4">
             <CardContent className="px-4 py-0">
               <div className="flex items-center gap-2 mb-2">
                 <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center", stat.bg)}>
                   <Icon className={cn("w-3.5 h-3.5", stat.color)} />
                 </div>
-                <span className="text-[11px] text-zinc-500 uppercase tracking-wider">{stat.label}</span>
+                <span className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</span>
               </div>
               <p className={cn(
                 "text-xl font-bold",
-                stat.label === "Value Created" ? "text-emerald-400" : "text-white"
+                stat.label === "Value Created" ? "text-emerald-400" : "text-[var(--text-primary)]"
               )}>
                 {stat.value}
               </p>

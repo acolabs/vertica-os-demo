@@ -16,6 +16,9 @@ import {
   XCircle,
   Plus,
 } from 'lucide-react';
+import { DemoTooltip } from '@/components/demo-tooltip';
+import { ToastWrapper } from '@/components/toast-wrapper';
+import { toast } from 'sonner';
 
 interface Policy {
   id: string;
@@ -29,33 +32,33 @@ interface Policy {
 }
 
 const typeConfig: Record<string, { icon: typeof Shield; color: string; label: string }> = {
-  approval_required: { icon: ShieldCheck, color: 'text-blue-400', label: 'Approval Required' },
+  approval_required: { icon: ShieldCheck, color: 'text-[var(--primary)]', label: 'Approval Required' },
   auto_approve: { icon: CheckCircle2, color: 'text-emerald-400', label: 'Auto-Approve' },
   two_person: { icon: Users, color: 'text-amber-400', label: 'Two-Person Rule' },
   budget_limit: { icon: DollarSign, color: 'text-rose-400', label: 'Budget Limit' },
 };
 
 function PolicyCard({ policy }: { policy: Policy }) {
-  const config = typeConfig[policy.type] || { icon: Shield, color: 'text-zinc-400', label: policy.type };
+  const config = typeConfig[policy.type] || { icon: Shield, color: 'text-[var(--text-muted)]', label: policy.type };
   const Icon = config.icon;
   const rules = typeof policy.rules === 'string' ? JSON.parse(policy.rules) : policy.rules;
 
   return (
-    <Card className="border-zinc-800 bg-zinc-900/50 hover:bg-zinc-900/80 transition-colors">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--card-hover)] transition-colors">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg bg-zinc-800 ${config.color}`}>
+            <div className={`p-2 rounded-lg bg-[var(--surface)] ${config.color}`}>
               <Icon className="h-5 w-5" />
             </div>
             <div>
-              <CardTitle className="text-base text-white">{policy.name}</CardTitle>
+              <CardTitle className="text-base text-[var(--text-primary)]">{policy.name}</CardTitle>
               <div className="flex items-center gap-2 mt-1">
-                <Badge variant="outline" className="text-xs border-zinc-700">
+                <Badge variant="outline" className="text-xs border-[var(--card-border)]">
                   {config.label}
                 </Badge>
                 {policy.scope && (
-                  <Badge variant="outline" className="text-xs border-zinc-700 text-zinc-400">
+                  <Badge variant="outline" className="text-xs border-[var(--card-border)] text-[var(--text-muted)]">
                     Scope: {policy.scope}
                   </Badge>
                 )}
@@ -70,8 +73,8 @@ function PolicyCard({ policy }: { policy: Policy }) {
               </>
             ) : (
               <>
-                <span className="h-2 w-2 rounded-full bg-zinc-600" />
-                <span className="text-xs text-zinc-500">Disabled</span>
+                <span className="h-2 w-2 rounded-full bg-[var(--text-muted)]" />
+                <span className="text-xs text-[var(--text-muted)]">Disabled</span>
               </>
             )}
           </div>
@@ -81,8 +84,8 @@ function PolicyCard({ policy }: { policy: Policy }) {
         <div className="space-y-2">
           {Object.entries(rules).map(([key, value]) => (
             <div key={key} className="flex items-center justify-between text-sm">
-              <span className="text-zinc-400">{key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
-              <span className="text-zinc-200 font-mono text-xs">
+              <span className="text-[var(--text-secondary)]">{key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
+              <span className="text-[var(--text-primary)] font-mono text-xs">
                 {typeof value === 'object' ? JSON.stringify(value) : String(value)}
               </span>
             </div>
@@ -109,22 +112,27 @@ export default function PoliciesPage() {
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-white">
-            <Lock className="h-6 w-6 text-blue-400" />
-            Policies
-          </h1>
-          <p className="text-zinc-400 mt-1">
+          <DemoTooltip content="Governance rules controlling agent behavior. From auto-approval for low-risk actions to two-person rules for high-stakes decisions." side="right">
+            <h1 className="text-2xl font-bold flex items-center gap-2 text-[var(--text-primary)]">
+              <Lock className="h-6 w-6 text-[var(--primary)]" />
+              Policies
+            </h1>
+          </DemoTooltip>
+          <p className="text-[var(--text-secondary)] mt-1">
             Governance rules and approval workflows
           </p>
         </div>
         <Button
           variant="outline"
-          className="border-zinc-700 hover:bg-zinc-800"
+          className="border-[var(--card-border)] hover:bg-[var(--card-hover)]"
           onClick={() => {
-            // Demo placeholder
+            toast.info('Policy configuration panel', {
+              description: 'Contact your administrator to add new governance policies.',
+            });
           }}
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -133,25 +141,25 @@ export default function PoliciesPage() {
       </div>
 
       {/* Summary Banner */}
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
-                <ShieldAlert className="h-4 w-4 text-blue-400" />
-                <span className="text-sm text-zinc-300">
-                  <span className="font-semibold text-white">{policies?.length || 0}</span> active policies
+                <ShieldAlert className="h-4 w-4 text-[var(--primary)]" />
+                <span className="text-sm text-[var(--text-secondary)]">
+                  <span className="font-semibold text-[var(--text-primary)]">{policies?.length || 0}</span> active policies
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-emerald-400" />
-                <span className="text-sm text-zinc-300">
+                <span className="text-sm text-[var(--text-secondary)]">
                   All agent actions governed
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span className="text-sm text-zinc-300">
+                <span className="text-sm text-[var(--text-secondary)]">
                   Compliance: <span className="font-semibold text-emerald-400">100%</span>
                 </span>
               </div>
@@ -164,7 +172,7 @@ export default function PoliciesPage() {
       {isLoading ? (
         <div className="grid gap-4 lg:grid-cols-2">
           {[1, 2, 3, 4, 5].map(i => (
-            <Card key={i} className="border-zinc-800 bg-zinc-900/50 h-48 animate-pulse" />
+            <Card key={i} className="border-[var(--card-border)] bg-[var(--card-bg)] h-48 animate-pulse" />
           ))}
         </div>
       ) : (
@@ -176,27 +184,29 @@ export default function PoliciesPage() {
       )}
 
       {/* Enforcement Stats */}
-      <Card className="border-zinc-800 bg-zinc-900/50">
+      <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
         <CardHeader>
-          <CardTitle className="text-base text-white">Policy Enforcement Summary</CardTitle>
+          <DemoTooltip content="Real-time compliance tracking. 100% policy compliance means no agent has ever taken an ungoverned action." side="right">
+            <CardTitle className="text-base text-[var(--text-primary)]">Policy Enforcement Summary</CardTitle>
+          </DemoTooltip>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-4 gap-4">
             <div className="text-center">
-              <p className="text-2xl font-bold text-white">251</p>
-              <p className="text-xs text-zinc-400 mt-1">Total Actions Audited</p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">251</p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Total Actions Audited</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-emerald-400">100%</p>
-              <p className="text-xs text-zinc-400 mt-1">Policy Compliance</p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Policy Compliance</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-white">0</p>
-              <p className="text-xs text-zinc-400 mt-1">Policy Violations</p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">0</p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Policy Violations</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-amber-400">3</p>
-              <p className="text-xs text-zinc-400 mt-1">Escalations Triggered</p>
+              <p className="text-xs text-[var(--text-muted)] mt-1">Escalations Triggered</p>
             </div>
           </div>
         </CardContent>

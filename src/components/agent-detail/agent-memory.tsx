@@ -73,18 +73,18 @@ export function AgentMemory({ agentType }: AgentMemoryProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-2">
         <Brain className="w-5 h-5 text-purple-400" />
-        <h3 className="text-base font-semibold text-white">Agent Knowledge Base</h3>
-        <span className="text-xs text-zinc-500 ml-1">({memories.length} learned patterns)</span>
+        <h3 className="text-base font-semibold text-[var(--text-primary)]">Agent Knowledge Base</h3>
+        <span className="text-xs text-[var(--text-muted)] ml-1">({memories.length} learned patterns)</span>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {memories.map((mem, i) => (
-          <Card key={i} className="bg-[#111118] border-[#1a1a24] hover:border-[#2a2a34] transition-colors py-4">
+          <Card key={i} className="bg-[var(--card-bg)] border-[var(--card-border)] hover:border-[var(--border)] transition-colors py-4">
             <CardHeader className="pb-1 pt-0">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Lightbulb className="w-4 h-4 text-amber-400" />
                 </div>
-                <CardTitle className="text-sm font-medium text-zinc-200 leading-relaxed">
+                <CardTitle className="text-sm font-medium text-[var(--text-primary)] leading-relaxed">
                   {mem.pattern}
                 </CardTitle>
               </div>
@@ -93,13 +93,13 @@ export function AgentMemory({ agentType }: AgentMemoryProps) {
               <div className="flex items-center gap-4 mt-2">
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[11px] text-zinc-500">Confidence: <span className="text-zinc-300 font-medium">{mem.confidence}%</span></span>
+                  <span className="text-[11px] text-[var(--text-muted)]">Confidence: <span className="text-[var(--text-secondary)] font-medium">{mem.confidence}%</span></span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                  <span className="text-[11px] text-zinc-500">Learned from: <span className="text-zinc-300 font-medium">{mem.observations} observations</span></span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]" />
+                  <span className="text-[11px] text-[var(--text-muted)]">Learned from: <span className="text-[var(--text-secondary)] font-medium">{mem.observations} observations</span></span>
                 </div>
-                <span className="text-[11px] text-zinc-600">Updated {mem.daysAgo}d ago</span>
+                <span className="text-[11px] text-[var(--text-muted)]">Updated {mem.daysAgo}d ago</span>
               </div>
             </CardContent>
           </Card>

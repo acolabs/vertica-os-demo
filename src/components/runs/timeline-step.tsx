@@ -24,11 +24,11 @@ interface TimelineStepProps {
 const stepConfig: Record<string, { icon: typeof Brain; color: string; bg: string; border: string; label: string; glow: string }> = {
   plan: {
     icon: Brain,
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
-    border: "border-blue-500/30",
+    color: "text-[var(--primary)]",
+    bg: "bg-[var(--primary-10)]",
+    border: "border-[var(--primary)]/30",
     label: "Planning",
-    glow: "shadow-blue-500/20",
+    glow: "shadow-[var(--primary)]/20",
   },
   tool_call: {
     icon: Wrench,
@@ -65,7 +65,7 @@ const stepConfig: Record<string, { icon: typeof Brain; color: string; bg: string
 };
 
 const dotColors: Record<string, string> = {
-  plan: "bg-blue-500",
+  plan: "bg-[var(--primary)]",
   tool_call: "bg-purple-500",
   analysis: "bg-amber-500",
   decision: "bg-rose-500",
@@ -87,8 +87,8 @@ export function TimelineStep({ step, index, isLast, elapsedBetween }: TimelineSt
       {/* Elapsed time indicator between steps */}
       {elapsedBetween != null && elapsedBetween > 0 && (
         <div className="flex items-center ml-[15px] -mt-1 mb-1">
-          <div className="w-[2px] h-4 bg-zinc-800" />
-          <span className="text-[10px] text-zinc-600 ml-3 font-mono">+{(elapsedBetween / 1000).toFixed(1)}s</span>
+          <div className="w-[2px] h-4 bg-[var(--surface)]" />
+          <span className="text-[10px] text-[var(--text-muted)] ml-3 font-mono">+{(elapsedBetween / 1000).toFixed(1)}s</span>
         </div>
       )}
 
@@ -103,13 +103,13 @@ export function TimelineStep({ step, index, isLast, elapsedBetween }: TimelineSt
           )} />
           {/* Connector line */}
           {!isLast && (
-            <div className="w-[2px] flex-1 bg-zinc-800 min-h-[16px]" />
+            <div className="w-[2px] flex-1 bg-[var(--surface)] min-h-[16px]" />
           )}
         </div>
 
         {/* Step card */}
         <div className={cn(
-          "flex-1 mb-4 rounded-xl border bg-[#111118] p-4 transition-all hover:border-opacity-80",
+          "flex-1 mb-4 rounded-xl border bg-[var(--card-bg)] p-4 transition-all hover:border-opacity-80",
           config.border,
           "shadow-md",
           config.glow
@@ -120,19 +120,19 @@ export function TimelineStep({ step, index, isLast, elapsedBetween }: TimelineSt
               <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center", config.bg)}>
                 <Icon className={cn("w-3.5 h-3.5", config.color)} />
               </div>
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-[var(--text-muted)]">
                 Step {index + 1} · <span className={config.color}>{config.label}</span>
-                {duration && <span className="text-zinc-600"> · {duration}s</span>}
+                {duration && <span className="text-[var(--text-muted)]"> · {duration}s</span>}
               </span>
             </div>
             <div className="flex items-center gap-2">
               {step.system && (
-                <Badge variant="outline" className="text-[10px] border-[#2a2a34] text-purple-300 bg-purple-500/5 font-mono">
+                <Badge variant="outline" className="text-[10px] border-[var(--border)] text-purple-300 bg-purple-500/5 font-mono">
                   {step.system}
                 </Badge>
               )}
               {step.tokens != null && step.tokens > 0 && (
-                <Badge variant="outline" className="text-[10px] border-[#2a2a34] text-zinc-400 bg-[#0a0a0f] font-mono">
+                <Badge variant="outline" className="text-[10px] border-[var(--border)] text-[var(--text-secondary)] bg-[var(--surface)] font-mono">
                   {step.tokens.toLocaleString()} tokens
                 </Badge>
               )}
@@ -140,16 +140,16 @@ export function TimelineStep({ step, index, isLast, elapsedBetween }: TimelineSt
           </div>
 
           {/* Step title */}
-          <h4 className="text-sm font-semibold text-white mb-1">{step.title}</h4>
+          <h4 className="text-sm font-semibold text-[var(--text-primary)] mb-1">{step.title}</h4>
 
           {/* Step detail */}
           {detail && (
-            <p className="text-xs text-zinc-400 leading-relaxed whitespace-pre-wrap">{displayDetail}</p>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">{displayDetail}</p>
           )}
           {isLong && (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 mt-1.5 transition-colors"
+              className="flex items-center gap-1 text-[11px] text-[var(--primary)] hover:text-[var(--primary)] mt-1.5 transition-colors"
             >
               {expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
               {expanded ? "Show less" : "Show more"}

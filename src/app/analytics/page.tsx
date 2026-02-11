@@ -10,6 +10,8 @@ import { RevenueImpactChart } from "@/components/analytics/revenue-impact-chart"
 import { SupportMetricsChart } from "@/components/analytics/support-metrics-chart";
 import { OperatorHoursChart } from "@/components/analytics/operator-hours-chart";
 import { AgentEfficiencyTable } from "@/components/analytics/agent-efficiency-table";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
 
 interface AnalyticsData {
   decisions: {
@@ -79,20 +81,20 @@ export default function AnalyticsPage() {
     return (
       <div className="space-y-6">
         <div>
-          <Skeleton className="h-8 w-48 bg-zinc-800" />
-          <Skeleton className="h-4 w-72 mt-2 bg-zinc-800" />
+          <Skeleton className="h-8 w-48 bg-[var(--skeleton)]" />
+          <Skeleton className="h-4 w-72 mt-2 bg-[var(--skeleton)]" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
-            <Skeleton key={i} className="h-32 bg-zinc-800 rounded-xl" />
+            <Skeleton key={i} className="h-32 bg-[var(--skeleton)] rounded-xl" />
           ))}
         </div>
-        <Skeleton className="h-96 bg-zinc-800 rounded-xl" />
+        <Skeleton className="h-96 bg-[var(--skeleton)] rounded-xl" />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Skeleton className="h-80 bg-zinc-800 rounded-xl" />
-          <Skeleton className="h-80 bg-zinc-800 rounded-xl" />
+          <Skeleton className="h-80 bg-[var(--skeleton)] rounded-xl" />
+          <Skeleton className="h-80 bg-[var(--skeleton)] rounded-xl" />
         </div>
-        <Skeleton className="h-80 bg-zinc-800 rounded-xl" />
+        <Skeleton className="h-80 bg-[var(--skeleton)] rounded-xl" />
       </div>
     );
   }
@@ -102,18 +104,22 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-            <BarChart3 className="w-5 h-5 text-blue-400" />
+          <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
+            <BarChart3 className="w-5 h-5 text-[var(--primary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Analytics</h1>
-            <p className="text-sm text-zinc-400">Agent performance and business impact</p>
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">Analytics</h1>
+            <p className="text-sm text-[var(--text-secondary)]">Agent performance and business impact</p>
           </div>
         </div>
-        <p className="text-xs text-zinc-500 mt-2">Last 90 days</p>
+        <p className="text-xs text-[var(--text-muted)] mt-2">Last 90 days</p>
       </div>
 
+      <ToastWrapper />
       {/* Row 1: Big Impact Numbers */}
+      <DemoTooltip content="Executive summary metrics for board reporting. All values are directly attributable to agent actions with full audit trail." side="right">
+        <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Impact Summary</h2>
+      </DemoTooltip>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <BigNumberCard
           title="Total Value Created"
@@ -141,29 +147,44 @@ export default function AnalyticsPage() {
           value={totalDecisions.toLocaleString()}
           subtitle="Agent-generated decisions"
           icon={BarChart3}
-          color="blue"
+          color="red"
         />
       </div>
 
       {/* Row 2: Revenue Impact */}
       {kpiData && kpiData.length > 0 && (
-        <RevenueImpactChart kpiData={kpiData} />
+        <div>
+          <DemoTooltip content="Churn prevention is the highest-ROI agent capability for PE-backed SaaS. Each dollar saved compounds at your revenue multiple." side="right">
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Revenue Impact</h2>
+          </DemoTooltip>
+          <RevenueImpactChart kpiData={kpiData} />
+        </div>
       )}
 
       {/* Row 3: Operational Impact */}
       {kpiData && kpiData.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <SupportMetricsChart kpiData={kpiData} />
-          <OperatorHoursChart kpiData={kpiData} />
+        <div>
+          <DemoTooltip content="Support automation delivers immediate cost savings with measurable deflection rates and handle time reduction." side="right">
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Support & Operations</h2>
+          </DemoTooltip>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <SupportMetricsChart kpiData={kpiData} />
+            <OperatorHoursChart kpiData={kpiData} />
+          </div>
         </div>
       )}
 
       {/* Row 4: Agent Efficiency */}
       {analytics && (
-        <AgentEfficiencyTable
-          agents={analytics.agents}
-          runStats={analytics.runs}
-        />
+        <div>
+          <DemoTooltip content="Operational metrics showing agent reliability and cost-effectiveness. Acceptance rate indicates alignment with human judgment." side="right">
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Agent Efficiency</h2>
+          </DemoTooltip>
+          <AgentEfficiencyTable
+            agents={analytics.agents}
+            runStats={analytics.runs}
+          />
+        </div>
       )}
     </div>
   );

@@ -30,35 +30,35 @@ export function CostBreakdown({ totalCost, tokensUsed, model, decisionsCreated, 
   const totalStepTokens = steps.reduce((s, st) => s + (st.tokens || 0), 0);
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-emerald-400" />
-          <CardTitle className="text-sm font-medium text-zinc-300">Cost Breakdown</CardTitle>
+          <CardTitle className="text-sm font-medium text-[var(--text-secondary)]">Cost Breakdown</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Total Cost */}
-        <div className="bg-[#0a0a0f] rounded-xl p-4 text-center">
-          <p className="text-[10px] text-zinc-600 uppercase tracking-wider mb-1">Total Cost</p>
-          <p className="text-2xl font-bold text-white">{formatCurrency(totalCost)}</p>
+        <div className="bg-[var(--surface)] rounded-xl p-4 text-center">
+          <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">Total Cost</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">{formatCurrency(totalCost)}</p>
         </div>
 
         {/* Token Breakdown */}
         <div className="space-y-2">
-          <p className="text-[11px] text-zinc-500 uppercase tracking-wider">Token Breakdown</p>
-          <div className="flex items-center justify-between bg-[#0a0a0f] rounded-lg px-3 py-2">
-            <span className="text-xs text-zinc-400">Input tokens</span>
+          <p className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Token Breakdown</p>
+          <div className="flex items-center justify-between bg-[var(--surface)] rounded-lg px-3 py-2">
+            <span className="text-xs text-[var(--text-secondary)]">Input tokens</span>
             <div className="text-right">
-              <span className="text-xs text-white font-semibold">{inputTokens.toLocaleString()}</span>
-              <span className="text-[10px] text-zinc-600 ml-1.5">{formatCurrency(inputCost)}</span>
+              <span className="text-xs text-[var(--text-primary)] font-semibold">{inputTokens.toLocaleString()}</span>
+              <span className="text-[10px] text-[var(--text-muted)] ml-1.5">{formatCurrency(inputCost)}</span>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-[#0a0a0f] rounded-lg px-3 py-2">
-            <span className="text-xs text-zinc-400">Output tokens</span>
+          <div className="flex items-center justify-between bg-[var(--surface)] rounded-lg px-3 py-2">
+            <span className="text-xs text-[var(--text-secondary)]">Output tokens</span>
             <div className="text-right">
-              <span className="text-xs text-white font-semibold">{outputTokens.toLocaleString()}</span>
-              <span className="text-[10px] text-zinc-600 ml-1.5">{formatCurrency(outputCost)}</span>
+              <span className="text-xs text-[var(--text-primary)] font-semibold">{outputTokens.toLocaleString()}</span>
+              <span className="text-[10px] text-[var(--text-muted)] ml-1.5">{formatCurrency(outputCost)}</span>
             </div>
           </div>
         </div>
@@ -66,13 +66,13 @@ export function CostBreakdown({ totalCost, tokensUsed, model, decisionsCreated, 
         {/* Per-Step Breakdown */}
         {steps.length > 0 && totalStepTokens > 0 && (
           <div className="space-y-2">
-            <p className="text-[11px] text-zinc-500 uppercase tracking-wider">Per-Step Estimate</p>
+            <p className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Per-Step Estimate</p>
             {steps.filter(s => s.tokens && s.tokens > 0).map((step, i) => {
               const stepCost = totalStepTokens > 0 ? (totalCost * (step.tokens! / totalStepTokens)) : 0;
               return (
-                <div key={i} className="flex items-center justify-between bg-[#0a0a0f] rounded-lg px-3 py-2">
-                  <span className="text-xs text-zinc-400 truncate max-w-[140px]">{step.title}</span>
-                  <span className="text-xs text-zinc-300 font-mono">{formatCurrency(stepCost)}</span>
+                <div key={i} className="flex items-center justify-between bg-[var(--surface)] rounded-lg px-3 py-2">
+                  <span className="text-xs text-[var(--text-secondary)] truncate max-w-[140px]">{step.title}</span>
+                  <span className="text-xs text-[var(--text-secondary)] font-mono">{formatCurrency(stepCost)}</span>
                 </div>
               );
             })}
@@ -81,9 +81,9 @@ export function CostBreakdown({ totalCost, tokensUsed, model, decisionsCreated, 
 
         {/* Model */}
         <div className="space-y-2">
-          <p className="text-[11px] text-zinc-500 uppercase tracking-wider">Model</p>
-          <div className="bg-[#0a0a0f] rounded-lg px-3 py-2">
-            <span className="text-xs text-white font-mono">{model}</span>
+          <p className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider">Model</p>
+          <div className="bg-[var(--surface)] rounded-lg px-3 py-2">
+            <span className="text-xs text-[var(--text-primary)] font-mono">{model}</span>
           </div>
         </div>
 

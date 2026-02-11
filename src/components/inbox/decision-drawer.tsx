@@ -28,6 +28,8 @@ import {
 } from "lucide-react";
 import { cn, formatCurrency, timeAgo, formatPercent } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { DemoTooltip } from "@/components/demo-tooltip";
 
 interface Decision {
   id: string;
@@ -60,8 +62,8 @@ interface DecisionDrawerProps {
 const severityColors: Record<string, string> = {
   critical: "bg-rose-500/15 text-rose-400 border-rose-500/20",
   high: "bg-amber-500/15 text-amber-400 border-amber-500/20",
-  medium: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  low: "bg-zinc-500/15 text-zinc-400 border-zinc-500/20",
+  medium: "bg-[var(--primary-10)] text-[var(--primary)] border-[var(--primary)]/20",
+  low: "bg-zinc-500/15 text-[var(--text-secondary)] border-zinc-500/20",
 };
 
 const statusColors: Record<string, string> = {
@@ -69,7 +71,7 @@ const statusColors: Record<string, string> = {
   approved: "bg-emerald-500/15 text-emerald-400",
   rejected: "bg-rose-500/15 text-rose-400",
   escalated: "bg-purple-500/15 text-purple-400",
-  auto_resolved: "bg-blue-500/15 text-blue-400",
+  auto_resolved: "bg-[var(--primary-10)] text-[var(--primary)]",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,6 +108,9 @@ export function DecisionDrawer({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["decisions"] });
+      toast.success("Decision approved — audit entry created", {
+        description: "Actions will be executed in connected systems.",
+      });
       setActionMessage({ type: "success", text: "Decision approved successfully" });
       setTimeout(() => {
         onOpenChange(false);
@@ -113,6 +118,7 @@ export function DecisionDrawer({
       }, 1200);
     },
     onError: () => {
+      toast.error("Failed to approve decision");
       setActionMessage({ type: "error", text: "Failed to approve decision" });
     },
   });
@@ -132,6 +138,9 @@ export function DecisionDrawer({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["decisions"] });
+      toast.info("Decision rejected", {
+        description: "Agent will be notified and may generate alternative recommendations.",
+      });
       setActionMessage({ type: "success", text: "Decision rejected" });
       setTimeout(() => {
         onOpenChange(false);
@@ -139,6 +148,7 @@ export function DecisionDrawer({
       }, 1200);
     },
     onError: () => {
+      toast.error("Failed to reject decision");
       setActionMessage({ type: "error", text: "Failed to reject decision" });
     },
   });
@@ -154,9 +164,9 @@ export function DecisionDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-[540px] bg-[#0a0a0f] border-[#1a1a24] p-0 flex flex-col"
+        className="w-full sm:max-w-[540px] bg-[var(--surface)] border-[var(--card-border)] p-0 flex flex-col"
       >
-        <SheetHeader className="px-5 pt-5 pb-3 border-b border-zinc-800/50">
+        <SheetHeader className="px-5 pt-5 pb-3 border-b border-[var(--card-border)]/50">
           <div className="flex items-start gap-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
@@ -179,10 +189,10 @@ export function DecisionDrawer({
                   {decision.status}
                 </Badge>
               </div>
-              <SheetTitle className="text-base text-white leading-snug">
+              <SheetTitle className="text-base text-[var(--text-primary)] leading-snug">
                 {decision.title}
               </SheetTitle>
-              <SheetDescription className="text-xs text-zinc-500 mt-1">
+              <SheetDescription className="text-xs text-[var(--text-muted)] mt-1">
                 {decision.account_name} • Created {timeAgo(decision.created_at)}
               </SheetDescription>
             </div>
@@ -190,30 +200,30 @@ export function DecisionDrawer({
 
           {/* Quick stats */}
           <div className="grid grid-cols-3 gap-3 mt-3">
-            <div className="bg-[#111118] rounded-lg p-2.5">
+            <div className="bg-[var(--card-bg)] rounded-lg p-2.5">
               <div className="flex items-center gap-1.5 mb-1">
-                <DollarSign className="w-3 h-3 text-zinc-500" />
-                <span className="text-[10px] text-zinc-500">Impact</span>
+                <DollarSign className="w-3 h-3 text-[var(--text-muted)]" />
+                <span className="text-[10px] text-[var(--text-muted)]">Impact</span>
               </div>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-[var(--text-primary)]">
                 {formatCurrency(decision.impact_dollars || 0)}
               </p>
             </div>
-            <div className="bg-[#111118] rounded-lg p-2.5">
+            <div className="bg-[var(--card-bg)] rounded-lg p-2.5">
               <div className="flex items-center gap-1.5 mb-1">
-                <Brain className="w-3 h-3 text-zinc-500" />
-                <span className="text-[10px] text-zinc-500">Confidence</span>
+                <Brain className="w-3 h-3 text-[var(--text-muted)]" />
+                <span className="text-[10px] text-[var(--text-muted)]">Confidence</span>
               </div>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-[var(--text-primary)]">
                 {formatPercent(decision.confidence || 0)}
               </p>
             </div>
-            <div className="bg-[#111118] rounded-lg p-2.5">
+            <div className="bg-[var(--card-bg)] rounded-lg p-2.5">
               <div className="flex items-center gap-1.5 mb-1">
-                <Clock className="w-3 h-3 text-zinc-500" />
-                <span className="text-[10px] text-zinc-500">Due</span>
+                <Clock className="w-3 h-3 text-[var(--text-muted)]" />
+                <span className="text-[10px] text-[var(--text-muted)]">Due</span>
               </div>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-[var(--text-primary)]">
                 {decision.due_date ? timeAgo(decision.due_date) : "—"}
               </p>
             </div>
@@ -223,7 +233,7 @@ export function DecisionDrawer({
         <ScrollArea className="flex-1">
           <div className="px-5 py-4">
             <Tabs defaultValue="evidence">
-              <TabsList className="bg-[#111118] mb-4 w-full">
+              <TabsList className="bg-[var(--card-bg)] mb-4 w-full">
                 <TabsTrigger value="evidence" className="flex-1 text-xs">
                   Evidence ({evidence.length})
                 </TabsTrigger>
@@ -239,63 +249,72 @@ export function DecisionDrawer({
               </TabsList>
 
               <TabsContent value="evidence">
+                <DemoTooltip content="Aggregated signals from multiple source systems. Each item links to the original record for verification." side="right">
+                  <h4 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Evidence</h4>
+                </DemoTooltip>
                 <EvidencePanel evidence={evidence} />
               </TabsContent>
 
               <TabsContent value="actions">
+                <DemoTooltip content="Agent-recommended actions with system-level specificity. All actions respect your governance policies." side="right">
+                  <h4 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Recommended Actions</h4>
+                </DemoTooltip>
                 <RecommendedActionsPanel actions={actions} />
               </TabsContent>
 
               <TabsContent value="preview">
+                <DemoTooltip content="Field-level preview of exactly what will change in each connected system. The 'blast radius' of this decision." side="right">
+                  <h4 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Action Preview</h4>
+                </DemoTooltip>
                 <ActionPreviewPanel previews={previews} />
               </TabsContent>
 
               <TabsContent value="summary">
                 <div className="space-y-4">
-                  <div className="bg-[#0d0d14] rounded-lg p-4 border border-zinc-800/50">
-                    <h4 className="text-xs font-medium text-zinc-400 mb-2 uppercase tracking-wider">
+                  <div className="bg-[var(--surface)] rounded-lg p-4 border border-[var(--card-border)]/50">
+                    <h4 className="text-xs font-medium text-[var(--text-secondary)] mb-2 uppercase tracking-wider">
                       Summary
                     </h4>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                       {decision.summary}
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-[#0d0d14] rounded-lg p-3 border border-zinc-800/50">
-                      <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">
+                    <div className="bg-[var(--surface)] rounded-lg p-3 border border-[var(--card-border)]/50">
+                      <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                         Account
                       </p>
-                      <p className="text-sm text-white font-medium">
+                      <p className="text-sm text-[var(--text-primary)] font-medium">
                         {decision.account_name}
                       </p>
                       {decision.account_arr > 0 && (
-                        <p className="text-xs text-zinc-500">
+                        <p className="text-xs text-[var(--text-muted)]">
                           ARR: {formatCurrency(decision.account_arr)}
                         </p>
                       )}
                     </div>
-                    <div className="bg-[#0d0d14] rounded-lg p-3 border border-zinc-800/50">
-                      <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">
+                    <div className="bg-[var(--surface)] rounded-lg p-3 border border-[var(--card-border)]/50">
+                      <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                         Type
                       </p>
-                      <p className="text-sm text-white font-medium capitalize">
+                      <p className="text-sm text-[var(--text-primary)] font-medium capitalize">
                         {decision.type.replace(/_/g, " ")}
                       </p>
                     </div>
-                    <div className="bg-[#0d0d14] rounded-lg p-3 border border-zinc-800/50">
-                      <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">
+                    <div className="bg-[var(--surface)] rounded-lg p-3 border border-[var(--card-border)]/50">
+                      <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                         Agent
                       </p>
-                      <p className="text-sm text-white font-medium">
+                      <p className="text-sm text-[var(--text-primary)] font-medium">
                         {decision.agent_id}
                       </p>
                     </div>
-                    <div className="bg-[#0d0d14] rounded-lg p-3 border border-zinc-800/50">
-                      <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">
+                    <div className="bg-[var(--surface)] rounded-lg p-3 border border-[var(--card-border)]/50">
+                      <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                         Confidence
                       </p>
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                        <div className="flex-1 h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
                           <div
                             className={cn(
                               "h-full rounded-full",
@@ -310,7 +329,7 @@ export function DecisionDrawer({
                             }}
                           />
                         </div>
-                        <span className="text-xs text-white font-medium">
+                        <span className="text-xs text-[var(--text-primary)] font-medium">
                           {formatPercent((decision.confidence || 0) * 100)}
                         </span>
                       </div>
@@ -337,14 +356,14 @@ export function DecisionDrawer({
         )}
 
         {isPending && (
-          <SheetFooter className="border-t border-zinc-800/50 p-4">
+          <SheetFooter className="border-t border-[var(--card-border)]/50 p-4">
             <div className="flex items-center gap-2 w-full">
               <Button
                 onClick={() => approveMutation.mutate(decision.id)}
                 disabled={
                   approveMutation.isPending || rejectMutation.isPending
                 }
-                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-[var(--text-primary)]"
               >
                 <CheckCircle className="w-4 h-4 mr-1.5" />
                 {approveMutation.isPending ? "Approving..." : "Approve"}
@@ -361,12 +380,15 @@ export function DecisionDrawer({
                 {rejectMutation.isPending ? "Rejecting..." : "Reject"}
               </Button>
               <Button
-                onClick={() =>
+                onClick={() => {
+                  toast.warning("Escalated to VP of Customer Success", {
+                    description: "Notification sent. SLA: 4 hour response.",
+                  });
                   setActionMessage({
                     type: "success",
                     text: "Escalated — team notified",
-                  })
-                }
+                  });
+                }}
                 disabled={
                   approveMutation.isPending || rejectMutation.isPending
                 }

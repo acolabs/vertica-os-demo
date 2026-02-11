@@ -21,14 +21,14 @@ export function HashChainBanner({ totalEntries }: HashChainBannerProps) {
               <span className="text-sm font-semibold text-emerald-400">
                 Chain Integrity: Verified ✓
               </span>
-              <span className="text-sm text-zinc-400">|</span>
-              <span className="text-sm text-zinc-300">
+              <span className="text-sm text-[var(--text-secondary)]">|</span>
+              <span className="text-sm text-[var(--text-secondary)]">
                 {totalEntries.toLocaleString()} entries
               </span>
-              <span className="text-sm text-zinc-400">|</span>
-              <span className="text-sm text-zinc-300">Last verified: just now</span>
+              <span className="text-sm text-[var(--text-secondary)]">|</span>
+              <span className="text-sm text-[var(--text-secondary)]">Last verified: just now</span>
             </div>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-[var(--text-muted)] mt-1">
               SHA-256 hash chain ensures no entries can be modified or deleted
             </p>
           </div>

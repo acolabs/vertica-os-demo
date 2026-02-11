@@ -38,9 +38,9 @@ export function RunsChart({ runs }: { runs: Run[] }) {
   const avgRuns = chartData.length > 0 ? (chartData.reduce((s, d) => s + d.runs, 0) / chartData.length).toFixed(1) : "0";
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium text-zinc-300">Runs Over Time</CardTitle>
+        <CardTitle className="text-sm font-medium text-[var(--text-secondary)]">Runs Over Time</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-52">
@@ -58,13 +58,13 @@ export function RunsChart({ runs }: { runs: Run[] }) {
               <Tooltip
                 contentStyle={{ backgroundColor: "#111118", border: "1px solid #1a1a24", borderRadius: 8, fontSize: 12 }}
                 labelStyle={{ color: "#a1a1aa" }}
-                itemStyle={{ color: "#3b82f6" }}
+                itemStyle={{ color: "#E63029" }}
               />
-              <Bar dataKey="runs" fill="#3b82f6" radius={[3, 3, 0, 0]} maxBarSize={12} />
+              <Bar dataKey="runs" fill="#E63029" radius={[3, 3, 0, 0]} maxBarSize={12} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <p className="text-xs text-zinc-500 mt-2">Avg {avgRuns} runs/day</p>
+        <p className="text-xs text-[var(--text-muted)] mt-2">Avg {avgRuns} runs/day</p>
       </CardContent>
     </Card>
   );

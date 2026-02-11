@@ -25,27 +25,27 @@ export function KpiCard({
   accentColor = "text-emerald-400",
 }: KpiCardProps) {
   return (
-    <Card className="bg-[#111118] border-[#1a1a24] hover:border-[#2a2a34] transition-colors">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] hover:border-[var(--border)] transition-colors">
       <CardContent className="p-5">
         <div className="flex items-start justify-between mb-3">
-          <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
+          <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">
             {title}
           </p>
-          <div className="text-zinc-600">{icon}</div>
+          <div className="text-[var(--text-muted)]">{icon}</div>
         </div>
         <div className="space-y-1">
           <p className={cn("text-2xl font-bold tracking-tight", accentColor)}>
             {value}
           </p>
           <div className="flex items-center gap-2">
-            <p className="text-xs text-zinc-500">{subtitle}</p>
+            <p className="text-xs text-[var(--text-muted)]">{subtitle}</p>
             {trend && (
               <span
                 className={cn(
                   "flex items-center gap-0.5 text-[11px] font-medium",
                   trend === "up" && "text-emerald-400",
                   trend === "down" && "text-rose-400",
-                  trend === "flat" && "text-zinc-500"
+                  trend === "flat" && "text-[var(--text-muted)]"
                 )}
               >
                 {trend === "up" && <TrendingUp className="w-3 h-3" />}

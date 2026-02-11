@@ -38,8 +38,8 @@ const typeConfig: Record<
   support: {
     icon: Headphones,
     label: "Support",
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
+    color: "text-[var(--primary)]",
+    bg: "bg-[var(--primary-10)]",
   },
   board_pack: {
     icon: FileText,
@@ -59,20 +59,13 @@ export function AgentCard({ agent }: AgentCardProps) {
   const config = typeConfig[agent.type] || {
     icon: Bot,
     label: agent.type,
-    color: "text-zinc-400",
-    bg: "bg-zinc-500/10",
+    color: "text-[var(--text-muted)]",
+    bg: "bg-[var(--badge-muted-bg)]",
   };
   const Icon = config.icon;
 
-  const roi =
-    agent.total_value_created > 0
-      ? (agent.total_value_created / Math.max(agent.total_runs * 0.05, 1)).toFixed(
-          0
-        )
-      : "—";
-
   return (
-    <Card className="bg-[#111118] border-[#1a1a24] hover:border-[#2a2a34] transition-colors">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] hover:border-[var(--border)] transition-colors">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -85,10 +78,10 @@ export function AgentCard({ agent }: AgentCardProps) {
               <Icon className={cn("w-5 h-5", config.color)} />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 {agent.name}
               </h3>
-              <p className="text-[11px] text-zinc-500 font-mono">
+              <p className="text-[11px] text-[var(--text-muted)] font-mono">
                 {agent.model}
               </p>
             </div>
@@ -111,7 +104,7 @@ export function AgentCard({ agent }: AgentCardProps) {
                   ? "bg-emerald-500"
                   : agent.status === "paused"
                   ? "bg-amber-500"
-                  : "bg-zinc-500"
+                  : "bg-[var(--text-muted)]"
               )}
             />
           </div>
@@ -119,37 +112,37 @@ export function AgentCard({ agent }: AgentCardProps) {
       </CardHeader>
       <CardContent className="pt-0">
         {agent.description && (
-          <p className="text-xs text-zinc-500 mb-3 line-clamp-2">
+          <p className="text-xs text-[var(--text-muted)] mb-3 line-clamp-2">
             {agent.description}
           </p>
         )}
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-[#0a0a0f] rounded-lg p-2.5">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wider">
+          <div className="bg-[var(--surface)] rounded-lg p-2.5">
+            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
               Total Runs
             </p>
-            <p className="text-sm font-semibold text-white mt-0.5">
+            <p className="text-sm font-semibold text-[var(--text-primary)] mt-0.5">
               {agent.total_runs.toLocaleString()}
             </p>
           </div>
-          <div className="bg-[#0a0a0f] rounded-lg p-2.5">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wider">
+          <div className="bg-[var(--surface)] rounded-lg p-2.5">
+            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
               Decisions
             </p>
-            <p className="text-sm font-semibold text-white mt-0.5">
+            <p className="text-sm font-semibold text-[var(--text-primary)] mt-0.5">
               {agent.total_decisions}
             </p>
           </div>
-          <div className="bg-[#0a0a0f] rounded-lg p-2.5">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wider">
+          <div className="bg-[var(--surface)] rounded-lg p-2.5">
+            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
               Accuracy
             </p>
-            <p className="text-sm font-semibold text-white mt-0.5">
+            <p className="text-sm font-semibold text-[var(--text-primary)] mt-0.5">
               {formatPercent(agent.accuracy_rate)}
             </p>
           </div>
-          <div className="bg-[#0a0a0f] rounded-lg p-2.5">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wider">
+          <div className="bg-[var(--surface)] rounded-lg p-2.5">
+            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
               Value Created
             </p>
             <p className="text-sm font-semibold text-emerald-400 mt-0.5">
@@ -158,8 +151,8 @@ export function AgentCard({ agent }: AgentCardProps) {
           </div>
         </div>
 
-        {/* Activity sparkline placeholder — represented as simple bars */}
-        <div className="mt-3 pt-3 border-t border-zinc-800/50">
+        {/* Activity sparkline placeholder */}
+        <div className="mt-3 pt-3 border-t border-[var(--card-border)]/50">
           <div className="flex items-end gap-[3px] h-5">
             {Array.from({ length: 14 }).map((_, i) => {
               const height =
@@ -167,21 +160,18 @@ export function AgentCard({ agent }: AgentCardProps) {
               return (
                 <div
                   key={i}
-                  className={cn(
-                    "flex-1 rounded-[2px] transition-all",
-                    config.bg.replace("/10", "/30")
-                  )}
+                  className="flex-1 rounded-[2px] transition-all bg-[var(--primary-20)]"
                   style={{ height: `${Math.max(height, 15)}%` }}
                 />
               );
             })}
           </div>
-          <p className="text-[10px] text-zinc-600 mt-1">Last 14 days activity</p>
+          <p className="text-[10px] text-[var(--text-muted)] mt-1">Last 14 days activity</p>
         </div>
 
         <Link
           href={`/agents/${agent.id}`}
-          className="mt-3 flex items-center justify-center gap-1.5 text-xs text-zinc-400 hover:text-blue-400 transition-colors pt-3 border-t border-zinc-800/50"
+          className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors pt-3 border-t border-[var(--card-border)]/50"
         >
           View Details <ArrowRight className="w-3 h-3" />
         </Link>

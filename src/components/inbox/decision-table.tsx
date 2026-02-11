@@ -54,8 +54,8 @@ interface Agent {
 const severityColors: Record<string, string> = {
   critical: "bg-rose-500/15 text-rose-400 border-rose-500/20",
   high: "bg-amber-500/15 text-amber-400 border-amber-500/20",
-  medium: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  low: "bg-zinc-500/15 text-zinc-400 border-zinc-500/20",
+  medium: "bg-[var(--primary-10)] text-[var(--primary)] border-[var(--primary)]/20",
+  low: "bg-zinc-500/15 text-[var(--text-secondary)] border-zinc-500/20",
 };
 
 const statusColors: Record<string, string> = {
@@ -63,7 +63,7 @@ const statusColors: Record<string, string> = {
   approved: "bg-emerald-500/15 text-emerald-400",
   rejected: "bg-rose-500/15 text-rose-400",
   escalated: "bg-purple-500/15 text-purple-400",
-  auto_resolved: "bg-blue-500/15 text-blue-400",
+  auto_resolved: "bg-[var(--primary-10)] text-[var(--primary)]",
 };
 
 const severityOrder: Record<string, number> = {
@@ -135,10 +135,10 @@ export function DecisionTable() {
       {/* Filters */}
       <div className="flex items-center gap-3 flex-wrap">
         <Select value={severityFilter} onValueChange={setSeverityFilter}>
-          <SelectTrigger className="w-[140px] bg-[#111118] border-[#1a1a24] text-sm h-9">
+          <SelectTrigger className="w-[140px] bg-[var(--card-bg)] border-[var(--card-border)] text-sm h-9">
             <SelectValue placeholder="Severity" />
           </SelectTrigger>
-          <SelectContent className="bg-[#111118] border-[#1a1a24]">
+          <SelectContent className="bg-[var(--card-bg)] border-[var(--card-border)]">
             <SelectItem value="all">All Severity</SelectItem>
             <SelectItem value="critical">Critical</SelectItem>
             <SelectItem value="high">High</SelectItem>
@@ -148,10 +148,10 @@ export function DecisionTable() {
         </Select>
 
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[140px] bg-[#111118] border-[#1a1a24] text-sm h-9">
+          <SelectTrigger className="w-[140px] bg-[var(--card-bg)] border-[var(--card-border)] text-sm h-9">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
-          <SelectContent className="bg-[#111118] border-[#1a1a24]">
+          <SelectContent className="bg-[var(--card-bg)] border-[var(--card-border)]">
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="approved">Approved</SelectItem>
@@ -160,10 +160,10 @@ export function DecisionTable() {
         </Select>
 
         <Select value={agentFilter} onValueChange={setAgentFilter}>
-          <SelectTrigger className="w-[160px] bg-[#111118] border-[#1a1a24] text-sm h-9">
+          <SelectTrigger className="w-[160px] bg-[var(--card-bg)] border-[var(--card-border)] text-sm h-9">
             <SelectValue placeholder="Agent" />
           </SelectTrigger>
-          <SelectContent className="bg-[#111118] border-[#1a1a24]">
+          <SelectContent className="bg-[var(--card-bg)] border-[var(--card-border)]">
             <SelectItem value="all">All Agents</SelectItem>
             {agents?.map((agent: Agent) => (
               <SelectItem key={agent.id} value={agent.id}>
@@ -173,7 +173,7 @@ export function DecisionTable() {
           </SelectContent>
         </Select>
 
-        <div className="ml-auto text-xs text-zinc-500">
+        <div className="ml-auto text-xs text-[var(--text-muted)]">
           {data?.total ?? 0} total decisions
         </div>
       </div>
@@ -184,43 +184,43 @@ export function DecisionTable() {
           {Array.from({ length: 8 }).map((_, i) => (
             <Skeleton
               key={i}
-              className="h-12 w-full bg-[#111118] rounded-lg"
+              className="h-12 w-full bg-[var(--card-bg)] rounded-lg"
             />
           ))}
         </div>
       ) : sorted.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-zinc-500">
-          <Inbox className="w-8 h-8 mb-3 text-zinc-600" />
+        <div className="flex flex-col items-center justify-center py-16 text-[var(--text-muted)]">
+          <Inbox className="w-8 h-8 mb-3 text-[var(--text-muted)]" />
           <p className="text-sm font-medium">No decisions found</p>
           <p className="text-xs mt-1">Adjust your filters or wait for new agent findings</p>
         </div>
       ) : (
-        <div className="border border-[#1a1a24] rounded-lg overflow-hidden">
+        <div className="border border-[var(--card-border)] rounded-lg overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow className="border-[#1a1a24] hover:bg-transparent">
-                <TableHead className="text-zinc-500 text-xs w-[90px]">
+              <TableRow className="border-[var(--card-border)] hover:bg-transparent">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[90px]">
                   Severity
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs">
+                <TableHead className="text-[var(--text-muted)] text-xs">
                   Account
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs">
+                <TableHead className="text-[var(--text-muted)] text-xs">
                   Title
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs w-[100px]">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[100px]">
                   Impact
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs w-[90px]">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[90px]">
                   Confidence
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs w-[100px]">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[100px]">
                   Agent
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs w-[90px]">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[90px]">
                   Due
                 </TableHead>
-                <TableHead className="text-zinc-500 text-xs w-[80px]">
+                <TableHead className="text-[var(--text-muted)] text-xs w-[80px]">
                   Status
                 </TableHead>
               </TableRow>
@@ -229,7 +229,7 @@ export function DecisionTable() {
               {sorted.map((decision) => (
                 <TableRow
                   key={decision.id}
-                  className="border-[#1a1a24] cursor-pointer hover:bg-white/[0.03] transition-colors"
+                  className="border-[var(--card-border)] cursor-pointer hover:bg-[var(--card-hover)] transition-colors"
                   onClick={() => handleRowClick(decision)}
                 >
                   <TableCell>
@@ -243,10 +243,10 @@ export function DecisionTable() {
                       {decision.severity}
                     </Badge>
                   </TableCell>
-                  <TableCell className="font-medium text-white text-sm">
+                  <TableCell className="font-medium text-[var(--text-primary)] text-sm">
                     {decision.account_name}
                   </TableCell>
-                  <TableCell className="text-sm text-zinc-300 max-w-[250px]">
+                  <TableCell className="text-sm text-[var(--text-secondary)] max-w-[250px]">
                     <span className="truncate block">
                       {decision.title.length > 60
                         ? decision.title.slice(0, 60) + "…"
@@ -259,7 +259,7 @@ export function DecisionTable() {
                         "text-sm font-semibold",
                         decision.severity === "critical"
                           ? "text-rose-400"
-                          : "text-white"
+                          : "text-[var(--text-primary)]"
                       )}
                     >
                       {formatCurrency(decision.impact_dollars || 0)}
@@ -267,7 +267,7 @@ export function DecisionTable() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div className="w-10 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                      <div className="w-10 h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
                         <div
                           className={cn(
                             "h-full rounded-full",
@@ -282,15 +282,15 @@ export function DecisionTable() {
                           }}
                         />
                       </div>
-                      <span className="text-xs text-zinc-400">
+                      <span className="text-xs text-[var(--text-secondary)]">
                         {Math.round((decision.confidence || 0) * 100)}%
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-xs text-zinc-400">
+                  <TableCell className="text-xs text-[var(--text-secondary)]">
                     {getAgentName(decision.agent_id)}
                   </TableCell>
-                  <TableCell className="text-xs text-zinc-500">
+                  <TableCell className="text-xs text-[var(--text-muted)]">
                     {decision.due_date
                       ? timeAgo(decision.due_date)
                       : "—"}

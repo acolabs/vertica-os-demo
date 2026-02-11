@@ -20,8 +20,8 @@ interface DecisionSummaryBarProps {
 const severityConfig: Record<string, { color: string; bg: string }> = {
   critical: { color: "text-rose-400", bg: "bg-rose-500/15 border-rose-500/20" },
   high: { color: "text-amber-400", bg: "bg-amber-500/15 border-amber-500/20" },
-  medium: { color: "text-blue-400", bg: "bg-blue-500/15 border-blue-500/20" },
-  low: { color: "text-zinc-400", bg: "bg-zinc-500/15 border-zinc-500/20" },
+  medium: { color: "text-[var(--primary)]", bg: "bg-[var(--primary-10)] border-[var(--primary)]/20" },
+  low: { color: "text-[var(--text-muted)]", bg: "bg-[var(--badge-muted-bg)] border-[var(--badge-muted-bg)]" },
 };
 
 export function DecisionSummaryBar({
@@ -34,17 +34,17 @@ export function DecisionSummaryBar({
   const totalPending = decisionCounts.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardContent className="py-4 px-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-400" />
-              <span className="text-sm font-medium text-white">
+              <span className="text-sm font-medium text-[var(--text-primary)]">
                 {totalPending} Pending Decisions
               </span>
             </div>
-            <div className="h-4 w-px bg-zinc-800" />
+            <div className="h-4 w-px bg-[var(--border)]" />
             <div className="flex items-center gap-2">
               {(["critical", "high", "medium", "low"] as const).map(
                 (severity) => {
@@ -63,8 +63,8 @@ export function DecisionSummaryBar({
                 }
               )}
             </div>
-            <div className="h-4 w-px bg-zinc-800" />
-            <span className="text-sm text-zinc-400">
+            <div className="h-4 w-px bg-[var(--border)]" />
+            <span className="text-sm text-[var(--text-secondary)]">
               <span className="font-semibold text-rose-400">
                 {formatCurrency(totalExposure)}
               </span>{" "}
@@ -73,7 +73,7 @@ export function DecisionSummaryBar({
           </div>
           <Link
             href="/decisions"
-            className="flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-[var(--primary)] hover:opacity-80 transition-colors"
           >
             View Inbox
             <ArrowRight className="w-3.5 h-3.5" />

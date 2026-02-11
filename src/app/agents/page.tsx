@@ -9,6 +9,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { FleetHealthBanner } from "@/components/agents/fleet-health-banner";
 import { AgentCard } from "@/components/agents/agent-card";
 import { AgentPerformanceTable } from "@/components/agents/agent-performance-table";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { DeployDialog } from "@/components/agents/deploy-dialog";
+import { ToastWrapper } from "@/components/toast-wrapper";
+import { EmptyState } from "@/components/empty-state";
 
 interface Agent {
   id: string;
@@ -26,7 +30,7 @@ interface Agent {
 
 export default function AgentsPage() {
   const { orgId } = useOrg();
-  const [deployMessage, setDeployMessage] = useState<string | null>(null);
+  const [deployOpen, setDeployOpen] = useState(false);
 
   const orgName = orgId
     .replace("org_", "")
@@ -44,53 +48,51 @@ export default function AgentsPage() {
   });
 
   const handleDeploy = () => {
-    setDeployMessage("Coming soon — contact your administrator");
-    setTimeout(() => setDeployMessage(null), 3000);
+    setDeployOpen(true);
   };
 
   if (isLoading) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <Skeleton className="h-10 w-60 bg-[#111118]" />
-          <Skeleton className="h-9 w-40 bg-[#111118]" />
+          <Skeleton className="h-10 w-60 bg-[var(--skeleton)]" />
+          <Skeleton className="h-9 w-40 bg-[var(--skeleton)]" />
         </div>
-        <Skeleton className="h-14 bg-[#111118] rounded-xl" />
+        <Skeleton className="h-14 bg-[var(--skeleton)] rounded-xl" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-64 bg-[#111118] rounded-xl" />
+            <Skeleton key={i} className="h-64 bg-[var(--skeleton)] rounded-xl" />
           ))}
         </div>
-        <Skeleton className="h-60 bg-[#111118] rounded-xl" />
+        <Skeleton className="h-60 bg-[var(--skeleton)] rounded-xl" />
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
+      <DeployDialog open={deployOpen} onOpenChange={setDeployOpen} />
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-            <Bot className="w-5 h-5 text-blue-400" />
+          <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
+            <Bot className="w-5 h-5 text-[var(--primary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white">Agent Fleet</h1>
-            <p className="text-zinc-400 text-sm mt-0.5">
+            <DemoTooltip content="Your agent fleet operates 24/7, monitoring business systems and surfacing actionable intelligence." side="right">
+              <h1 className="text-2xl font-semibold text-[var(--text-primary)]">Agent Fleet</h1>
+            </DemoTooltip>
+            <p className="text-[var(--text-secondary)] text-sm mt-0.5">
               Deployed agents for{" "}
-              <span className="text-white font-medium">{orgName}</span>
+              <span className="text-[var(--text-primary)] font-medium">{orgName}</span>
             </p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          {deployMessage && (
-            <span className="text-xs text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-lg">
-              {deployMessage}
-            </span>
-          )}
           <Button
             onClick={handleDeploy}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-sm"
+            className="bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white text-sm"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             Deploy New Agent
@@ -102,11 +104,19 @@ export default function AgentsPage() {
       <FleetHealthBanner agents={agents ?? []} />
 
       {/* Agent Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {(agents ?? []).map((agent) => (
-          <AgentCard key={agent.id} agent={agent} />
-        ))}
-      </div>
+      {(agents ?? []).length === 0 ? (
+        <EmptyState
+          icon={<Bot className="w-6 h-6" />}
+          title="No agents deployed"
+          description="No agents deployed for this organization. Click Deploy New Agent to get started."
+        />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(agents ?? []).map((agent) => (
+            <AgentCard key={agent.id} agent={agent} />
+          ))}
+        </div>
+      )}
 
       {/* Performance Table */}
       {agents && agents.length > 0 && (

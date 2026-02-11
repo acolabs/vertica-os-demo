@@ -3,6 +3,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Activity, CheckCircle } from "lucide-react";
+import { DemoTooltip } from "@/components/demo-tooltip";
 
 interface Agent {
   id: string;
@@ -31,7 +32,7 @@ export function FleetHealthBanner({ agents }: FleetHealthBannerProps) {
   const allHealthy = agents.every((a) => a.status === "active");
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardContent className="py-4 px-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
@@ -41,34 +42,36 @@ export function FleetHealthBanner({ agents }: FleetHealthBannerProps) {
               ) : (
                 <Activity className="w-4 h-4 text-amber-400" />
               )}
-              <span className="text-sm font-medium text-white">
-                Fleet Status
-              </span>
+              <DemoTooltip content="Aggregate health across all deployed agents. Green indicates all agents are operational with no errors." side="right">
+                <span className="text-sm font-medium text-[var(--text-primary)]">
+                  Fleet Status
+                </span>
+              </DemoTooltip>
             </div>
-            <div className="h-4 w-px bg-zinc-800" />
+            <div className="h-4 w-px bg-[var(--border)]" />
             <div className="flex items-center gap-4 text-sm">
-              <span className="text-zinc-400">
+              <span className="text-[var(--text-secondary)]">
                 <span className="text-emerald-400 font-semibold">
                   {activeCount}
                 </span>{" "}
                 agents active
               </span>
-              <span className="text-zinc-600">•</span>
-              <span className="text-zinc-400">
-                <span className="text-white font-semibold">
+              <span className="text-[var(--text-muted)]">•</span>
+              <span className="text-[var(--text-secondary)]">
+                <span className="text-[var(--text-primary)] font-semibold">
                   {totalRuns.toLocaleString()}
                 </span>{" "}
                 total runs
               </span>
-              <span className="text-zinc-600">•</span>
-              <span className="text-zinc-400">
-                <span className="text-white font-semibold">
+              <span className="text-[var(--text-muted)]">•</span>
+              <span className="text-[var(--text-secondary)]">
+                <span className="text-[var(--text-primary)] font-semibold">
                   {avgAccuracy.toFixed(1)}%
                 </span>{" "}
                 avg accuracy
               </span>
-              <span className="text-zinc-600">•</span>
-              <span className="text-zinc-400">
+              <span className="text-[var(--text-muted)]">•</span>
+              <span className="text-[var(--text-secondary)]">
                 <span className="text-emerald-400 font-semibold">
                   ${(totalValue / 1_000_000).toFixed(1)}M
                 </span>{" "}

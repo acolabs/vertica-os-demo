@@ -3,10 +3,13 @@
 import React from "react";
 import { Inbox } from "lucide-react";
 import { DecisionTable } from "@/components/inbox/decision-table";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
 
 export default function DecisionInboxPage() {
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       {/* Header */}
       <div>
         <div className="flex items-center gap-3">
@@ -14,10 +17,12 @@ export default function DecisionInboxPage() {
             <Inbox className="w-5 h-5 text-rose-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white">
-              Decision Inbox
-            </h1>
-            <p className="text-zinc-400 text-sm mt-0.5">
+            <DemoTooltip content="Every finding requires human approval before action. Agents recommend — humans decide." side="right">
+              <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+                Decision Inbox
+              </h1>
+            </DemoTooltip>
+            <p className="text-[var(--text-secondary)] text-sm mt-0.5">
               Agent findings requiring your review
             </p>
           </div>

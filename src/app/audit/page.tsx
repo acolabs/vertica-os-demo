@@ -9,6 +9,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HashChainBanner } from "@/components/audit/hash-chain-banner";
 import { AuditTimeline } from "@/components/audit/audit-timeline";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
+import { toast } from "sonner";
 
 interface AuditEntry {
   id: string;
@@ -74,9 +77,43 @@ export default function AuditPage() {
   }, [data?.entries, actionFilter, actorFilter]);
 
   const handleExport = useCallback((type: string) => {
-    // Demo: show alert
-    alert(`Export ${type} started — in production this would download the audit log as ${type}`);
-  }, []);
+    if (type === "CSV") {
+      const entries = filteredEntries.length > 0 ? filteredEntries : (data?.entries ?? []);
+      if (entries.length === 0) {
+        toast.error("No audit entries to export");
+        return;
+      }
+      const headers = ["timestamp", "actor", "action", "resource_type", "resource_id", "hash"];
+      const rows = entries.map((e) => [
+        new Date(e.created_at * 1000).toISOString(),
+        e.actor,
+        e.action,
+        e.resource_type ?? "",
+        e.resource_id ?? "",
+        e.hash,
+      ]);
+      const csvContent = [
+        headers.join(","),
+        ...rows.map((r) => r.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")),
+      ].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `audit-log-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast.success("CSV exported successfully", {
+        description: `${entries.length} audit entries downloaded.`,
+      });
+    } else {
+      toast.info("PDF export generating...", {
+        description: "Board-ready audit report will download shortly.",
+      });
+    }
+  }, [filteredEntries, data?.entries]);
 
   const handleLoadMore = useCallback(() => {
     setOffset((prev) => prev + limit);
@@ -86,13 +123,13 @@ export default function AuditPage() {
     return (
       <div className="space-y-6">
         <div>
-          <Skeleton className="h-8 w-48 bg-zinc-800" />
-          <Skeleton className="h-4 w-72 mt-2 bg-zinc-800" />
+          <Skeleton className="h-8 w-48 bg-[var(--skeleton)]" />
+          <Skeleton className="h-4 w-72 mt-2 bg-[var(--skeleton)]" />
         </div>
-        <Skeleton className="h-20 bg-zinc-800 rounded-xl" />
-        <Skeleton className="h-12 bg-zinc-800 rounded-xl" />
+        <Skeleton className="h-20 bg-[var(--skeleton)] rounded-xl" />
+        <Skeleton className="h-12 bg-[var(--skeleton)] rounded-xl" />
         {[...Array(8)].map((_, i) => (
-          <Skeleton key={i} className="h-16 bg-zinc-800 rounded-xl" />
+          <Skeleton key={i} className="h-16 bg-[var(--skeleton)] rounded-xl" />
         ))}
       </div>
     );
@@ -100,16 +137,19 @@ export default function AuditPage() {
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-blue-400" />
+            <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
+              <Shield className="w-5 h-5 text-[var(--primary)]" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Audit Log</h1>
-              <p className="text-sm text-zinc-400">Hash-chained, tamper-proof action trail</p>
+              <DemoTooltip content="Complete record of every agent action, human decision, and system event. Exportable for board presentations and compliance." side="right">
+                <h1 className="text-2xl font-bold text-[var(--text-primary)]">Audit Log</h1>
+              </DemoTooltip>
+              <p className="text-sm text-[var(--text-secondary)]">Hash-chained, tamper-proof action trail</p>
             </div>
           </div>
         </div>
@@ -136,19 +176,22 @@ export default function AuditPage() {
       </div>
 
       {/* Hash Chain Banner */}
+      <DemoTooltip content="SHA-256 cryptographic hash chain ensures tamper-proof integrity. No entry can be modified or deleted without detection." side="right">
+        <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Integrity Verification</h2>
+      </DemoTooltip>
       <HashChainBanner totalEntries={data?.total || 0} />
 
       {/* Filters */}
-      <Card className="border-[#1a1a24] bg-[#111118]">
+      <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
         <CardContent className="pt-0">
           <div className="flex items-center gap-4 flex-wrap">
             {/* Actor filter */}
             <div className="flex items-center gap-2">
-              <label className="text-xs text-zinc-500">Actor:</label>
+              <label className="text-xs text-[var(--text-muted)]">Actor:</label>
               <select
                 value={actorFilter}
                 onChange={(e) => setActorFilter(e.target.value)}
-                className="bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-xs text-zinc-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="bg-[var(--surface)] border border-[var(--card-border)] rounded-md px-2 py-1.5 text-xs text-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
               >
                 {actors.map((actor) => (
                   <option key={actor} value={actor}>
@@ -160,11 +203,11 @@ export default function AuditPage() {
 
             {/* Action type filter */}
             <div className="flex items-center gap-2">
-              <label className="text-xs text-zinc-500">Action:</label>
+              <label className="text-xs text-[var(--text-muted)]">Action:</label>
               <select
                 value={actionFilter}
                 onChange={(e) => setActionFilter(e.target.value)}
-                className="bg-zinc-900 border border-zinc-800 rounded-md px-2 py-1.5 text-xs text-zinc-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="bg-[var(--surface)] border border-[var(--card-border)] rounded-md px-2 py-1.5 text-xs text-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
               >
                 {actionTypes.map((type) => (
                   <option key={type} value={type}>
@@ -175,7 +218,7 @@ export default function AuditPage() {
             </div>
 
             {/* Results count */}
-            <span className="text-xs text-zinc-500 ml-auto">
+            <span className="text-xs text-[var(--text-muted)] ml-auto">
               Showing {filteredEntries.length} of {data?.total || 0} entries
             </span>
           </div>
@@ -183,7 +226,7 @@ export default function AuditPage() {
       </Card>
 
       {/* Audit Timeline */}
-      <Card className="border-[#1a1a24] bg-[#111118]">
+      <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
         <CardContent>
           <AuditTimeline entries={filteredEntries} />
         </CardContent>

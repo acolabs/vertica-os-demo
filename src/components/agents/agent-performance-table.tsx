@@ -31,7 +31,7 @@ interface AgentPerformanceTableProps {
 
 const typeColors: Record<string, string> = {
   nrr: "bg-emerald-500/15 text-emerald-400",
-  support: "bg-blue-500/15 text-blue-400",
+  support: "bg-[var(--primary-10)] text-[var(--primary)]",
   board_pack: "bg-purple-500/15 text-purple-400",
   pipeline: "bg-amber-500/15 text-amber-400",
 };
@@ -49,11 +49,11 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
   );
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
-          <BarChart3 className="w-4 h-4 text-blue-400" />
-          <h3 className="text-sm font-semibold text-white">
+          <BarChart3 className="w-4 h-4 text-[var(--primary)]" />
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             Agent Performance Comparison
           </h3>
         </div>
@@ -61,28 +61,16 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
       <CardContent className="pt-0">
         <Table>
           <TableHeader>
-            <TableRow className="border-[#1a1a24] hover:bg-transparent">
-              <TableHead className="text-zinc-500 text-xs">Agent</TableHead>
-              <TableHead className="text-zinc-500 text-xs">Type</TableHead>
-              <TableHead className="text-zinc-500 text-xs">Status</TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                Runs
-              </TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                Decisions
-              </TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                Accuracy
-              </TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                Value Created
-              </TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                Est. Cost
-              </TableHead>
-              <TableHead className="text-zinc-500 text-xs text-right">
-                ROI
-              </TableHead>
+            <TableRow className="border-[var(--card-border)] hover:bg-transparent">
+              <TableHead className="text-[var(--text-muted)] text-xs">Agent</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs">Type</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs">Status</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">Runs</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">Decisions</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">Accuracy</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">Value Created</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">Est. Cost</TableHead>
+              <TableHead className="text-[var(--text-muted)] text-xs text-right">ROI</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -96,9 +84,9 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
               return (
                 <TableRow
                   key={agent.id}
-                  className="border-[#1a1a24] hover:bg-white/[0.03]"
+                  className="border-[var(--card-border)] hover:bg-[var(--card-hover)]"
                 >
-                  <TableCell className="font-medium text-white text-sm">
+                  <TableCell className="font-medium text-[var(--text-primary)] text-sm">
                     {agent.name}
                   </TableCell>
                   <TableCell>
@@ -121,18 +109,18 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
                             ? "bg-emerald-500"
                             : agent.status === "paused"
                             ? "bg-amber-500"
-                            : "bg-zinc-500"
+                            : "bg-[var(--text-muted)]"
                         )}
                       />
-                      <span className="text-xs text-zinc-400 capitalize">
+                      <span className="text-xs text-[var(--text-secondary)] capitalize">
                         {agent.status}
                       </span>
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm text-zinc-300 text-right">
+                  <TableCell className="text-sm text-[var(--text-secondary)] text-right">
                     {agent.total_runs.toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-sm text-zinc-300 text-right">
+                  <TableCell className="text-sm text-[var(--text-secondary)] text-right">
                     {agent.total_decisions}
                   </TableCell>
                   <TableCell className="text-sm text-right">
@@ -151,7 +139,7 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
                   <TableCell className="text-sm text-emerald-400 font-semibold text-right">
                     {formatCurrency(agent.total_value_created)}
                   </TableCell>
-                  <TableCell className="text-sm text-zinc-400 text-right">
+                  <TableCell className="text-sm text-[var(--text-secondary)] text-right">
                     {formatCurrency(estimatedCost)}
                   </TableCell>
                   <TableCell className="text-sm text-right">
@@ -161,8 +149,8 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
                         roi >= 100
                           ? "text-emerald-400"
                           : roi >= 50
-                          ? "text-blue-400"
-                          : "text-zinc-400"
+                          ? "text-[var(--primary)]"
+                          : "text-[var(--text-muted)]"
                       )}
                     >
                       {roi > 0 ? `${roi.toFixed(0)}x` : "—"}

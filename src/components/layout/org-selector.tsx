@@ -34,16 +34,16 @@ export function OrgSelector() {
 
   return (
     <Select value={orgId} onValueChange={setOrgId}>
-      <SelectTrigger className="w-[220px] bg-[#111118] border-[#1a1a24] text-white">
+      <SelectTrigger className="w-[220px] bg-[var(--input-bg)] border-[var(--card-border)] text-[var(--text-primary)]">
         <SelectValue placeholder="Select portfolio company" />
       </SelectTrigger>
-      <SelectContent className="bg-[#111118] border-[#1a1a24]">
+      <SelectContent className="bg-[var(--card-bg)] border-[var(--card-border)]">
         {orgs.map((org) => (
-          <SelectItem key={org.id} value={org.id} className="text-zinc-300">
+          <SelectItem key={org.id} value={org.id} className="text-[var(--text-secondary)]">
             <div className="flex items-center justify-between w-full gap-2">
               <span>{org.name}</span>
               {org.arr_millions && (
-                <span className="text-xs text-zinc-500">${org.arr_millions}M ARR</span>
+                <span className="text-xs text-[var(--text-muted)]">${org.arr_millions}M ARR</span>
               )}
             </div>
           </SelectItem>

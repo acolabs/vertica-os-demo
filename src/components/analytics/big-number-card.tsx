@@ -10,7 +10,7 @@ interface BigNumberCardProps {
   value: string;
   subtitle?: string;
   icon: LucideIcon;
-  color: "emerald" | "rose" | "amber" | "blue";
+  color: "emerald" | "rose" | "amber" | "blue" | "red";
 }
 
 const colorMap = {
@@ -30,9 +30,14 @@ const colorMap = {
     valueText: "text-amber-400",
   },
   blue: {
-    iconBg: "bg-blue-500/10",
-    iconText: "text-blue-400",
-    valueText: "text-blue-400",
+    iconBg: "bg-[var(--primary-10)]",
+    iconText: "text-[var(--primary)]",
+    valueText: "text-[var(--primary)]",
+  },
+  red: {
+    iconBg: "bg-[var(--primary-10)]",
+    iconText: "text-[var(--primary)]",
+    valueText: "text-[var(--primary)]",
   },
 };
 
@@ -40,16 +45,16 @@ export function BigNumberCard({ title, value, subtitle, icon: Icon, color }: Big
   const colors = colorMap[color];
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
       <CardContent className="pt-0">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
-            <p className="text-sm text-zinc-400">{title}</p>
+            <p className="text-sm text-[var(--text-secondary)]">{title}</p>
             <p className={cn("text-3xl font-bold tracking-tight", colors.valueText)}>
               {value}
             </p>
             {subtitle && (
-              <p className="text-xs text-zinc-500">{subtitle}</p>
+              <p className="text-xs text-[var(--text-muted)]">{subtitle}</p>
             )}
           </div>
           <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", colors.iconBg)}>

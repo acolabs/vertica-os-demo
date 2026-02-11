@@ -40,42 +40,42 @@ export function SupportMetricsChart({ kpiData }: SupportMetricsChartProps) {
   const csat = latestSnap?.csat_score?.toFixed(1) || "4.6";
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
       <CardHeader>
-        <CardTitle className="text-white">Support Efficiency</CardTitle>
+        <CardTitle className="text-[var(--text-primary)]">Support Efficiency</CardTitle>
         <CardDescription>Deflection rate and cost per ticket trend</CardDescription>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={280}>
           <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
             <XAxis
               dataKey="date"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
+              stroke="var(--chart-text)"
+              tick={{ fill: "var(--chart-text)", fontSize: 12 }}
               interval={14}
             />
             <YAxis
               yAxisId="left"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
+              stroke="var(--chart-text)"
+              tick={{ fill: "var(--chart-text)", fontSize: 12 }}
               tickFormatter={(v) => `${v}%`}
               domain={[0, 50]}
             />
             <YAxis
               yAxisId="right"
               orientation="right"
-              stroke="#71717a"
-              tick={{ fill: "#a1a1aa", fontSize: 12 }}
+              stroke="var(--chart-text)"
+              tick={{ fill: "var(--chart-text)", fontSize: 12 }}
               tickFormatter={(v) => `$${v}`}
               domain={[8, 24]}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#18181b",
-                border: "1px solid #27272a",
+                backgroundColor: "var(--card-bg)",
+                border: "1px solid var(--card-border)",
                 borderRadius: "8px",
-                color: "#fafafa",
+                color: "var(--text-primary)",
               }}
               formatter={(value, name) => {
                 const v = Number(value);
@@ -109,15 +109,15 @@ export function SupportMetricsChart({ kpiData }: SupportMetricsChartProps) {
             />
           </LineChart>
         </ResponsiveContainer>
-        <div className="flex items-center gap-8 mt-4 pt-4 border-t border-[#1a1a24]">
+        <div className="flex items-center gap-8 mt-4 pt-4 border-t border-[var(--card-border)]">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-zinc-400">Avg Handle Time:</span>
-            <span className="text-sm font-semibold text-white">{avgHandleTime} min</span>
+            <span className="text-sm text-[var(--text-secondary)]">Avg Handle Time:</span>
+            <span className="text-sm font-semibold text-[var(--text-primary)]">{avgHandleTime} min</span>
             <span className="text-xs text-emerald-400">↓39%</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-zinc-400">CSAT:</span>
-            <span className="text-sm font-semibold text-white">{csat}</span>
+            <span className="text-sm text-[var(--text-secondary)]">CSAT:</span>
+            <span className="text-sm font-semibold text-[var(--text-primary)]">{csat}</span>
             <span className="text-xs text-emerald-400">↑10%</span>
           </div>
         </div>

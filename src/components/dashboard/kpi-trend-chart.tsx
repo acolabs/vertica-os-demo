@@ -11,7 +11,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from "recharts";
 
 interface KpiSnapshot {
@@ -36,16 +35,16 @@ function CustomTooltip({
   if (!active || !payload || !payload.length) return null;
 
   return (
-    <div className="bg-[#1a1a24] border border-zinc-800 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-zinc-400 mb-1.5">{label}</p>
+    <div className="bg-[var(--surface-elevated)] border border-[var(--card-border)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-muted)] mb-1.5">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} className="text-xs flex items-center gap-2">
           <span
             className="w-2 h-2 rounded-full inline-block"
             style={{ backgroundColor: entry.color }}
           />
-          <span className="text-zinc-400">{entry.name}:</span>
-          <span className="text-white font-medium">{entry.value.toFixed(1)}%</span>
+          <span className="text-[var(--text-secondary)]">{entry.name}:</span>
+          <span className="text-[var(--text-primary)] font-medium">{entry.value.toFixed(1)}%</span>
         </p>
       ))}
     </div>
@@ -53,34 +52,33 @@ function CustomTooltip({
 }
 
 export function KpiTrendChart({ data }: KpiTrendChartProps) {
-  // Only show every 7th date label to avoid crowding
   const chartData = data.map((d, i) => ({
     ...d,
     displayDate: i % 7 === 0 ? d.date.slice(5) : "",
   }));
 
   return (
-    <Card className="bg-[#111118] border-[#1a1a24]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-blue-400" />
-            <h3 className="text-sm font-semibold text-white">
+            <Activity className="w-4 h-4 text-[var(--primary)]" />
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">
               90-Day KPI Trends
             </h3>
           </div>
           <div className="flex items-center gap-4 text-[11px]">
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span className="text-zinc-500">NRR %</span>
+              <span className="text-[var(--text-muted)]">NRR %</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-rose-500" />
-              <span className="text-zinc-500">Churn Rate %</span>
+              <span className="text-[var(--text-muted)]">Churn Rate %</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 border-t border-dashed border-zinc-600" />
-              <span className="text-zinc-600">Agent Deployed</span>
+              <div className="w-3 border-t border-dashed border-[var(--text-muted)]" />
+              <span className="text-[var(--text-muted)]">Agent Deployed</span>
             </div>
           </div>
         </div>
@@ -94,21 +92,21 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
             >
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="#27272a"
+                stroke="var(--chart-grid)"
                 vertical={false}
               />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 10, fill: "#71717a" }}
+                tick={{ fontSize: 10, fill: "var(--chart-text)" }}
                 tickLine={false}
-                axisLine={{ stroke: "#27272a" }}
+                axisLine={{ stroke: "var(--chart-grid)" }}
                 tickFormatter={(val: string) => val.slice(5)}
                 interval={13}
               />
               <YAxis
                 yAxisId="nrr"
                 orientation="left"
-                tick={{ fontSize: 10, fill: "#71717a" }}
+                tick={{ fontSize: 10, fill: "var(--chart-text)" }}
                 tickLine={false}
                 axisLine={false}
                 domain={["auto", "auto"]}
@@ -117,27 +115,15 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
               <YAxis
                 yAxisId="churn"
                 orientation="right"
-                tick={{ fontSize: 10, fill: "#71717a" }}
+                tick={{ fontSize: 10, fill: "var(--chart-text)" }}
                 tickLine={false}
                 axisLine={false}
                 domain={["auto", "auto"]}
                 tickFormatter={(val: number) => `${val}%`}
               />
-              {/* Deployment inflection reference line at day 30 */}
-              {data.length >= 30 && (
-                <line
-                  x1="33%"
-                  y1="0"
-                  x2="33%"
-                  y2="100%"
-                  stroke="#3f3f46"
-                  strokeDasharray="4 4"
-                  strokeWidth={1}
-                />
-              )}
               <Tooltip
                 content={<CustomTooltip />}
-                cursor={{ stroke: "#3f3f46", strokeDasharray: "4 4" }}
+                cursor={{ stroke: "var(--chart-grid)", strokeDasharray: "4 4" }}
               />
               <Line
                 yAxisId="nrr"
@@ -147,7 +133,7 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
                 strokeWidth={2}
                 dot={false}
                 name="NRR %"
-                activeDot={{ r: 4, stroke: "#059669", strokeWidth: 2, fill: "#111118" }}
+                activeDot={{ r: 4, stroke: "#059669", strokeWidth: 2, fill: "var(--card-bg)" }}
               />
               <Line
                 yAxisId="churn"
@@ -157,7 +143,7 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
                 strokeWidth={2}
                 dot={false}
                 name="Churn Rate %"
-                activeDot={{ r: 4, stroke: "#e11d48", strokeWidth: 2, fill: "#111118" }}
+                activeDot={{ r: 4, stroke: "#e11d48", strokeWidth: 2, fill: "var(--card-bg)" }}
               />
             </LineChart>
           </ResponsiveContainer>

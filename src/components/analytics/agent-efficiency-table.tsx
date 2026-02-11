@@ -39,7 +39,7 @@ interface AgentEfficiencyTableProps {
 
 const typeColors: Record<string, string> = {
   nrr: "bg-emerald-500/10 text-emerald-400",
-  support: "bg-blue-500/10 text-blue-400",
+  support: "bg-[var(--primary-10)] text-[var(--primary)]",
   board_pack: "bg-purple-500/10 text-purple-400",
   pipeline: "bg-amber-500/10 text-amber-400",
 };
@@ -59,9 +59,9 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
     : 0;
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
       <CardHeader>
-        <CardTitle className="text-white">Agent Performance Metrics</CardTitle>
+        <CardTitle className="text-[var(--text-primary)]">Agent Performance Metrics</CardTitle>
         <CardDescription>
           {agents.length} agents · {runStats?.total_runs?.toLocaleString() || 0} total runs · Overall success rate: {successRate.toFixed(1)}%
         </CardDescription>
@@ -70,17 +70,17 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-[#1a1a24] hover:bg-transparent">
-                <TableHead className="text-zinc-400">Agent Name</TableHead>
-                <TableHead className="text-zinc-400">Type</TableHead>
-                <TableHead className="text-zinc-400 text-right">Total Runs</TableHead>
-                <TableHead className="text-zinc-400 text-right">Success Rate</TableHead>
-                <TableHead className="text-zinc-400 text-right">Avg Duration</TableHead>
-                <TableHead className="text-zinc-400 text-right">Total Cost</TableHead>
-                <TableHead className="text-zinc-400 text-right">Value Created</TableHead>
-                <TableHead className="text-zinc-400 text-right">ROI</TableHead>
-                <TableHead className="text-zinc-400 text-right">Decisions</TableHead>
-                <TableHead className="text-zinc-400 text-right">Accuracy</TableHead>
+              <TableRow className="border-[var(--card-border)] hover:bg-transparent">
+                <TableHead className="text-[var(--text-secondary)]">Agent Name</TableHead>
+                <TableHead className="text-[var(--text-secondary)]">Type</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Total Runs</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Success Rate</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Avg Duration</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Total Cost</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Value Created</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">ROI</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Decisions</TableHead>
+                <TableHead className="text-[var(--text-secondary)] text-right">Accuracy</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -94,17 +94,17 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
                 const agentDuration = avgDuration;
 
                 return (
-                  <TableRow key={agent.id} className="border-[#1a1a24] hover:bg-zinc-900/50">
-                    <TableCell className="font-medium text-white">{agent.name}</TableCell>
+                  <TableRow key={agent.id} className="border-[var(--card-border)] hover:bg-[var(--surface)]">
+                    <TableCell className="font-medium text-[var(--text-primary)]">{agent.name}</TableCell>
                     <TableCell>
                       <Badge
                         variant="secondary"
-                        className={cn("text-xs", typeColors[agent.type] || "bg-zinc-500/10 text-zinc-400")}
+                        className={cn("text-xs", typeColors[agent.type] || "bg-zinc-500/10 text-[var(--text-secondary)]")}
                       >
                         {typeLabels[agent.type] || agent.type}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-right text-zinc-300">
+                    <TableCell className="text-right text-[var(--text-secondary)]">
                       {agent.total_runs.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-right">
@@ -121,12 +121,12 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
                         {(agent.accuracy_rate * 100).toFixed(0)}%
                       </span>
                     </TableCell>
-                    <TableCell className="text-right text-zinc-300">
+                    <TableCell className="text-right text-[var(--text-secondary)]">
                       {agentDuration < 60000
                         ? `${(agentDuration / 1000).toFixed(1)}s`
                         : `${(agentDuration / 60000).toFixed(1)}m`}
                     </TableCell>
-                    <TableCell className="text-right text-zinc-300">
+                    <TableCell className="text-right text-[var(--text-secondary)]">
                       ${agentCostShare.toFixed(2)}
                     </TableCell>
                     <TableCell className="text-right text-emerald-400 font-medium">
@@ -139,7 +139,7 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
                         {roi > 0 ? `${roi.toLocaleString()}x` : "—"}
                       </span>
                     </TableCell>
-                    <TableCell className="text-right text-zinc-300">
+                    <TableCell className="text-right text-[var(--text-secondary)]">
                       {agent.total_decisions}
                     </TableCell>
                     <TableCell className="text-right">

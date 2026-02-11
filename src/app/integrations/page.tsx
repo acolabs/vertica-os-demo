@@ -9,6 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { IntegrationStatusBanner } from "@/components/integrations/integration-status-banner";
 import { IntegrationCard } from "@/components/integrations/integration-card";
 import { AvailableIntegrations } from "@/components/integrations/available-integrations";
+import { DemoTooltip } from "@/components/demo-tooltip";
+import { ToastWrapper } from "@/components/toast-wrapper";
+import { toast } from "sonner";
 
 interface Integration {
   id: string;
@@ -30,24 +33,28 @@ export default function IntegrationsPage() {
   });
 
   const handleAddIntegration = useCallback(() => {
-    alert("Contact administrator to add new integrations");
+    toast.info("Integration catalog", {
+      description: "Contact your administrator to connect new data sources.",
+    });
   }, []);
 
   const handleConnect = useCallback((name: string) => {
-    alert(`Contact administrator to connect ${name}`);
+    toast.success("Integration connection initiated", {
+      description: `OAuth flow would start here for ${name}. Demo mode — no actual connection.`,
+    });
   }, []);
 
   if (isLoading) {
     return (
       <div className="space-y-6">
         <div>
-          <Skeleton className="h-8 w-48 bg-zinc-800" />
-          <Skeleton className="h-4 w-72 mt-2 bg-zinc-800" />
+          <Skeleton className="h-8 w-48 bg-[var(--skeleton)]" />
+          <Skeleton className="h-4 w-72 mt-2 bg-[var(--skeleton)]" />
         </div>
-        <Skeleton className="h-20 bg-zinc-800 rounded-xl" />
+        <Skeleton className="h-20 bg-[var(--skeleton)] rounded-xl" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
-            <Skeleton key={i} className="h-64 bg-zinc-800 rounded-xl" />
+            <Skeleton key={i} className="h-64 bg-[var(--skeleton)] rounded-xl" />
           ))}
         </div>
       </div>
@@ -56,16 +63,19 @@ export default function IntegrationsPage() {
 
   return (
     <div className="space-y-6">
+      <ToastWrapper />
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-              <Plug className="w-5 h-5 text-blue-400" />
+            <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
+              <Plug className="w-5 h-5 text-[var(--primary)]" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Integrations</h1>
-              <p className="text-sm text-zinc-400">Connected systems and data sources</p>
+              <DemoTooltip content="Agents connect to your existing tools through governed, audited API channels. Permissions are granular — agents only access what policies allow." side="right">
+                <h1 className="text-2xl font-bold text-[var(--text-primary)]">Integrations</h1>
+              </DemoTooltip>
+              <p className="text-sm text-[var(--text-secondary)]">Connected systems and data sources</p>
             </div>
           </div>
         </div>
@@ -88,7 +98,9 @@ export default function IntegrationsPage() {
       {/* Connected Integration Cards */}
       {integrations && integrations.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-white mb-4">Connected</h2>
+          <DemoTooltip content="Agents connect to your existing tools through governed, audited API channels. Permissions are granular — agents only access what policies allow." side="right">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Connected</h2>
+          </DemoTooltip>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {integrations.map((integration) => (
               <IntegrationCard key={integration.id} integration={integration} />
@@ -98,6 +110,9 @@ export default function IntegrationsPage() {
       )}
 
       {/* Available Integrations */}
+      <DemoTooltip content="Additional integrations available for deployment. Each connects through the same governed channel with full audit logging." side="right">
+        <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Available Integrations</h2>
+      </DemoTooltip>
       <AvailableIntegrations onConnect={handleConnect} />
     </div>
   );

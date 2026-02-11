@@ -47,35 +47,35 @@ export function RevenueImpactChart({ kpiData }: RevenueImpactChartProps) {
   const deploymentDay = 30;
 
   return (
-    <Card className="border-[#1a1a24] bg-[#111118]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
       <CardHeader>
-        <CardTitle className="text-white">Revenue Impact — Churn Prevention</CardTitle>
+        <CardTitle className="text-[var(--text-primary)]">Revenue Impact — Churn Prevention</CardTitle>
         <CardDescription>Monthly churn prevented and NRR trend over 90 days</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Churn Prevented by Month */}
           <div>
-            <p className="text-sm text-zinc-400 mb-4">Churn Prevented by Month</p>
+            <p className="text-sm text-[var(--text-secondary)] mb-4">Churn Prevented by Month</p>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={monthlyChurn}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
                 <XAxis
                   dataKey="month"
-                  stroke="#71717a"
-                  tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                  stroke="var(--chart-text)"
+                  tick={{ fill: "var(--chart-text)", fontSize: 12 }}
                 />
                 <YAxis
-                  stroke="#71717a"
-                  tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                  stroke="var(--chart-text)"
+                  tick={{ fill: "var(--chart-text)", fontSize: 12 }}
                   tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#18181b",
-                    border: "1px solid #27272a",
+                    backgroundColor: "var(--card-bg)",
+                    border: "1px solid var(--card-border)",
                     borderRadius: "8px",
-                    color: "#fafafa",
+                    color: "var(--text-primary)",
                   }}
                   formatter={(value) => [`$${Number(value).toLocaleString()}`, "Churn Prevented"]}
                 />
@@ -86,28 +86,28 @@ export function RevenueImpactChart({ kpiData }: RevenueImpactChartProps) {
 
           {/* NRR Trend */}
           <div>
-            <p className="text-sm text-zinc-400 mb-4">Net Revenue Retention (NRR) Trend</p>
+            <p className="text-sm text-[var(--text-secondary)] mb-4">Net Revenue Retention (NRR) Trend</p>
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={nrrTrend}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
                 <XAxis
                   dataKey="date"
-                  stroke="#71717a"
-                  tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                  stroke="var(--chart-text)"
+                  tick={{ fill: "var(--chart-text)", fontSize: 12 }}
                   interval={14}
                 />
                 <YAxis
-                  stroke="#71717a"
-                  tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                  stroke="var(--chart-text)"
+                  tick={{ fill: "var(--chart-text)", fontSize: 12 }}
                   domain={[100, 115]}
                   tickFormatter={(v) => `${v}%`}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#18181b",
-                    border: "1px solid #27272a",
+                    backgroundColor: "var(--card-bg)",
+                    border: "1px solid var(--card-border)",
                     borderRadius: "8px",
-                    color: "#fafafa",
+                    color: "var(--text-primary)",
                   }}
                   formatter={(value) => [`${Number(value).toFixed(1)}%`, "NRR"]}
                 />

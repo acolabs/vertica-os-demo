@@ -2,6 +2,8 @@
 
 import React from "react";
 import { AuditEntry } from "./audit-entry";
+import { EmptyState } from "@/components/empty-state";
+import { Shield } from "lucide-react";
 
 interface AuditEntryData {
   id: string;
@@ -22,9 +24,11 @@ interface AuditTimelineProps {
 export function AuditTimeline({ entries }: AuditTimelineProps) {
   if (entries.length === 0) {
     return (
-      <div className="text-center py-12 text-zinc-500">
-        No audit entries found
-      </div>
+      <EmptyState
+        icon={<Shield className="w-6 h-6" />}
+        title="No audit entries found"
+        description="No audit entries match the current filters. Adjust your filters or wait for new agent activity."
+      />
     );
   }
 
