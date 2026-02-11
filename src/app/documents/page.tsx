@@ -1186,49 +1186,105 @@ function DemoContent() {
           step: "1",
           title: "Command Dashboard",
           href: "/",
-          description: "The operating command center for each portfolio company. Real-time KPIs update continuously as agents process data from connected systems — pipeline health, support efficiency, retention metrics, and agent ROI are visible at a glance. The org selector in the top bar switches between portfolio companies instantly, with fully isolated data for each tenant.",
+          summary: "The operating command center for each portfolio company. Real-time KPIs update continuously as agents process data from connected systems.",
+          features: [
+            "Live KPI cards — pipeline health, support efficiency, retention, agent ROI",
+            "Trend charts with 90-day historical data",
+            "Decision summary bar with pending action counts",
+            "Agent fleet status with activity sparklines",
+            "Portfolio company selector with isolated data per tenant",
+          ],
         },
         {
           step: "2",
           title: "Decision Inbox",
           href: "/decisions",
-          description: "The central hub where agent recommendations surface for human review. Each decision includes an impact assessment, confidence score, and due date. Clicking into any decision reveals the full evidence trail — linked CRM records, support tickets, usage data, and billing signals — along with the agent\u2019s recommended actions and a preview of exactly what changes will be made. Operators can approve, reject, or escalate with full context. High-severity decisions require explicit approval; lower-risk actions can be configured for auto-resolution within policy guardrails.",
+          summary: "The central hub where agent recommendations surface for human review. Every high-stakes action requires explicit approval before execution.",
+          features: [
+            "Prioritized queue with impact, confidence, severity, and due date",
+            "Evidence panel — linked CRM records, tickets, usage data, billing signals",
+            "Action preview showing exact changes the agent will make",
+            "Approve, reject, or escalate with full audit trail",
+            "Owner assignment and approval requirement indicators",
+          ],
         },
         {
           step: "3",
           title: "Work Queues",
           href: "/queues",
-          description: "Operational queues organized by agent capability. Revenue leaders see pipeline and deal-related items. Support leads see deflection opportunities and ticket escalations. Renewal managers see churn risk and expansion signals. Each queue shows severity, impact, and confidence — allowing operators to prioritize the highest-value actions first. Items can be approved or rejected directly from the queue.",
+          summary: "Operational queues organized by agent capability so each operator sees only what matters to them. Items are sorted by severity and impact.",
+          features: [
+            "Revenue Cadence queue — pipeline gaps, deal slippage, coaching alerts",
+            "Support Deflection queue — KB gaps, auto-resolution candidates, sentiment",
+            "Renewals & Expansion queue — churn risk, competitive displacement, upsell",
+            "Quick approve/reject actions directly from queue items",
+            "Queue-level metrics — item count, critical items, value at risk",
+          ],
         },
         {
           step: "4",
           title: "Agent Fleet & Playbooks",
           href: "/playbooks",
-          description: "The Agents page shows every deployed agent with live status, accuracy metrics, value created, and deployment stage (shadow, suggest, gated auto, or full auto). Playbooks are the reusable agent templates — each encodes a specific operational capability (Revenue Cadence, Support Deflection, Renewal & Expansion, Pipeline Intelligence) with defined integrations, expected ROI, and deployment timeline. Templates can be deployed to any portfolio company in days using the Deploy workflow.",
+          summary: "Monitor deployed agents and manage the reusable template library that scales across the portfolio. Each playbook encodes a specific operational capability.",
+          features: [
+            "Live agent status with accuracy, value created, and run counts",
+            "Deployment stage indicators — shadow, suggest, gated auto, full auto",
+            "Playbook templates with required integrations and expected ROI",
+            "One-click deploy to any portfolio company with mode selection",
+            "KPI impact mapping per playbook template",
+          ],
         },
         {
           step: "5",
           title: "Evaluations & Replay",
           href: "/evaluations",
-          description: "Before any agent goes live, it runs against historical data to validate accuracy. Evaluation scorecards show precision, recall, true positives, false positives, and missed cases — alongside the dollar value captured versus missed. The before/after comparison quantifies the improvement each agent delivers across key metrics. This is how we prove ROI before a single dollar is spent in production.",
+          summary: "Validate agent accuracy on historical data before production deployment. This is how ROI is proven before a single dollar is spent.",
+          features: [
+            "Evaluation scorecards — precision, recall, true/false positive rates",
+            "Dollar value captured vs. missed for each evaluation run",
+            "Before/after metric comparison across key KPIs",
+            "Evaluation history with pass/fail/review status tracking",
+            "Per-portfolio-company evaluation data",
+          ],
         },
         {
           step: "6",
           title: "Governance & Audit",
           href: "/audit",
-          description: "Every agent action, approval, and data access is recorded in a SHA-256 hash-chained audit log — immutable and tamper-evident. The policies page defines approval requirements, budget limits, and automation boundaries. Together, these ensure full accountability and compliance, providing the audit trail that PE operating partners and portfolio company boards require.",
+          summary: "Immutable, hash-chained audit log for every agent action and approval. Policy gates define what agents can and cannot do.",
+          features: [
+            "SHA-256 hash-chained audit entries — tamper-evident and verifiable",
+            "Clickable entries with full detail drawer (actor, timestamp, resource, hash)",
+            "Approval rules, budget limits, and two-person authorization policies",
+            "CSV export for compliance review",
+            "Configurable auto-approve thresholds per action category",
+          ],
         },
         {
           step: "7",
           title: "Comp Simulator",
           href: "/simulator",
-          description: "An interactive tool that encodes Vertica\u2019s proven sales compensation economics. Adjust base salary, OTE, quota, accelerators, and team size to model compensation plans in real time. The simulator validates against Vertica\u2019s 5x Quota-to-OTE rule, 50/50 base/variable split guidelines, and accelerator range best practices — instantly flagging plans that fall outside optimal parameters. Scenario comparison shows cost and revenue impact across conservative, target, and stretch attainment levels.",
+          summary: "Interactive compensation modeling tool that encodes Vertica\u2019s proven sales economics framework. Validate plans against best practices in real time.",
+          features: [
+            "7 adjustable inputs — base, OTE, quota, ramp, accelerator, team size, attainment",
+            "5x Quota-to-OTE rule validation with sweet-spot indicators",
+            "50/50 base/variable split analysis",
+            "Three-scenario comparison — conservative, target, and stretch",
+            "Cost of revenue and capital efficiency calculations",
+          ],
         },
         {
           step: "8",
           title: "Analytics & Impact",
           href: "/analytics",
-          description: "Outcome dashboards that attribute business impact directly to agent actions. Revenue impact, support cost savings, operator hours saved, and agent efficiency metrics — all tracked over time with full audit trail. These dashboards produce the board-ready value creation reports delivered at the end of each pilot phase.",
+          summary: "Outcome dashboards that attribute business impact directly to agent actions. These produce the board-ready value creation reports for each pilot phase.",
+          features: [
+            "Total value created, agent cost, and ROI multiple",
+            "Revenue impact charts — churn prevented, expansion revenue",
+            "Support metrics — deflection rate, handle time, cost per ticket",
+            "Operator hours saved tracking",
+            "Agent efficiency table with per-agent cost and acceptance rate",
+          ],
         },
       ].map((section, i) => (
         <Card key={i} className="glass-card shadow-premium border-[var(--card-border)] card-hover-lift">
@@ -1239,10 +1295,18 @@ function DemoContent() {
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">{section.title}</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2">{section.description}</p>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-1.5">{section.summary}</p>
+                <div className="mt-3 space-y-1.5">
+                  {section.features.map((f, j) => (
+                    <div key={j} className="flex items-start gap-2">
+                      <CheckCircle className="w-3.5 h-3.5 text-[var(--primary)] shrink-0 mt-0.5" />
+                      <span className="text-xs text-[var(--text-muted)]">{f}</span>
+                    </div>
+                  ))}
+                </div>
                 <Link
                   href={section.href}
-                  className="inline-flex items-center gap-1.5 mt-3 px-3.5 py-1.5 rounded-lg bg-[var(--primary-10)] text-[var(--primary)] text-xs font-medium hover:bg-[var(--primary-20)] transition-colors"
+                  className="inline-flex items-center gap-1.5 mt-4 px-3.5 py-1.5 rounded-lg bg-[var(--primary-10)] text-[var(--primary)] text-xs font-medium hover:bg-[var(--primary-20)] transition-colors"
                 >
                   Open {section.title}
                   <ArrowRight className="w-3 h-3" />
