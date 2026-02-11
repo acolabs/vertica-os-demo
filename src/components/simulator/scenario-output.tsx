@@ -2,14 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import {
   DollarSign,
   TrendingUp,
-  Users,
-  CheckCircle,
-  AlertTriangle,
-  XCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -92,13 +87,6 @@ export function ScenarioOutput({
     const roi = totalCost > 0 ? totalRev / totalCost : 0;
     return { ...s, comp, totalCost, totalRev, roi };
   });
-
-  // Best Practices checks
-  const quotaToOte = ote > 0 ? annualQuota / ote : 0;
-  const basePercent = ote > 0 ? (baseSalary / ote) * 100 : 0;
-  const fiveXGood = quotaToOte >= 4 && quotaToOte <= 6;
-  const fiftyFiftyGood = basePercent >= 45 && basePercent <= 55;
-  const acceleratorGood = accelerator >= 1.5 && accelerator <= 2.0;
 
   return (
     <div className="space-y-4">
@@ -243,60 +231,6 @@ export function ScenarioOutput({
         </CardContent>
       </Card>
 
-      {/* Vertica Best Practices */}
-      <Card className="glass-card shadow-premium border-l-4 border-l-[var(--primary)]">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-[var(--text-primary)]">
-            <Users className="w-5 h-5 text-[var(--primary)]" />
-            Vertica Best Practices
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <BestPracticeRow
-            isGood={fiveXGood}
-            title="The 5x Rule"
-            description="Set quota at 5x OTE for optimal balance of rep motivation and company economics"
-          />
-          <Separator className="bg-[var(--card-border)]" />
-          <BestPracticeRow
-            isGood={fiftyFiftyGood}
-            title="50/50 Split"
-            description="Equal base/variable ratio attracts top talent while maintaining performance incentive"
-          />
-          <Separator className="bg-[var(--card-border)]" />
-          <BestPracticeRow
-            isGood={acceleratorGood}
-            title="Accelerator Range"
-            description="Accelerators above 100% attainment should be 1.5-2x to reward top performers without over-paying"
-          />
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function BestPracticeRow({
-  isGood,
-  title,
-  description,
-}: {
-  isGood: boolean;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex items-start gap-3">
-      {isGood ? (
-        <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-      ) : (
-        <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-      )}
-      <div>
-        <p className="text-sm font-medium text-[var(--text-primary)]">
-          {title}
-        </p>
-        <p className="text-xs text-[var(--text-muted)] mt-0.5">{description}</p>
-      </div>
     </div>
   );
 }
