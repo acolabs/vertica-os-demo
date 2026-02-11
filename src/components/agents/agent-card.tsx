@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Headphones, FileText, Activity, Bot } from "lucide-react";
+import { Shield, Headphones, FileText, Activity, Bot, ArrowRight } from "lucide-react";
 import { cn, formatCurrency, formatPercent } from "@/lib/utils";
 
 interface Agent {
@@ -177,6 +178,13 @@ export function AgentCard({ agent }: AgentCardProps) {
           </div>
           <p className="text-[10px] text-zinc-600 mt-1">Last 14 days activity</p>
         </div>
+
+        <Link
+          href={`/agents/${agent.id}`}
+          className="mt-3 flex items-center justify-center gap-1.5 text-xs text-zinc-400 hover:text-blue-400 transition-colors pt-3 border-t border-zinc-800/50"
+        >
+          View Details <ArrowRight className="w-3 h-3" />
+        </Link>
       </CardContent>
     </Card>
   );
