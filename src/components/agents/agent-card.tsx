@@ -181,7 +181,7 @@ export function AgentCard({ agent }: AgentCardProps) {
               Accuracy
             </p>
             <p className="text-sm font-semibold text-[var(--text-primary)] mt-0.5">
-              {formatPercent(agent.accuracy_rate)}
+              {formatPercent(agent.accuracy_rate * 100)}
             </p>
           </div>
           <div className="bg-[var(--surface)] rounded-lg p-2.5">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Table,
@@ -10,9 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { BarChart3 } from "lucide-react";
 import { cn, formatCurrency, formatPercent } from "@/lib/utils";
+import { AgentValueDrawer } from "./agent-value-drawer";
 
 interface Agent {
   id: string;
@@ -49,6 +51,7 @@ const typeLabels: Record<string, string> = {
 };
 
 export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const sorted = [...agents].sort(
     (a, b) => b.total_value_created - a.total_value_created
   );
@@ -102,7 +105,8 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
               return (
                 <TableRow
                   key={agent.id}
-                  className="border-[var(--card-border)] hover:bg-[var(--card-hover)]"
+                  className="border-[var(--card-border)] hover:bg-[var(--card-hover)] cursor-pointer"
+                  onClick={() => setSelectedAgent(agent)}
                 >
                   <TableCell className="font-medium text-[var(--text-primary)] text-sm">
                     {agent.name}
@@ -144,14 +148,14 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
                   <TableCell className="text-sm text-right">
                     <span
                       className={cn(
-                        agent.accuracy_rate >= 90
+                        agent.accuracy_rate >= 0.9
                           ? "text-emerald-400"
-                          : agent.accuracy_rate >= 80
+                          : agent.accuracy_rate >= 0.8
                           ? "text-amber-400"
                           : "text-rose-400"
                       )}
                     >
-                      {formatPercent(agent.accuracy_rate)}
+                      {formatPercent(agent.accuracy_rate * 100)}
                     </span>
                   </TableCell>
                   <TableCell className="text-sm text-emerald-400 font-semibold text-right">
@@ -180,6 +184,12 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
           </TableBody>
         </Table>
       </CardContent>
+
+      <Sheet open={!!selectedAgent} onOpenChange={(open) => !open && setSelectedAgent(null)}>
+        <SheetContent className="w-[500px] sm:max-w-[500px] bg-[var(--card-bg)] border-[var(--card-border)] overflow-y-auto">
+          {selectedAgent && <AgentValueDrawer agent={selectedAgent} />}
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 }

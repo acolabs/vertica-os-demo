@@ -8,12 +8,15 @@ import { DemoTooltip } from "@/components/demo-tooltip";
 import { ToastWrapper } from "@/components/toast-wrapper";
 import { PlaybookCard, type Playbook } from "@/components/playbooks/playbook-card";
 import { DeployPlaybookDialog } from "@/components/playbooks/deploy-playbook-dialog";
+import { PlaybookDetailModal } from "@/components/playbooks/playbook-detail-modal";
 
 export default function PlaybooksPage() {
   const [deployOpen, setDeployOpen] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
   const [selectedPlaybook, setSelectedPlaybook] = useState<Playbook | null>(
     null
   );
+  const [detailPlaybook, setDetailPlaybook] = useState<Playbook | null>(null);
 
   const { data: playbooks, isLoading } = useQuery<Playbook[]>({
     queryKey: ["playbooks"],
@@ -23,6 +26,11 @@ export default function PlaybooksPage() {
   const handleDeploy = (playbook: Playbook) => {
     setSelectedPlaybook(playbook);
     setDeployOpen(true);
+  };
+
+  const handleViewDetails = (playbook: Playbook) => {
+    setDetailPlaybook(playbook);
+    setDetailOpen(true);
   };
 
   if (isLoading) {
@@ -54,6 +62,12 @@ export default function PlaybooksPage() {
         open={deployOpen}
         onOpenChange={setDeployOpen}
         playbook={selectedPlaybook}
+      />
+      <PlaybookDetailModal
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        playbook={detailPlaybook}
+        onDeploy={handleDeploy}
       />
 
       {/* Header */}
@@ -89,6 +103,7 @@ export default function PlaybooksPage() {
             key={playbook.id}
             playbook={playbook}
             onDeploy={handleDeploy}
+            onViewDetails={handleViewDetails}
           />
         ))}
       </div>

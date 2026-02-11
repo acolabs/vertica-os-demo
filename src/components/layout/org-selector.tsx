@@ -2,13 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { useOrg } from "@/lib/hooks/use-org";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface Organization {
   id: string;
@@ -33,22 +26,42 @@ export function OrgSelector() {
   }, []);
 
   return (
-    <Select value={orgId} onValueChange={setOrgId}>
-      <SelectTrigger className="w-[220px] bg-[var(--input-bg)] border-[var(--card-border)] text-[var(--text-primary)]">
-        <SelectValue placeholder="Select portfolio company" />
-      </SelectTrigger>
-      <SelectContent className="bg-[var(--card-bg)] border-[var(--card-border)]">
-        {orgs.map((org) => (
-          <SelectItem key={org.id} value={org.id} className="text-[var(--text-secondary)]">
-            <div className="flex items-center justify-between w-full gap-2">
-              <span>{org.name}</span>
-              {org.arr_millions && (
-                <span className="text-xs text-[var(--text-muted)]">${org.arr_millions}M ARR</span>
-              )}
-            </div>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="flex items-center gap-1.5">
+      {/* All Portfolio button */}
+      <button
+        onClick={() => setOrgId("all")}
+        className={`
+          px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap
+          ${orgId === "all"
+            ? "bg-[var(--primary)] text-white"
+            : "bg-[var(--surface)] text-[var(--text-secondary)] hover:bg-[var(--surface-elevated)] hover:text-[var(--text-primary)]"
+          }
+        `}
+      >
+        All Portfolio
+      </button>
+
+      {/* Individual org buttons */}
+      {orgs.map((org) => (
+        <button
+          key={org.id}
+          onClick={() => setOrgId(org.id)}
+          className={`
+            px-3 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1.5
+            ${orgId === org.id
+              ? "bg-[var(--primary)] text-white"
+              : "bg-[var(--surface)] text-[var(--text-secondary)] hover:bg-[var(--surface-elevated)] hover:text-[var(--text-primary)]"
+            }
+          `}
+        >
+          <span>{org.name}</span>
+          {org.arr_millions && (
+            <span className={`text-[10px] ${orgId === org.id ? "text-white/70" : "text-[var(--text-muted)]"}`}>
+              ${org.arr_millions}M
+            </span>
+          )}
+        </button>
+      ))}
+    </div>
   );
 }

@@ -9,7 +9,7 @@ interface OrgContextType {
 
 const OrgContext = createContext<OrgContextType | undefined>(undefined);
 
-const DEFAULT_ORG_ID = "org_dsn";
+const DEFAULT_ORG_ID = "all";
 
 export function OrgProvider({ children }: { children: ReactNode }) {
   const [orgId, setOrgIdState] = useState<string>(DEFAULT_ORG_ID);

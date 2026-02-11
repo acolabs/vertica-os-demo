@@ -8,20 +8,20 @@ import { OrgSelector } from "./org-selector";
 export function TopBar() {
   return (
     <header className="h-14 border-b border-[var(--topbar-border)] bg-[var(--topbar-bg)] glass flex items-center justify-between px-6">
-      {/* Left: Org Selector */}
-      <div className="flex items-center gap-4">
+      {/* Left: Org Tabs */}
+      <div className="flex items-center gap-4 overflow-x-auto">
         <OrgSelector />
       </div>
 
       {/* Center: Environment Badge */}
-      <div>
+      <div className="shrink-0">
         <Badge variant="outline" className="border-amber-500/30 text-amber-500 bg-amber-500/5 text-xs">
           Demo Environment
         </Badge>
       </div>
 
       {/* Right: Budget + Notifications */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 shrink-0">
         <div className="flex items-center gap-2 text-sm">
           <div className="w-24 h-1.5 bg-[var(--surface)] rounded-full overflow-hidden">
             <div className="h-full bg-emerald-500 rounded-full" style={{ width: "9.4%" }} />

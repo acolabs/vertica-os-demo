@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
   const db = getDb();
   const { searchParams } = new URL(request.url);
   const orgId = searchParams.get('org_id');
+  const isAll = !orgId || orgId === 'all';
   const severity = searchParams.get('severity');
   const status = searchParams.get('status');
   const agentId = searchParams.get('agent_id');
@@ -16,9 +17,11 @@ export async function GET(request: NextRequest) {
   let query = 'SELECT * FROM decisions WHERE 1=1';
   const params: (string | number)[] = [];
 
-  if (orgId) {
+  if (isAll) {
+    query += ` AND org_id IN (SELECT id FROM organizations WHERE type = 'portfolio')`;
+  } else {
     query += ' AND org_id = ?';
-    params.push(orgId);
+    params.push(orgId!);
   }
   if (severity) {
     query += ' AND severity = ?';
@@ -40,8 +43,13 @@ export async function GET(request: NextRequest) {
 
   // Get total count
   let countQuery = 'SELECT COUNT(*) as total FROM decisions WHERE 1=1';
-  const countParams: string[] = [];
-  if (orgId) { countQuery += ' AND org_id = ?'; countParams.push(orgId); }
+  const countParams: (string | number)[] = [];
+  if (isAll) {
+    countQuery += ` AND org_id IN (SELECT id FROM organizations WHERE type = 'portfolio')`;
+  } else {
+    countQuery += ' AND org_id = ?';
+    countParams.push(orgId!);
+  }
   if (severity) { countQuery += ' AND severity = ?'; countParams.push(severity); }
   if (status) { countQuery += ' AND status = ?'; countParams.push(status); }
   if (agentId) { countQuery += ' AND agent_id = ?'; countParams.push(agentId); }

@@ -32,6 +32,21 @@ export interface Playbook {
   kpis: string[];
   status: string;
   deployedCount: number;
+  // Detail fields
+  howItWorks?: string[];
+  deliverables?: string[];
+  configurationSteps?: string[];
+  roiMethodology?: string;
+  roiExample?: {
+    scenario: string;
+    baseline: string;
+    improvement: string;
+    dollarImpact: string;
+    calculation: string;
+  };
+  dataRequirements?: string[];
+  rolloutPhases?: { phase: string; duration: string; description: string }[];
+  faq?: { q: string; a: string }[];
 }
 
 const TYPE_ICONS: Record<string, LucideIcon> = {
@@ -44,9 +59,10 @@ const TYPE_ICONS: Record<string, LucideIcon> = {
 interface PlaybookCardProps {
   playbook: Playbook;
   onDeploy: (playbook: Playbook) => void;
+  onViewDetails: (playbook: Playbook) => void;
 }
 
-export function PlaybookCard({ playbook, onDeploy }: PlaybookCardProps) {
+export function PlaybookCard({ playbook, onDeploy, onViewDetails }: PlaybookCardProps) {
   const Icon = TYPE_ICONS[playbook.type] ?? Activity;
   const isDeployed = playbook.status === "deployed";
 
@@ -174,14 +190,24 @@ export function PlaybookCard({ playbook, onDeploy }: PlaybookCardProps) {
       </CardContent>
 
       <CardFooter className="pt-0">
-        <Button
-          onClick={() => onDeploy(playbook)}
-          className="w-full bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white text-sm"
-          size="sm"
-        >
-          <Rocket className="w-4 h-4 mr-1.5" />
-          Deploy to Portfolio Company
-        </Button>
+        <div className="flex gap-2 w-full">
+          <Button
+            variant="outline"
+            onClick={() => onViewDetails(playbook)}
+            className="flex-1 border-[var(--card-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            size="sm"
+          >
+            View Details
+          </Button>
+          <Button
+            onClick={() => onDeploy(playbook)}
+            className="flex-1 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white text-sm"
+            size="sm"
+          >
+            <Rocket className="w-4 h-4 mr-1.5" />
+            Deploy
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

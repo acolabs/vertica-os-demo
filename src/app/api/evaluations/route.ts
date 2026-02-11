@@ -222,6 +222,7 @@ function getOrgData(orgId: string) {
 
 export async function GET(request: NextRequest) {
   const orgId = request.nextUrl.searchParams.get("org_id") || "org_dsn";
-  const data = getOrgData(orgId);
+  // When "all" is selected, default to DSN data (most comprehensive)
+  const data = getOrgData(orgId === "all" ? "org_dsn" : orgId);
   return NextResponse.json(data);
 }

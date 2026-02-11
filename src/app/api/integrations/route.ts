@@ -7,14 +7,15 @@ export async function GET(request: NextRequest) {
   const db = getDb();
   const { searchParams } = new URL(request.url);
   const orgId = searchParams.get('org_id');
+  const isAll = !orgId || orgId === 'all';
 
-  if (!orgId) {
-    return NextResponse.json({ error: 'org_id is required' }, { status: 400 });
-  }
-
-  const integrations = db.prepare(
-    'SELECT * FROM integrations WHERE org_id = ? ORDER BY name'
-  ).all(orgId);
+  const integrations = isAll
+    ? db.prepare(
+        `SELECT * FROM integrations WHERE org_id IN (SELECT id FROM organizations WHERE type = 'portfolio') ORDER BY name`
+      ).all()
+    : db.prepare(
+        'SELECT * FROM integrations WHERE org_id = ? ORDER BY name'
+      ).all(orgId);
 
   return NextResponse.json(integrations);
 }
