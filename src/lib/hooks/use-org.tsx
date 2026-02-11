@@ -9,14 +9,14 @@ interface OrgContextType {
 
 const OrgContext = createContext<OrgContextType | undefined>(undefined);
 
-const DEFAULT_ORG_ID = "org_smartsheet";
+const DEFAULT_ORG_ID = "org_dsn";
 
 export function OrgProvider({ children }: { children: ReactNode }) {
   const [orgId, setOrgIdState] = useState<string>(DEFAULT_ORG_ID);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("gencap_org_id");
+    const stored = localStorage.getItem("vertica_org_id");
     if (stored) {
       setOrgIdState(stored);
     }
@@ -25,7 +25,7 @@ export function OrgProvider({ children }: { children: ReactNode }) {
 
   const setOrgId = (id: string) => {
     setOrgIdState(id);
-    localStorage.setItem("gencap_org_id", id);
+    localStorage.setItem("vertica_org_id", id);
   };
 
   if (!mounted) {

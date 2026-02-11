@@ -4,28 +4,48 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Shield,
   LayoutDashboard,
   Inbox,
   Bot,
   BarChart3,
   Plug,
   Lock,
+  Shield,
+  FileText,
+  Layers,
+  BookOpen,
+  FlaskConical,
+  Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navSections = [
   {
-    label: "OVERVIEW",
+    label: "PROPOSAL",
+    items: [
+      { name: "Proposal", href: "/documents", icon: FileText },
+    ],
+  },
+  {
+    label: "OPERATIONS",
     items: [
       { name: "Dashboard", href: "/", icon: LayoutDashboard },
       { name: "Decision Inbox", href: "/decisions", icon: Inbox },
+      { name: "Work Queues", href: "/queues", icon: Layers },
     ],
   },
   {
     label: "FLEET",
     items: [
       { name: "Agents", href: "/agents", icon: Bot },
+      { name: "Playbooks", href: "/playbooks", icon: BookOpen },
+      { name: "Evaluations", href: "/evaluations", icon: FlaskConical },
+    ],
+  },
+  {
+    label: "TOOLS",
+    items: [
+      { name: "Comp Simulator", href: "/simulator", icon: Calculator },
     ],
   },
   {
@@ -48,15 +68,18 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed left-0 top-0 bottom-0 w-64 bg-[var(--nav-bg)] border-r border-[var(--nav-border)] flex flex-col z-50">
+    <nav className="fixed left-0 top-0 bottom-0 w-64 bg-[var(--nav-bg)] glass-nav border-r border-[var(--nav-border)] flex flex-col z-50">
       {/* Logo */}
       <div className="p-6 border-b border-[var(--nav-border)]">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-[var(--primary-10)] flex items-center justify-center">
-            <Shield className="w-5 h-5 text-[var(--primary)]" />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 14L12 8L20 14" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M4 19L12 13L20 19" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
           <div>
-            <h1 className="text-base font-semibold text-[var(--text-primary)] tracking-tight">GENCAP OS</h1>
+            <h1 className="text-base font-semibold text-[var(--text-primary)] tracking-tight">VERTICA OS</h1>
             <p className="text-[11px] text-[var(--text-muted)]">powered by Adapt Agents</p>
           </div>
         </div>
@@ -96,7 +119,7 @@ export function Nav() {
 
       {/* Footer */}
       <div className="p-4 border-t border-[var(--nav-border)]">
-        <p className="text-[11px] text-[var(--text-muted)] text-center">GENCAP OS v1.0</p>
+        <p className="text-[11px] text-[var(--text-muted)] text-center">VERTICA OS v1.0</p>
       </div>
     </nav>
   );

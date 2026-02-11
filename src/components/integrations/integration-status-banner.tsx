@@ -30,7 +30,7 @@ export function IntegrationStatusBanner({ integrations }: IntegrationStatusBanne
 
   return (
     <Card className={cn(
-      "border-[var(--card-border)] bg-[var(--card-bg)]",
+      "border-[var(--card-border)] bg-[var(--card-bg)] glass-card",
       allHealthy ? "border-emerald-500/20" : "border-amber-500/20"
     )}>
       <CardContent className="pt-0">

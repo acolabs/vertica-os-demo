@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Headphones, FileText, Activity, Bot } from "lucide-react";
+import { Shield, Headphones, FileText, Activity, Bot, TrendingUp } from "lucide-react";
 import { cn, formatPercent } from "@/lib/utils";
 
 interface Agent {
@@ -27,11 +27,13 @@ const typeConfig: Record<string, { icon: typeof Shield; label: string; color: st
   support: { icon: Headphones, label: "Support", color: "text-[var(--primary)]" },
   board_pack: { icon: FileText, label: "Board Pack", color: "text-purple-400" },
   pipeline: { icon: Activity, label: "Pipeline", color: "text-amber-400" },
+  revenue_cadence: { icon: TrendingUp, label: "Revenue Cadence", color: "text-emerald-400" },
+  support_deflection: { icon: Headphones, label: "Support", color: "text-sky-400" },
 };
 
 export function AgentMiniCards({ agents }: AgentMiniCardProps) {
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -46,7 +48,7 @@ export function AgentMiniCards({ agents }: AgentMiniCardProps) {
           </Link>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 pt-0">
+      <CardContent className="space-y-2 pt-0 max-h-[280px] overflow-y-auto">
         {agents.map((agent) => {
           const config = typeConfig[agent.type] || {
             icon: Bot,
@@ -71,6 +73,9 @@ export function AgentMiniCards({ agents }: AgentMiniCardProps) {
                           : "bg-[var(--text-muted)]"
                       )}
                     />
+                    {agent.status === "active" && (
+                      <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full agent-pulse" />
+                    )}
                   </div>
                   <div>
                     <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--primary)] transition-colors">

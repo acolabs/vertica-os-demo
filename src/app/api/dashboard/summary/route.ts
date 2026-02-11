@@ -29,10 +29,21 @@ export async function GET(request: NextRequest) {
     'SELECT id, name, type, status, total_runs, total_decisions, total_value_created, accuracy_rate FROM agents WHERE org_id = ?'
   ).all(orgId);
 
-  // Recent activity (last 10 audit entries)
+  // Recent activity (last 10 audit entries for this org)
   const recentActivity = db.prepare(
     'SELECT * FROM audit_log WHERE org_id = ? ORDER BY created_at DESC LIMIT 10'
   ).all(orgId);
+
+  // All agents across all portfolio orgs (for cross-portfolio view)
+  const allAgents = db.prepare(
+    `SELECT a.id, a.name, a.type, a.status, a.total_runs, a.total_decisions, a.total_value_created, a.accuracy_rate, a.org_id, o.name as org_name
+     FROM agents a JOIN organizations o ON o.id = a.org_id WHERE o.type = 'portfolio' ORDER BY a.total_value_created DESC`
+  ).all();
+
+  // All recent activity across all portfolio orgs
+  const allActivity = db.prepare(
+    `SELECT al.* FROM audit_log al JOIN organizations o ON o.id = al.org_id WHERE o.type = 'portfolio' ORDER BY al.created_at DESC LIMIT 20`
+  ).all();
 
   // Total value at risk
   const valueAtRisk = db.prepare(`
@@ -49,6 +60,8 @@ export async function GET(request: NextRequest) {
     decisionCounts,
     agents,
     recentActivity,
+    allAgents,
+    allActivity,
     valueAtRisk: valueAtRisk?.total || 0,
     valueCreated: valueCreated?.total || 0,
   });

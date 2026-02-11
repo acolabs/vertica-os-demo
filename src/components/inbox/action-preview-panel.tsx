@@ -8,6 +8,7 @@ interface RecommendedAction {
   type: string;
   detail: string;
   target_system?: string;
+  system?: string;
   requires_approval?: boolean;
   [key: string]: unknown;
 }
@@ -53,13 +54,13 @@ export function RecommendedActionsPanel({ actions }: RecommendedActionsPanelProp
               </span>
             </div>
             <div className="flex items-center gap-2">
-              {action.target_system && (
+              {(action.target_system || action.system) && (
                 <Badge
                   variant="outline"
                   className="text-[10px] border-[var(--card-border)] text-[var(--text-secondary)]"
                 >
                   <Target className="w-2.5 h-2.5 mr-1" />
-                  {action.target_system}
+                  {action.target_system || action.system}
                 </Badge>
               )}
               {action.requires_approval && (

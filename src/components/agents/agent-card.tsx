@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Headphones, FileText, Activity, Bot, ArrowRight } from "lucide-react";
+import { Shield, Headphones, FileText, Activity, Bot, ArrowRight, TrendingUp, Eye, Lightbulb, ShieldCheck, Zap } from "lucide-react";
 import { cn, formatCurrency, formatPercent } from "@/lib/utils";
 
 interface Agent {
@@ -14,11 +14,34 @@ interface Agent {
   status: string;
   description: string;
   model: string;
+  config?: string;
   total_runs: number;
   total_decisions: number;
   total_value_created: number;
   accuracy_rate: number;
   created_at: number;
+}
+
+type DeploymentStage = "shadow" | "suggest" | "gated_auto" | "full_auto";
+
+const stageConfig: Record<DeploymentStage, { icon: typeof Eye; label: string; color: string; bg: string }> = {
+  shadow: { icon: Eye, label: "Shadow", color: "text-zinc-400", bg: "bg-zinc-500/10" },
+  suggest: { icon: Lightbulb, label: "Suggest", color: "text-amber-400", bg: "bg-amber-500/10" },
+  gated_auto: { icon: ShieldCheck, label: "Gated Auto", color: "text-sky-400", bg: "bg-sky-500/10" },
+  full_auto: { icon: Zap, label: "Full Auto", color: "text-emerald-400", bg: "bg-emerald-500/10" },
+};
+
+function getDeploymentStage(agent: Agent): DeploymentStage {
+  if (agent.config) {
+    try {
+      const parsed = JSON.parse(agent.config);
+      if (parsed.stage && parsed.stage in stageConfig) return parsed.stage as DeploymentStage;
+    } catch { /* ignore parse errors */ }
+  }
+  if (agent.status === "active") return "gated_auto";
+  if (agent.status === "paused") return "shadow";
+  if (agent.status === "deploying") return "suggest";
+  return "shadow";
 }
 
 interface AgentCardProps {
@@ -53,6 +76,18 @@ const typeConfig: Record<
     color: "text-amber-400",
     bg: "bg-amber-500/10",
   },
+  revenue_cadence: {
+    icon: TrendingUp,
+    label: "Revenue Cadence",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+  },
+  support_deflection: {
+    icon: Headphones,
+    label: "Support",
+    color: "text-sky-400",
+    bg: "bg-sky-500/10",
+  },
 };
 
 export function AgentCard({ agent }: AgentCardProps) {
@@ -64,8 +99,12 @@ export function AgentCard({ agent }: AgentCardProps) {
   };
   const Icon = config.icon;
 
+  const stage = getDeploymentStage(agent);
+  const stageInfo = stageConfig[stage];
+  const StageIcon = stageInfo.icon;
+
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] hover:border-[var(--border)] transition-colors">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium card-hover-lift transition-colors">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -84,6 +123,10 @@ export function AgentCard({ agent }: AgentCardProps) {
               <p className="text-[11px] text-[var(--text-muted)] font-mono">
                 {agent.model}
               </p>
+              <div className={cn("inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium", stageInfo.bg, stageInfo.color)}>
+                <StageIcon className="w-3 h-3" />
+                {stageInfo.label}
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">

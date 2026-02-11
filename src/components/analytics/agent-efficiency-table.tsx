@@ -59,7 +59,7 @@ export function AgentEfficiencyTable({ agents, runStats }: AgentEfficiencyTableP
     : 0;
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium">
       <CardHeader>
         <CardTitle className="text-[var(--text-primary)]">Agent Performance Metrics</CardTitle>
         <CardDescription>

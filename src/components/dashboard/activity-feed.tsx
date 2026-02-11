@@ -99,14 +99,14 @@ function parseDetails(details: string): string {
 
 export function ActivityFeed({ entries }: ActivityFeedProps) {
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <Clock className="w-4 h-4 text-[var(--text-muted)]" />
           <h3 className="text-sm font-semibold text-[var(--text-primary)]">Recent Activity</h3>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 max-h-[280px] overflow-y-auto">
         <div className="space-y-0">
           {entries.map((entry, index) => {
             const display = getActionDisplay(entry.action);

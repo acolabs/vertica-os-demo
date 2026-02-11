@@ -32,7 +32,7 @@ export function FleetHealthBanner({ agents }: FleetHealthBannerProps) {
   const allHealthy = agents.every((a) => a.status === "active");
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardContent className="py-4 px-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">

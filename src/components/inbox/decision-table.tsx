@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Inbox } from "lucide-react";
+import { Inbox, Lock, CheckCircle } from "lucide-react";
 import { cn, formatCurrency, timeAgo } from "@/lib/utils";
 import { useOrg } from "@/lib/hooks/use-org";
 import { useQuery } from "@tanstack/react-query";
@@ -72,6 +72,23 @@ const severityOrder: Record<string, number> = {
   medium: 2,
   low: 3,
 };
+
+const ownerNames = ["Sarah Chen", "Mike Rivera", "Lisa Park", "James Wilson", "Ana Kowalski"];
+
+function getOwner(decisionId: string) {
+  const index = decisionId.charCodeAt(decisionId.length - 1) % ownerNames.length;
+  return ownerNames[index];
+}
+
+function getApprovalTag(severity: string) {
+  if (severity === "critical" || severity === "high") {
+    return { label: "Approval Required", icon: Lock, className: "bg-amber-500/10 text-amber-400" };
+  }
+  if (severity === "medium") {
+    return { label: "Auto-eligible", icon: CheckCircle, className: "bg-emerald-500/10 text-emerald-400" };
+  }
+  return { label: "Auto-resolved", icon: CheckCircle, className: "bg-zinc-500/10 text-[var(--text-muted)]" };
+}
 
 export function DecisionTable() {
   const { orgId } = useOrg();
@@ -195,7 +212,7 @@ export function DecisionTable() {
           <p className="text-xs mt-1">Adjust your filters or wait for new agent findings</p>
         </div>
       ) : (
-        <div className="border border-[var(--card-border)] rounded-lg overflow-hidden">
+        <div className="border border-[var(--card-border)] rounded-lg overflow-hidden glass-card shadow-premium">
           <Table>
             <TableHeader>
               <TableRow className="border-[var(--card-border)] hover:bg-transparent">
@@ -217,6 +234,9 @@ export function DecisionTable() {
                 <TableHead className="text-[var(--text-muted)] text-xs w-[100px]">
                   Agent
                 </TableHead>
+                <TableHead className="text-[var(--text-muted)] text-xs w-[120px]">
+                  Owner
+                </TableHead>
                 <TableHead className="text-[var(--text-muted)] text-xs w-[90px]">
                   Due
                 </TableHead>
@@ -233,15 +253,24 @@ export function DecisionTable() {
                   onClick={() => handleRowClick(decision)}
                 >
                   <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "text-[10px] border",
-                        severityColors[decision.severity]
-                      )}
-                    >
-                      {decision.severity}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <span className={cn(
+                        "w-2 h-2 rounded-full flex-shrink-0",
+                        decision.severity === "critical" ? "bg-rose-500" :
+                        decision.severity === "high" ? "bg-amber-500" :
+                        decision.severity === "medium" ? "bg-[var(--primary)]" :
+                        "bg-zinc-500"
+                      )} />
+                      <span className={cn(
+                        "text-xs font-medium capitalize",
+                        decision.severity === "critical" ? "text-rose-400" :
+                        decision.severity === "high" ? "text-amber-400" :
+                        decision.severity === "medium" ? "text-[var(--primary)]" :
+                        "text-[var(--text-muted)]"
+                      )}>
+                        {decision.severity}
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell className="font-medium text-[var(--text-primary)] text-sm">
                     {decision.account_name}
@@ -290,21 +319,46 @@ export function DecisionTable() {
                   <TableCell className="text-xs text-[var(--text-secondary)]">
                     {getAgentName(decision.agent_id)}
                   </TableCell>
+                  <TableCell>
+                    {(() => {
+                      const owner = getOwner(decision.id);
+                      return (
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-5 h-5 rounded-full bg-[var(--primary-10)] text-[var(--primary)] text-[10px] font-semibold flex items-center justify-center flex-shrink-0">
+                            {owner.charAt(0)}
+                          </span>
+                          <span className="text-xs text-[var(--text-secondary)] truncate">{owner}</span>
+                        </div>
+                      );
+                    })()}
+                  </TableCell>
                   <TableCell className="text-xs text-[var(--text-muted)]">
                     {decision.due_date
                       ? timeAgo(decision.due_date)
                       : "—"}
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "text-[10px] border-transparent",
-                        statusColors[decision.status]
-                      )}
-                    >
-                      {decision.status}
-                    </Badge>
+                    <div className="flex flex-col gap-1">
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "text-[10px] border-transparent",
+                          statusColors[decision.status]
+                        )}
+                      >
+                        {decision.status}
+                      </Badge>
+                      {(() => {
+                        const tag = getApprovalTag(decision.severity);
+                        const TagIcon = tag.icon;
+                        return (
+                          <span className={cn("inline-flex items-center gap-0.5 text-[9px] font-medium px-1.5 py-0.5 rounded w-fit", tag.className)}>
+                            <TagIcon className="w-2.5 h-2.5" />
+                            {tag.label}
+                          </span>
+                        );
+                      })()}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

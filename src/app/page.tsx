@@ -49,6 +49,27 @@ interface DashboardData {
     details: string;
     created_at: number;
   }>;
+  allAgents?: Array<{
+    id: string;
+    name: string;
+    type: string;
+    status: string;
+    total_runs: number;
+    total_decisions: number;
+    total_value_created: number;
+    accuracy_rate: number;
+    org_id: string;
+    org_name: string;
+  }>;
+  allActivity?: Array<{
+    id: string;
+    actor: string;
+    action: string;
+    resource_type: string;
+    resource_id: string;
+    details: string;
+    created_at: number;
+  }>;
   valueAtRisk: number;
   valueCreated: number;
 }
@@ -57,6 +78,7 @@ interface KpiSnapshot {
   date: string;
   nrr_percent: number;
   churn_rate_percent: number;
+  agent_cost_total?: number;
 }
 
 export default function DashboardPage() {
@@ -83,9 +105,9 @@ export default function DashboardPage() {
   });
 
   const kpi = data?.kpi;
-  const agentCostTotal = kpi?.agent_cost_total ?? 1;
+  const cumulativeAgentCost = kpiData ? kpiData.reduce((sum, snap) => sum + (snap.agent_cost_total || 0), 0) : null;
   const totalValueCreated = data?.valueCreated ?? 0;
-  const roi = agentCostTotal > 0 ? totalValueCreated / agentCostTotal : 0;
+  const roi = cumulativeAgentCost && cumulativeAgentCost > 0 ? totalValueCreated / cumulativeAgentCost : null;
 
   // Get org display name
   const orgName = orgId
@@ -122,7 +144,7 @@ export default function DashboardPage() {
       <div>
         <DemoTooltip content="Real-time metrics calculated from agent activity across all connected systems. Updated every 15 seconds." side="right">
           <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
-            GENCAP OS — Command Center
+            VERTICA OS — Command Center
           </h1>
         </DemoTooltip>
         <p className="text-[var(--text-secondary)] mt-1 text-sm">
@@ -161,10 +183,10 @@ export default function DashboardPage() {
         />
         <KpiCard
           title="Agent ROI"
-          value={`${roi.toFixed(1)}x`}
+          value={roi !== null ? `${roi.toFixed(1)}x` : "—"}
           subtitle="Return on agent investment"
-          trend={roi > 1 ? "up" : "flat"}
-          trendLabel={roi > 1 ? "Positive" : "Neutral"}
+          trend={roi !== null && roi > 1 ? "up" : "flat"}
+          trendLabel={roi !== null && roi > 1 ? "Positive" : "Calculating..."}
           icon={<TrendingUp className="w-4 h-4" />}
           accentColor="text-purple-400"
         />
@@ -184,11 +206,11 @@ export default function DashboardPage() {
       {/* Row 3: Two columns */}
       <div>
         <DemoTooltip content="Your deployed AI agent fleet. Each agent is specialized for a specific operational function with governed permissions." side="right">
-          <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Active Agents & Activity</h2>
+          <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Active Agents & Activity — All Portfolios</h2>
         </DemoTooltip>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <AgentMiniCards agents={data?.agents ?? []} />
-          <ActivityFeed entries={data?.recentActivity ?? []} />
+          <AgentMiniCards agents={data?.allAgents ?? data?.agents ?? []} />
+          <ActivityFeed entries={data?.allActivity ?? data?.recentActivity ?? []} />
         </div>
       </div>
 

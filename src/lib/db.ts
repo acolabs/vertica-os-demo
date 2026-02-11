@@ -10,7 +10,7 @@ export function getDb(): Database.Database {
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
-    const dbPath = path.join(dataDir, 'gencap.db');
+    const dbPath = path.join(dataDir, 'vertica.db');
     db = new Database(dbPath);
     db.pragma('journal_mode = WAL');
     db.pragma('foreign_keys = ON');

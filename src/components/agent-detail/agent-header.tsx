@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Shield, Headphones, FileText, Activity, Bot } from "lucide-react";
+import { ArrowLeft, Shield, Headphones, FileText, Activity, Bot, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -12,12 +12,15 @@ interface Agent {
   type: string;
   status: string;
   model: string;
+  description: string;
   created_at: number;
 }
 
 const typeConfig: Record<string, { icon: typeof Shield; label: string; color: string; bg: string }> = {
-  nrr: { icon: Shield, label: "NRR", color: "text-emerald-400", bg: "bg-emerald-500/10" },
-  support: { icon: Headphones, label: "Support", color: "text-[var(--primary)]", bg: "bg-[var(--primary-10)]" },
+  nrr: { icon: Shield, label: "NRR / Renewal", color: "text-emerald-400", bg: "bg-emerald-500/10" },
+  support: { icon: Headphones, label: "Support", color: "text-sky-400", bg: "bg-sky-500/10" },
+  support_deflection: { icon: Headphones, label: "Support Deflection", color: "text-sky-400", bg: "bg-sky-500/10" },
+  revenue_cadence: { icon: TrendingUp, label: "Revenue Cadence", color: "text-emerald-400", bg: "bg-emerald-500/10" },
   board_pack: { icon: FileText, label: "Board Pack", color: "text-purple-400", bg: "bg-purple-500/10" },
   pipeline: { icon: Activity, label: "Pipeline", color: "text-amber-400", bg: "bg-amber-500/10" },
 };
@@ -56,6 +59,11 @@ export function AgentHeader({ agent }: { agent: Agent }) {
             <span className="text-[var(--text-muted)]">·</span>
             <span className="text-sm text-[var(--text-muted)]">Deployed {daysAgo} days ago</span>
           </div>
+          {agent.description && (
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-3 max-w-3xl">
+              {agent.description}
+            </p>
+          )}
         </div>
       </div>
     </div>

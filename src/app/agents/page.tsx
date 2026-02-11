@@ -26,6 +26,7 @@ interface Agent {
   total_value_created: number;
   accuracy_rate: number;
   created_at: number;
+  total_cost?: number;
 }
 
 export default function AgentsPage() {

@@ -93,7 +93,7 @@ export function IntegrationCard({ integration }: IntegrationCardProps) {
   const configData = integration.config ? safeParseJSON(integration.config) : null;
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] hover:border-[var(--border)] transition-colors">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium hover:border-[var(--border)] transition-colors">
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">

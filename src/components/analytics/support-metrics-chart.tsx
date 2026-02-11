@@ -40,7 +40,7 @@ export function SupportMetricsChart({ kpiData }: SupportMetricsChartProps) {
   const csat = latestSnap?.csat_score?.toFixed(1) || "4.6";
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium">
       <CardHeader>
         <CardTitle className="text-[var(--text-primary)]">Support Efficiency</CardTitle>
         <CardDescription>Deflection rate and cost per ticket trend</CardDescription>

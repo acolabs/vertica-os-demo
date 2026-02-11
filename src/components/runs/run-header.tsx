@@ -68,7 +68,7 @@ export function RunHeader({ run, agentName }: RunHeaderProps) {
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <div key={stat.label} className="flex items-center gap-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg px-3 py-2">
+            <div key={stat.label} className="flex items-center gap-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg px-3 py-2 glass-card shadow-premium">
               <Icon className={cn("w-3.5 h-3.5", stat.color)} />
               <span className="text-[11px] text-[var(--text-muted)]">{stat.label}</span>
               <span className="text-sm font-semibold text-[var(--text-primary)]">{stat.value}</span>

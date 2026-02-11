@@ -40,7 +40,7 @@ export function OperatorHoursChart({ kpiData }: OperatorHoursChartProps) {
   const boardPackHours = latestSnap?.board_pack_hours?.toFixed(0) || "8";
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium">
       <CardHeader>
         <CardTitle className="text-[var(--text-primary)]">Operator Hours Saved</CardTitle>
         <CardDescription>Weekly hours reclaimed by agent automation</CardDescription>

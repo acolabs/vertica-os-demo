@@ -98,9 +98,7 @@ export default function AgentDetailPage() {
     enabled: !!agent,
   });
 
-  const isLoading = agentLoading || runsLoading || decisionsLoading;
-
-  if (isLoading || !agent) {
+  if (agentLoading || !agent) {
     return (
       <div className="space-y-6">
         <Skeleton className="h-6 w-32 bg-[var(--skeleton)]" />
@@ -123,6 +121,7 @@ export default function AgentDetailPage() {
   }
 
   const allRuns = runs || [];
+  const runsReady = !runsLoading && runs !== undefined;
   const decisions = decisionsResp?.decisions || [];
 
   // Compute stats
@@ -143,13 +142,21 @@ export default function AgentDetailPage() {
       <DemoTooltip content="Key performance indicators for this specific agent. Value Created represents direct dollar impact attributed to agent actions." side="right">
         <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Agent Performance</h2>
       </DemoTooltip>
-      <AgentStats
-        totalRuns={agent.total_runs}
-        successRate={successRate}
-        avgDuration={avgDuration}
-        totalCost={totalCost}
-        valueCreated={agent.total_value_created}
-      />
+      {runsReady ? (
+        <AgentStats
+          totalRuns={agent.total_runs}
+          successRate={successRate}
+          avgDuration={avgDuration}
+          totalCost={totalCost}
+          valueCreated={agent.total_value_created}
+        />
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-24 bg-[var(--skeleton)] rounded-xl" />
+          ))}
+        </div>
+      )}
 
       <Tabs defaultValue="overview">
         <TabsList variant="line" className="border-b border-[var(--card-border)] w-full justify-start">

@@ -23,6 +23,7 @@ interface Agent {
   total_decisions: number;
   accuracy_rate: number;
   total_value_created: number;
+  total_cost?: number;
 }
 
 interface AgentPerformanceTableProps {
@@ -31,16 +32,20 @@ interface AgentPerformanceTableProps {
 
 const typeColors: Record<string, string> = {
   nrr: "bg-emerald-500/15 text-emerald-400",
-  support: "bg-[var(--primary-10)] text-[var(--primary)]",
+  support: "bg-sky-500/15 text-sky-400",
+  support_deflection: "bg-sky-500/15 text-sky-400",
   board_pack: "bg-purple-500/15 text-purple-400",
   pipeline: "bg-amber-500/15 text-amber-400",
+  revenue_cadence: "bg-emerald-500/15 text-emerald-400",
 };
 
 const typeLabels: Record<string, string> = {
   nrr: "NRR",
   support: "Support",
+  support_deflection: "Support Deflection",
   board_pack: "Board Pack",
   pipeline: "Pipeline",
+  revenue_cadence: "Revenue Cadence",
 };
 
 export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
@@ -49,7 +54,7 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
   );
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-4 h-4 text-[var(--primary)]" />
@@ -75,7 +80,20 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
           </TableHeader>
           <TableBody>
             {sorted.map((agent) => {
-              const estimatedCost = agent.total_runs * 0.05;
+              // Use actual cost from DB; fall back to type-based estimates
+              const costPerRun: Record<string, number> = {
+                revenue_cadence: 3.50,
+                nrr: 2.00,
+                support_deflection: 1.00,
+                support: 1.00,
+                pipeline: 1.50,
+                board_pack: 2.50,
+              };
+              const perRun = costPerRun[agent.type] || 2.00;
+              const fallbackCost = agent.total_runs * perRun;
+              const estimatedCost = (agent.total_cost && agent.total_cost > fallbackCost * 0.1)
+                ? agent.total_cost
+                : fallbackCost;
               const roi =
                 estimatedCost > 0
                   ? agent.total_value_created / estimatedCost
@@ -153,7 +171,7 @@ export function AgentPerformanceTable({ agents }: AgentPerformanceTableProps) {
                           : "text-[var(--text-muted)]"
                       )}
                     >
-                      {roi > 0 ? `${roi.toFixed(0)}x` : "—"}
+                      {roi > 0 ? `${roi.toFixed(1)}x` : "—"}
                     </span>
                   </TableCell>
                 </TableRow>

@@ -10,9 +10,22 @@ export async function GET(request: NextRequest) {
 
   let agents;
   if (orgId) {
-    agents = db.prepare('SELECT * FROM agents WHERE org_id = ? ORDER BY created_at DESC').all(orgId);
+    agents = db.prepare(`
+      SELECT a.*, COALESCE(SUM(r.cost_usd), 0) as total_cost
+      FROM agents a
+      LEFT JOIN runs r ON r.agent_id = a.id
+      WHERE a.org_id = ?
+      GROUP BY a.id
+      ORDER BY a.created_at DESC
+    `).all(orgId);
   } else {
-    agents = db.prepare('SELECT * FROM agents ORDER BY created_at DESC').all();
+    agents = db.prepare(`
+      SELECT a.*, COALESCE(SUM(r.cost_usd), 0) as total_cost
+      FROM agents a
+      LEFT JOIN runs r ON r.agent_id = a.id
+      GROUP BY a.id
+      ORDER BY a.created_at DESC
+    `).all();
   }
 
   return NextResponse.json(agents);

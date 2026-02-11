@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GENCAP OS — AI Agent Platform",
-  description: "Enterprise AI agent governance and operations platform",
+  title: "VERTICA OS — Portfolio Operator Platform",
+  description: "AI-powered portfolio operations and value creation platform",
 };
 
 export default function RootLayout({

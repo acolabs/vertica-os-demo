@@ -30,7 +30,7 @@ export function CostBreakdown({ totalCost, tokensUsed, model, decisionsCreated, 
   const totalStepTokens = steps.reduce((s, st) => s + (st.tokens || 0), 0);
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-emerald-400" />

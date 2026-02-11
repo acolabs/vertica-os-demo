@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Activity } from "lucide-react";
 import {
   ResponsiveContainer,
-  LineChart,
+  ComposedChart,
   Line,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -58,7 +59,7 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
   }));
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)]">
+    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -86,10 +87,20 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
       <CardContent className="pt-0">
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
+            <ComposedChart
               data={chartData}
               margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
             >
+              <defs>
+                <linearGradient id="nrrGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#059669" stopOpacity={0.25} />
+                  <stop offset="100%" stopColor="#059669" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="churnGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#e11d48" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="#e11d48" stopOpacity={0} />
+                </linearGradient>
+              </defs>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke="var(--chart-grid)"
@@ -125,6 +136,24 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
                 content={<CustomTooltip />}
                 cursor={{ stroke: "var(--chart-grid)", strokeDasharray: "4 4" }}
               />
+              <Area
+                yAxisId="nrr"
+                type="monotone"
+                dataKey="nrr_percent"
+                fill="url(#nrrGradient)"
+                stroke="none"
+                name="NRR Fill"
+                tooltipType="none"
+              />
+              <Area
+                yAxisId="churn"
+                type="monotone"
+                dataKey="churn_rate_percent"
+                fill="url(#churnGradient)"
+                stroke="none"
+                name="Churn Fill"
+                tooltipType="none"
+              />
               <Line
                 yAxisId="nrr"
                 type="monotone"
@@ -145,7 +174,7 @@ export function KpiTrendChart({ data }: KpiTrendChartProps) {
                 name="Churn Rate %"
                 activeDot={{ r: 4, stroke: "#e11d48", strokeWidth: 2, fill: "var(--card-bg)" }}
               />
-            </LineChart>
+            </ComposedChart>
           </ResponsiveContainer>
         </div>
       </CardContent>

@@ -45,7 +45,7 @@ export function BigNumberCard({ title, value, subtitle, icon: Icon, color }: Big
   const colors = colorMap[color];
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium">
       <CardContent className="pt-0">
         <div className="flex items-start justify-between">
           <div className="space-y-2">

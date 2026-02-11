@@ -47,7 +47,7 @@ export function RevenueImpactChart({ kpiData }: RevenueImpactChartProps) {
   const deploymentDay = 30;
 
   return (
-    <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
+    <Card className="border-[var(--card-border)] bg-[var(--card-bg)] glass-card shadow-premium">
       <CardHeader>
         <CardTitle className="text-[var(--text-primary)]">Revenue Impact — Churn Prevention</CardTitle>
         <CardDescription>Monthly churn prevented and NRR trend over 90 days</CardDescription>

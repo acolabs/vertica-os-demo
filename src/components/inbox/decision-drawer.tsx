@@ -79,7 +79,16 @@ function parseJSON(str: string | null | undefined): any[] {
   if (!str) return [];
   try {
     const parsed = JSON.parse(str);
-    return Array.isArray(parsed) ? parsed : [parsed];
+    if (Array.isArray(parsed)) return parsed;
+    // Handle wrapped arrays like { actions: [...] } or { changes: [...] }
+    if (typeof parsed === 'object' && parsed !== null) {
+      // Look for the first array property
+      for (const key of Object.keys(parsed)) {
+        if (Array.isArray(parsed[key])) return parsed[key];
+      }
+      return [parsed];
+    }
+    return [parsed];
   } catch {
     return [];
   }
@@ -101,7 +110,7 @@ export function DecisionDrawer({
       const res = await fetch(`/api/decisions/${id}/approve`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ approved_by: "operator@gencap.ai" }),
+        body: JSON.stringify({ approved_by: "operator@verticacp.com" }),
       });
       if (!res.ok) throw new Error("Failed to approve");
       return res.json();
@@ -129,7 +138,7 @@ export function DecisionDrawer({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          rejected_by: "operator@gencap.ai",
+          rejected_by: "operator@verticacp.com",
           reason: "Operator rejected via inbox",
         }),
       });
@@ -164,7 +173,7 @@ export function DecisionDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-[540px] bg-[var(--surface)] border-[var(--card-border)] p-0 flex flex-col"
+        className="w-full sm:max-w-[540px] bg-[var(--surface)] border-[var(--card-border)] p-0 flex flex-col glass"
       >
         <SheetHeader className="px-5 pt-5 pb-3 border-b border-[var(--card-border)]/50">
           <div className="flex items-start gap-3">

@@ -38,6 +38,22 @@ const typeConfig: Record<string, { icon: typeof Shield; color: string; label: st
   budget_limit: { icon: DollarSign, color: 'text-rose-400', label: 'Budget Limit' },
 };
 
+function formatRuleValue(key: string, value: unknown): string {
+  if (Array.isArray(value)) {
+    return value.map(v => String(v).replace(/_/g, ' ')).join(', ');
+  }
+  if (typeof value === 'number') {
+    if (key.includes('percent') || (key.includes('min') && value < 1)) return `${(value * 100).toFixed(0)}%`;
+    if (key.includes('usd')) return `$${value}`;
+    return String(value);
+  }
+  return String(value).replace(/_/g, ' ');
+}
+
+function formatRuleKey(key: string): string {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
 function PolicyCard({ policy }: { policy: Policy }) {
   const config = typeConfig[policy.type] || { icon: Shield, color: 'text-[var(--text-muted)]', label: policy.type };
   const Icon = config.icon;
@@ -84,9 +100,9 @@ function PolicyCard({ policy }: { policy: Policy }) {
         <div className="space-y-2">
           {Object.entries(rules).map(([key, value]) => (
             <div key={key} className="flex items-center justify-between text-sm">
-              <span className="text-[var(--text-secondary)]">{key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
+              <span className="text-[var(--text-secondary)]">{formatRuleKey(key)}</span>
               <span className="text-[var(--text-primary)] font-mono text-xs">
-                {typeof value === 'object' ? JSON.stringify(value) : String(value)}
+                {formatRuleValue(key, value)}
               </span>
             </div>
           ))}

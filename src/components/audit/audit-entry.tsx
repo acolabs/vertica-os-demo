@@ -13,22 +13,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface AuditEntryData {
-  id: string;
-  action: string;
-  actor: string;
-  resource_type: string | null;
-  resource_id: string | null;
-  details: string | null;
-  hash: string;
-  prev_hash: string | null;
-  created_at: number;
-}
+import type { AuditEntryData } from "./audit-detail-drawer";
 
 interface AuditEntryProps {
   entry: AuditEntryData;
   isLast: boolean;
+  onClick?: (entry: AuditEntryData) => void;
 }
 
 const actionConfig: Record<string, { icon: React.ElementType; color: string; bgColor: string }> = {
@@ -87,7 +77,7 @@ function formatTimestamp(ts: number): string {
   });
 }
 
-export function AuditEntry({ entry, isLast }: AuditEntryProps) {
+export function AuditEntry({ entry, isLast, onClick }: AuditEntryProps) {
   const [expanded, setExpanded] = useState(false);
   const config = actionConfig[entry.action] || {
     icon: Settings,
@@ -115,7 +105,16 @@ export function AuditEntry({ entry, isLast }: AuditEntryProps) {
 
       {/* Content */}
       <div className="flex-1 pb-6 min-w-0">
-        <div className="flex items-start justify-between gap-4">
+        <div
+          className={cn(
+            "flex items-start justify-between gap-4 rounded-lg px-2 py-1.5 -mx-2 -my-1.5 transition-colors",
+            onClick && "cursor-pointer hover:bg-[var(--surface)]/60"
+          )}
+          onClick={() => onClick?.(entry)}
+          role={onClick ? "button" : undefined}
+          tabIndex={onClick ? 0 : undefined}
+          onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(entry); } } : undefined}
+        >
           <div className="min-w-0 flex-1">
             <p className="text-sm text-[var(--text-primary)] leading-relaxed">
               {getActionDescription(entry)}
@@ -135,7 +134,7 @@ export function AuditEntry({ entry, isLast }: AuditEntryProps) {
               {entry.hash.substring(0, 8)}
             </code>
             <button
-              onClick={() => setExpanded(!expanded)}
+              onClick={(e) => { e.stopPropagation(); setExpanded(!expanded); }}
               className="p-1 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
             >
               {expanded ? (
