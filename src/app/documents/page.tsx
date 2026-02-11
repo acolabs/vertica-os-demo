@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -1184,66 +1185,70 @@ function DemoContent() {
         {
           step: "1",
           title: "Command Dashboard",
-          page: "Dashboard",
+          href: "/",
           description: "The operating command center for each portfolio company. Real-time KPIs update continuously as agents process data from connected systems — pipeline health, support efficiency, retention metrics, and agent ROI are visible at a glance. The org selector in the top bar switches between portfolio companies instantly, with fully isolated data for each tenant.",
         },
         {
           step: "2",
           title: "Decision Inbox",
-          page: "Decision Inbox",
+          href: "/decisions",
           description: "The central hub where agent recommendations surface for human review. Each decision includes an impact assessment, confidence score, and due date. Clicking into any decision reveals the full evidence trail — linked CRM records, support tickets, usage data, and billing signals — along with the agent\u2019s recommended actions and a preview of exactly what changes will be made. Operators can approve, reject, or escalate with full context. High-severity decisions require explicit approval; lower-risk actions can be configured for auto-resolution within policy guardrails.",
         },
         {
           step: "3",
           title: "Work Queues",
-          page: "Work Queues",
+          href: "/queues",
           description: "Operational queues organized by agent capability. Revenue leaders see pipeline and deal-related items. Support leads see deflection opportunities and ticket escalations. Renewal managers see churn risk and expansion signals. Each queue shows severity, impact, and confidence — allowing operators to prioritize the highest-value actions first. Items can be approved or rejected directly from the queue.",
         },
         {
           step: "4",
           title: "Agent Fleet & Playbooks",
-          page: "Agents / Playbooks",
+          href: "/playbooks",
           description: "The Agents page shows every deployed agent with live status, accuracy metrics, value created, and deployment stage (shadow, suggest, gated auto, or full auto). Playbooks are the reusable agent templates — each encodes a specific operational capability (Revenue Cadence, Support Deflection, Renewal & Expansion, Pipeline Intelligence) with defined integrations, expected ROI, and deployment timeline. Templates can be deployed to any portfolio company in days using the Deploy workflow.",
         },
         {
           step: "5",
           title: "Evaluations & Replay",
-          page: "Evaluations",
+          href: "/evaluations",
           description: "Before any agent goes live, it runs against historical data to validate accuracy. Evaluation scorecards show precision, recall, true positives, false positives, and missed cases — alongside the dollar value captured versus missed. The before/after comparison quantifies the improvement each agent delivers across key metrics. This is how we prove ROI before a single dollar is spent in production.",
         },
         {
           step: "6",
           title: "Governance & Audit",
-          page: "Audit Log / Policies",
+          href: "/audit",
           description: "Every agent action, approval, and data access is recorded in a SHA-256 hash-chained audit log — immutable and tamper-evident. The policies page defines approval requirements, budget limits, and automation boundaries. Together, these ensure full accountability and compliance, providing the audit trail that PE operating partners and portfolio company boards require.",
         },
         {
           step: "7",
           title: "Comp Simulator",
-          page: "Comp Simulator",
+          href: "/simulator",
           description: "An interactive tool that encodes Vertica\u2019s proven sales compensation economics. Adjust base salary, OTE, quota, accelerators, and team size to model compensation plans in real time. The simulator validates against Vertica\u2019s 5x Quota-to-OTE rule, 50/50 base/variable split guidelines, and accelerator range best practices — instantly flagging plans that fall outside optimal parameters. Scenario comparison shows cost and revenue impact across conservative, target, and stretch attainment levels.",
         },
         {
           step: "8",
           title: "Analytics & Impact",
-          page: "Analytics",
+          href: "/analytics",
           description: "Outcome dashboards that attribute business impact directly to agent actions. Revenue impact, support cost savings, operator hours saved, and agent efficiency metrics — all tracked over time with full audit trail. These dashboards produce the board-ready value creation reports delivered at the end of each pilot phase.",
         },
       ].map((section, i) => (
-        <Card key={i} className="glass-card shadow-premium border-[var(--card-border)]">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-full bg-[var(--primary-10)] flex items-center justify-center text-xs font-bold text-[var(--primary)]">
+        <Card key={i} className="glass-card shadow-premium border-[var(--card-border)] card-hover-lift">
+          <CardContent className="py-5">
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 rounded-full bg-[var(--primary-10)] flex items-center justify-center text-sm font-bold text-[var(--primary)] shrink-0 mt-0.5">
                 {section.step}
               </div>
-              <div>
-                <CardTitle className="text-[var(--text-primary)] text-base">{section.title}</CardTitle>
-                <p className="text-[11px] text-[var(--text-muted)] mt-0.5">Navigate to: {section.page}</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">{section.title}</h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mt-2">{section.description}</p>
+                <Link
+                  href={section.href}
+                  className="inline-flex items-center gap-1.5 mt-3 px-3.5 py-1.5 rounded-lg bg-[var(--primary-10)] text-[var(--primary)] text-xs font-medium hover:bg-[var(--primary-20)] transition-colors"
+                >
+                  Open {section.title}
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
               </div>
             </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{section.description}</p>
           </CardContent>
         </Card>
       ))}
