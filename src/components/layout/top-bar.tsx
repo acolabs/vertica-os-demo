@@ -1,11 +1,18 @@
 "use client";
 
-import React from "react";
-import { Bell } from "lucide-react";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Bell, HelpCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { OrgSelector } from "./org-selector";
+import { HelpDrawer } from "./help-drawer";
+import { helpContent } from "@/lib/help-content";
 
 export function TopBar() {
+  const pathname = usePathname();
+  const [helpOpen, setHelpOpen] = useState(false);
+  const currentHelp = helpContent[pathname] ?? null;
+
   return (
     <header className="h-14 border-b border-[var(--topbar-border)] bg-[var(--topbar-bg)] glass flex items-center justify-between px-6">
       {/* Left: Org Tabs */}
@@ -32,7 +39,17 @@ export function TopBar() {
           <Bell className="w-4 h-4" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-[var(--primary)] rounded-full" />
         </button>
+        {currentHelp && (
+          <button
+            onClick={() => setHelpOpen(true)}
+            className="relative p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            title="Page guide"
+          >
+            <HelpCircle className="w-4 h-4" />
+          </button>
+        )}
       </div>
+      <HelpDrawer open={helpOpen} onOpenChange={setHelpOpen} content={currentHelp} />
     </header>
   );
 }
