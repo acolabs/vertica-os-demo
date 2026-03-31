@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { InvestmentCalculator } from "@/components/documents/investment-calculator";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -429,46 +430,8 @@ function ProposalContent() {
         </CardContent>
       </Card>
 
-      {/* Investment & Next Steps */}
-      <Card className="glass-card shadow-premium border-[var(--primary)]/20">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-[var(--text-primary)]">
-            <DollarSign className="w-5 h-5 text-[var(--primary)]" />
-            Investment & Next Steps
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg bg-[var(--surface)] border border-[var(--border-subtle)]">
-              <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Pilot (1 company)</p>
-              <p className="text-xl font-bold text-[var(--text-primary)]">$25K - $50K</p>
-              <p className="text-xs text-[var(--text-secondary)] mt-1">30-day proof of value with full agent deployment</p>
-            </div>
-            <div className="p-4 rounded-lg bg-[var(--surface)] border border-[var(--border-subtle)]">
-              <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Per Company / Month</p>
-              <p className="text-xl font-bold text-[var(--text-primary)]">$10K - $25K</p>
-              <p className="text-xs text-[var(--text-secondary)] mt-1">Ongoing operation + optimization + support</p>
-            </div>
-          </div>
-          <div className="p-4 rounded-lg bg-[var(--primary-10)] border border-[var(--primary)]/20">
-            <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-2">Immediate Next Steps</h3>
-            <div className="space-y-2">
-              {[
-                "Select pilot portfolio company (recommendation: DSN Software — richest data, 3 agents deployed)",
-                "Define primary KPI target (NRR, pipeline conversion, or support cost)",
-                "Confirm system access (CRM, support platform, analytics)",
-                "Identify daily operator/approver for the pilot",
-                "Kick off Week 0 setup (target: within 5 business days)",
-              ].map((step, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <ArrowRight className="w-3 h-3 text-[var(--primary)] flex-shrink-0" />
-                  <p className="text-xs text-[var(--text-secondary)]">{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Investment & Next Steps — Interactive Calculator */}
+      <InvestmentCalculator />
     </div>
   );
 }
