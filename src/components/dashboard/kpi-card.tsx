@@ -13,6 +13,7 @@ interface KpiCardProps {
   trendLabel?: string;
   icon: React.ReactNode;
   accentColor?: string;
+  onClick?: () => void;
 }
 
 function useCountUp(value: string, duration = 1000) {
@@ -81,11 +82,18 @@ export function KpiCard({
   trendLabel,
   icon,
   accentColor = "text-emerald-400",
+  onClick,
 }: KpiCardProps) {
   const animatedValue = useCountUp(value);
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium card-hover-lift transition-colors">
+    <Card
+      className={cn(
+        "bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium card-hover-lift transition-colors",
+        onClick && "cursor-pointer hover:border-[var(--primary)]/40"
+      )}
+      onClick={onClick}
+    >
       <CardContent className="p-5">
         <div className="flex items-start justify-between mb-3">
           <p className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">

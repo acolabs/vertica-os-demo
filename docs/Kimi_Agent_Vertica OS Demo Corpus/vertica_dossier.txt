@@ -1,0 +1,293 @@
+
+================================================================================
+                    VERTICA CAPITAL PARTNERS - COMPREHENSIVE DOSSIER
+                              WAVE 1: EVIDENCE COLLECTION
+================================================================================
+
+FIRM OVERVIEW
+--------------------------------------------------------------------------------
+Name:           Vertica Capital Partners
+Founded:        2018
+Headquarters:   New York, NY
+Fund Size:      $205 million (Vertica Capital Partners I, LP - closed March 2020, oversubscribed)
+Website:        https://www.verticacp.com
+
+FOUNDERS
+--------------------------------------------------------------------------------
+1. Vitaly Vorobeychik - Managing Director
+   - Prior: Oversaw software investments at Meritage Group ($10B fund)
+   - Education: University of Pennsylvania - The Wharton School (Huntsman Program)
+
+2. Philip Vorobeychik - Managing Director
+   - Prior: Board member at Kaseya, Thycotic, Tricentis, N2W, Spanning, Cloud Apps, 
+     Resolve Systems, QASymphony, LiveAction, FireMon, CloudBolt, CoreView, and Devo
+
+3. Stephen Hoey - CFO
+   - Prior: Partner and CFO at KPS Management ($11.5B under management)
+   - Previous: General Atlantic, Soros Private Equity, Stonington Partners
+
+================================================================================
+                              INVESTMENT CRITERIA (FACTS)
+================================================================================
+
+TARGET PROFILE
+--------------------------------------------------------------------------------
+| Attribute          | Criteria                                                |
+|--------------------|---------------------------------------------------------|
+| ARR Range          | $2M to $40M ARR                                         |
+| Check Size         | $10M to $100M (equity checks)                           |
+| Investment Types   | Growth Buyouts, Recapitalizations, Growth Capital       |
+| Deal Structures    | Growth capital, partial liquidity, full buyouts         |
+| Growth Requirement | No minimum growth or profitability threshold            |
+| Approach           | Thesis-based investing                                  |
+
+INVESTMENT PHILOSOPHY (from https://www.verticacp.com/)
+--------------------------------------------------------------------------------
+- "We invest in companies between $2M to $40M of ARR who have an opportunity to 
+   sustain or accelerate growth."
+- "No minimum growth or profitability threshold. We invest with a thesis first 
+   approach about companies and their markets."
+- "Vertica offers a combination of growth buyouts, majority recaps, and growth 
+   capital with equity check sizes between $10M to $100M."
+- "Your company and your values. We build on what you created to accelerate 
+   growth post close with active support."
+
+================================================================================
+                         VALUE CREATION POSITIONING (FACTS)
+================================================================================
+
+STATED VALUE-ADD
+--------------------------------------------------------------------------------
+From https://www.verticacp.com/:
+
+1. OPERATOR NETWORK
+   "Our private network of executives and functional experts from leading 
+    companies like Palo Alto Networks, Splunk and SolarWinds, support our 
+    partners with expertise and valuable connections."
+
+2. INSIDE SALES EXPERTISE
+   "From best practices on inside sales to the latest strategies for recruiting, 
+    Vertica maintains real-time information on how to stay ahead of the 
+    competition."
+
+3. PROVEN TRACK RECORD
+   "Our network of operators has driven up to 5x the sales and marketing returns 
+    of direct competitors." 
+   [Source: PRNewswire, March 3, 2020 - https://www.prnewswire.com/news-releases/vertica-capital-partners-closes-205-million-private-equity-fund-focused-on-the-software-sector-301015280.html]
+
+4. EXPERIENCE BASE
+   "We're investors and former operators who have a proven track record of 
+    helping more than 50 companies grow into market leaders."
+   "Our team comes with the experience of investing in over 60 software 
+    companies." [Philip Vorobeychik quote]
+
+5. LEARNING FROM BEST-IN-CLASS
+   "Kaseya, Veeam, Fareharbor are a few of the names we've learned from. We 
+    bring the most important operational lessons from over 50 companies to our 
+    partners."
+
+================================================================================
+                              PORTFOLIO COMPANIES
+================================================================================
+
+NOTABLE INVESTMENTS:
+--------------------------------------------------------------------------------
+| Company      | Sector                    | Investment Details              |
+|--------------|---------------------------|----------------------------------|
+| Pathlock     | Application Governance    | $200M raise (May 2022), $20M (2021) |
+| Campspot     | Campground Management     | Strategic growth investment (Feb 2025) |
+| DSN          | Dental Practice Mgmt      | Growth investment                 |
+| Rezdy        | Experience Booking        | Portfolio company                 |
+| Regiondo     | Activity Booking (Europe) | Portfolio company                 |
+| Checkfront   | Tour/Activity Booking     | Portfolio company                 |
+| ProLion      | Data Security             | Portfolio company                 |
+
+================================================================================
+                           THE SUCCESS CADENCE (FACTS)
+================================================================================
+
+Source: https://www.verticacp.com/blog-posts/base-vs-variable
+Author: Tom Schodorf (Special Limited Partner at Vertica)
+        - Former CRO at Splunk (grew bookings 20x in 5 years, helped IPO)
+        - Former VP/GM at BMC Software
+        - Co-author of "The Success Cadence" book
+
+KEY PRINCIPLES:
+--------------------------------------------------------------------------------
+1. CULTURE-DRIVEN LEADERSHIP
+   "The Success Cadence process requires a culture-driven, talent-driven, 
+    data-driven approach to leadership that most leaders, in our experience, 
+    are simply not used to and won't commit to."
+
+2. OPERATIONAL CADENCE
+   "You can transform your company's performance capacity... by consciously 
+    designing a clear daily, weekly, monthly, and quarterly operational cadence 
+    for yourself and your growing sales team."
+
+3. SALES-DRIVEN CULTURE TRANSFORMATION
+   "Rapid growth is only possible if you are willing to move yourself and your 
+    team out of a product-driven culture and into a sales-driven culture."
+
+4. SALES ORGANIZATION SETS THE RHYTHM
+   "The sales organization's operating cadence eventually sets the rhythm for 
+    every other team in the organization."
+
+5. LEADERSHIP RESPONSIBILITY
+   "This new type of leadership means you accept personal responsibility for 
+    protecting the positive working culture of the team and for putting the 
+    right people in the right positions—not just today, not just tomorrow, but 
+    constantly looking forward to the next 6 to 18 months."
+
+6. UP-AND-TO-THE-RIGHT PRINCIPLE
+   "Moving up and to the right is the core recruiting requirement. Moving up 
+    and to the right is the cultural norm you want to identify, retain, and 
+    reward. It is the DNA, the foundation, the guiding idea, behind the 
+    Success Cadence."
+
+7. VERTICA PROMOTION
+   "We promote these principles at Vertica, and we share these books and 
+    materials with prospects and portfolio companies."
+
+================================================================================
+                    COMMISSION PLAN DESIGN PRINCIPLES (FACTS)
+================================================================================
+
+Source: https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives
+Author: Jesse Javna (Principal at Vertica Capital Partners)
+
+THE THREE RULES OF THUMB:
+--------------------------------------------------------------------------------
+1. THE 50/50 SPLIT
+   - OTE (On-Target Earnings) split equally between base salary and variable commission
+   - Base (50%): Provides stability
+   - Variable (50%): Drives performance
+   - Deviations create either complacency (80/20) or burnout (20/80)
+
+2. THE 5X RULE (QUOTA-TO-OTE RATIO)
+   - Formula: Quota / OTE = 4x to 6x (ideally 5x)
+   - "A 5x ratio means that the company is generating five dollars in revenue 
+     for every dollar it pays the salesperson"
+   - <4x: Highly motivating but strains financial model
+   - >6x: Difficult to attract talent, lower commission rate
+
+3. THE 10% STANDARD COMMISSION RATE
+   - When 50/50 split + 5x ratio are combined, commission rate = 10%
+   - Example: $200K OTE ($100K base/$100K variable) + $1M quota (5x) = 10% rate
+
+KEY INSIGHTS FROM DATA ANALYSIS:
+--------------------------------------------------------------------------------
+- "The correlation between the quota level and the percentage of quota achieved 
+  is surprisingly weak"
+- "The Quota-to-OTE ratio is the single most indicative factor correlated with 
+  sales success"
+- AEs with <4x ratio achieve ~100% attainment on average
+- AEs with 4x-6x ratio achieve ~87.6% attainment
+- AEs with >6x ratio achieve ~73.7% attainment
+- "Higher commissions drive higher performance"
+
+ADDITIONAL COMPENSATION ELEMENTS:
+--------------------------------------------------------------------------------
+| Element                  | Recommendation                                  |
+|--------------------------|--------------------------------------------------|
+| Accelerators (Kickers)   | 15% on every deal after 100% quota (example)    |
+| Ramping Period           | 3-9 months depending on sales cycle             |
+| Multi-Year Incentives    | Extra 2% commission on total contract value     |
+| Clawbacks                | Generally discouraged as demotivating           |
+| Quota Attainment Target  | 60-70% of team should achieve 100%              |
+
+================================================================================
+                              INFERENCES
+================================================================================
+
+The following are INFERENCES based on collected evidence:
+
+1. VERTICA'S OPERATING MODEL
+   INFERENCE: Vertica follows a "value creation" private equity model (vs. 
+   passive financial sponsor), with heavy emphasis on operational improvements 
+   rather than financial engineering.
+
+   Evidence: Explicit statements about "active support," "inside sales best 
+   practices," operator network, and Success Cadence promotion.
+
+2. SALES EXCELLENCE AS CORE COMPETENCY
+   INFERENCE: Vertica views sales organization design and compensation as a 
+   primary value creation lever, not just a portfolio company responsibility.
+
+   Evidence: Dedicated blog posts on commission plans, Tom Schodorf's involvement, 
+   "5x sales and marketing returns" claim, explicit mention of "inside sales" 
+   as a core offering.
+
+3. CADENCE/RHYTHM AS OPERATING PHILOSOPHY
+   INFERENCE: Vertica believes in structured operating cadences (daily/weekly/
+   monthly/quarterly rhythms) as the foundation of rapid growth.
+
+   Evidence: Success Cadence promotion, emphasis on "operational cadence," 
+   calendar-driven management approach.
+
+4. TALENT-DRIVEN INVESTMENT THESIS
+   INFERENCE: Vertica likely evaluates investments partially based on ability 
+   to attract and retain sales talent, and may help portfolio companies upgrade 
+   sales leadership.
+
+   Evidence: "Culture starts with hiring," "right people in right positions," 
+   "destination employer for high-potential contributors."
+
+5. DATA-DRIVEN APPROACH TO SALES
+   INFERENCE: Vertica uses quantitative analysis (like the quota-to-OTE 
+   correlation data) to guide portfolio company decisions.
+
+   Evidence: Detailed data analysis in commission plan blog, "data-driven 
+   approach to leadership" in Success Cadence.
+
+6. CONCENTRATED PORTFOLIO STRATEGY
+   INFERENCE: Vertica likely maintains a concentrated portfolio (fewer companies, 
+   more attention per company) given their small fund size and hands-on approach.
+
+   Evidence: $205M fund with $10-100M check sizes implies 2-20 companies max; 
+   "active support" positioning suggests high engagement per company.
+
+================================================================================
+                              SOURCE CONFLICTS
+================================================================================
+
+CONFLICTS IDENTIFIED:
+--------------------------------------------------------------------------------
+1. ARR RANGE THRESHOLD
+   - Website states: "$2M to $40M of ARR"
+   - Some sources (Clay/ZoomInfo) suggest: "$2-20M ARR"
+   - RESOLUTION: Website (verticacp.com) is the canonical source; $2M-$40M 
+     appears to be the current, expanded range.
+
+2. NUMBER OF COMPANIES HELPED
+   - Website: "more than 50 companies"
+   - Philip Vorobeychik quote: "over 60 software companies"
+   - RESOLUTION: The 60+ figure likely includes pre-Vertica experience; 
+     50+ is the Vertica-specific track record.
+
+3. FUND WEBSITE URL
+   - PRNewswire (2020): "www.verticacp.com"
+   - Some older sources: "verticaco.com" (does not resolve)
+   - RESOLUTION: verticacp.com is the correct, working domain.
+
+4. TOM SCHODORF TITLE
+   - Vertica website: "Special Limited Partner"
+   - Other sources: Board member, Advisor
+   - RESOLUTION: Not a conflict; these are complementary roles.
+
+NO MATERIAL CONFLICTS identified that would affect the core understanding 
+of Vertica's investment criteria or value creation approach.
+
+================================================================================
+                              KEY URLS REFERENCED
+================================================================================
+
+PRIMARY SOURCES:
+- https://www.verticacp.com/ (Main website, investment criteria)
+- https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives
+- https://www.verticacp.com/blog-posts/base-vs-variable (Success Cadence)
+
+SECONDARY SOURCES:
+- https://www.prnewswire.com/news-releases/vertica-capital-partners-closes-205-million-private-equity-fund-focused-on-the-software-sector-301015280.html
+- https://www.prnewswire.com/news-releases/pathlock-secures-200m-completes-merger-with-appsian-and-security-weaver/
+
+================================================================================

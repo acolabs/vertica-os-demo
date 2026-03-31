@@ -34,7 +34,7 @@ export function DecisionSummaryBar({
   const totalPending = decisionCounts.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
+    <Card className="bg-[var(--card-bg)] border-amber-500/20 glass-card shadow-premium ring-1 ring-amber-500/10" style={{ boxShadow: '0 0 20px rgba(245, 158, 11, 0.06), 0 0 6px rgba(245, 158, 11, 0.04)' }}>
       <CardContent className="py-4 px-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">

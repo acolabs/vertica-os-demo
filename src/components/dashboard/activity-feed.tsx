@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   CheckCircle,
@@ -12,6 +13,7 @@ import {
   Zap,
   Clock,
   Activity,
+  ArrowRight,
 } from "lucide-react";
 import { cn, timeAgo } from "@/lib/utils";
 
@@ -101,9 +103,17 @@ export function ActivityFeed({ entries }: ActivityFeedProps) {
   return (
     <Card className="bg-[var(--card-bg)] border-[var(--card-border)] glass-card shadow-premium">
       <CardHeader className="pb-3">
-        <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-[var(--text-muted)]" />
-          <h3 className="text-sm font-semibold text-[var(--text-primary)]">Recent Activity</h3>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-[var(--text-muted)]" />
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">Recent Activity</h3>
+          </div>
+          <Link
+            href="/audit"
+            className="inline-flex items-center gap-1 text-[11px] text-[var(--text-muted)] hover:text-[var(--primary)] transition-colors"
+          >
+            View Audit Log <ArrowRight className="w-3 h-3" />
+          </Link>
         </div>
       </CardHeader>
       <CardContent className="pt-0 max-h-[280px] overflow-y-auto">

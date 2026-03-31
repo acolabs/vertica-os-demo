@@ -1,0 +1,112 @@
+
+================================================================================
+                         VERTICA SIGNALS TABLE
+================================================================================
+
+| Claim | Category | Evidence URL | Relevance to OS |
+|-------|----------|--------------|-----------------|
+
+DEAL CRITERIA
+--------------------------------------------------------------------------------
+| Invests $2M-$40M ARR software companies | Deal | https://www.verticacp.com/ | Target company qualification |
+| Equity checks $10M-$100M | Deal | https://www.verticacp.com/ | Capital structure planning |
+| Thesis-based approach (no min growth/profitability) | Deal | https://www.verticacp.com/ | Narrative alignment |
+| Growth buyouts, recaps, growth capital | Deal | https://www.verticacp.com/ | Deal structure options |
+| Fund size $205M (closed 2020, oversubscribed) | Deal | https://www.prnewswire.com/news-releases/vertica-capital-partners-closes-205-million-private-equity-fund-focused-on-the-software-sector-301015280.html | Capacity assessment |
+
+VALUE CREATION
+--------------------------------------------------------------------------------
+| "5x sales and marketing returns vs competitors" | Value Creation | https://www.prnewswire.com/news-releases/vertica-capital-partners-closes-205-million-private-equity-fund-focused-on-the-software-sector-301015280.html | Performance benchmark |
+| Operator network from Palo Alto Networks, Splunk, SolarWinds | Value Creation | https://www.verticacp.com/ | Resource access |
+| "Active support post-close" | Value Creation | https://www.verticacp.com/ | Engagement model |
+| Portfolio: Pathlock ($200M raise), Campspot, DSN | Value Creation | https://www.prnewswire.com/news-releases/pathlock-secures-200m-completes-merger-with-appsian-and-security-weaver/ | Track record validation |
+| "Build on what you created" philosophy | Value Creation | https://www.verticacp.com/ | Cultural alignment |
+
+GTM/SALES
+--------------------------------------------------------------------------------
+| "Inside sales best practices" as core offering | GTM | https://www.verticacp.com/ | Sales transformation |
+| 50/50 OTE split is cornerstone | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Compensation design |
+| 5x Quota-to-OTE ratio is "golden ratio" | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Quota setting |
+| 10% standard commission rate | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Plan structure |
+| Quota-to-OTE ratio is "single most indicative factor" for success | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Data-driven insight |
+| AEs with <4x ratio achieve ~100% attainment | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Performance optimization |
+| Accelerators (kickers) for >100% quota | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Motivation design |
+| Ramping periods 3-9 months | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | New hire onboarding |
+| Clawbacks generally discouraged | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Retention philosophy |
+| 60-70% of team should hit 100% quota | GTM | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | Target attainability |
+
+TALENT/PROCESS
+--------------------------------------------------------------------------------
+| Success Cadence: daily/weekly/monthly/quarterly operational cadence | Process | https://www.verticacp.com/blog-posts/base-vs-variable | Operating rhythm |
+| "Culture-driven, talent-driven, data-driven approach" | Talent | https://www.verticacp.com/blog-posts/base-vs-variable | Leadership model |
+| Sales organization sets rhythm for entire company | Process | https://www.verticacp.com/blog-posts/base-vs-variable | Organizational design |
+| "Right people in right positions - 6 to 18 months forward" | Talent | https://www.verticacp.com/blog-posts/base-vs-variable | Workforce planning |
+| "Up-and-to-the-right" as recruiting/cultural norm | Talent | https://www.verticacp.com/blog-posts/base-vs-variable | Performance culture |
+| Move from product-driven to sales-driven culture | Process | https://www.verticacp.com/blog-posts/base-vs-variable | Transformation approach |
+| "Protect positive working culture" as leadership responsibility | Talent | https://www.verticacp.com/blog-posts/base-vs-variable | Culture stewardship |
+| Tom Schodorf (ex-Splunk CRO) as Special Limited Partner | Talent | https://www.verticacp.com/blog-posts/base-vs-variable | Sales expertise access |
+| Jesse Javna (Principal) writes on compensation | Talent | https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives | In-house expertise |
+| "Recruiting strategies" as maintained capability | Talent | https://www.verticacp.com/ | Talent acquisition support |
+
+OPERATING PRINCIPLES
+--------------------------------------------------------------------------------
+| "Entrepreneur-first approach to partnership" | Process | https://www.verticacp.com/ | Founder relationship |
+| "Alignment matters - your company and your values" | Process | https://www.verticacp.com/ | Value alignment |
+| "Learned from Kaseya, Veeam, FareHarbor" | Process | https://www.verticacp.com/ | Pattern recognition |
+| 50+ companies helped into market leaders | Process | https://www.verticacp.com/ | Experience depth |
+| "Real-time information on how to stay ahead" | Process | https://www.verticacp.com/ | Knowledge management |
+
+================================================================================
+                          SIGNALS SUMMARY
+================================================================================
+
+HIGH-CONFIDENCE SIGNALS (Direct from Vertica sources):
+-------------------------------------------------------
+1. 5x Quota-to-OTE ratio is their "golden ratio" for compensation
+2. Inside sales is an explicit area of expertise
+3. Success Cadence (operating rhythm) is promoted to portfolio companies
+4. 50/50 split + 5x ratio = 10% commission rate
+5. Sales organization should set rhythm for entire company
+6. Thesis-based investing (no minimum growth threshold)
+7. $2M-$40M ARR, $10M-$100M check sizes
+
+INFERRED SIGNALS (Requiring validation):
+----------------------------------------
+1. Likely helps portfolio companies redesign sales compensation
+2. May push for sales leadership upgrades in portfolio
+3. Probably uses standardized operating cadence playbook
+4. Concentrated portfolio (high engagement per company)
+5. Data-driven approach to sales optimization
+
+================================================================================
+                         SOURCE CONFLICTS SUMMARY
+================================================================================
+
+1. ARR RANGE: Website says $2M-$40M; some sources say $2M-$20M
+   -> RESOLVED: Website is canonical
+
+2. COMPANIES HELPED: Website says 50+; Philip Vorobeychik said 60+
+   -> RESOLVED: 60+ includes pre-Vertica experience
+
+3. WEBSITE URL: verticacp.com is correct; verticaco.com does not resolve
+   -> RESOLVED: verticacp.com confirmed
+
+4. TOM SCHODORF TITLE: "Special Limited Partner" at Vertica; also Board member
+   -> RESOLVED: Complementary roles, not conflicting
+
+NO MATERIAL CONFLICTS affecting core understanding.
+
+================================================================================
+                              KEY URLS REFERENCED
+================================================================================
+
+PRIMARY SOURCES:
+- https://www.verticacp.com/ (Main website, investment criteria)
+- https://www.verticacp.com/blog-posts/commission-plans-for-saas-account-executives
+- https://www.verticacp.com/blog-posts/base-vs-variable (Success Cadence)
+
+SECONDARY SOURCES:
+- https://www.prnewswire.com/news-releases/vertica-capital-partners-closes-205-million-private-equity-fund-focused-on-the-software-sector-301015280.html
+- https://www.prnewswire.com/news-releases/pathlock-secures-200m-completes-merger-with-appsian-and-security-weaver/
+
+================================================================================

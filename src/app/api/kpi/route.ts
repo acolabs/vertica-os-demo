@@ -12,7 +12,15 @@ export async function GET(request: NextRequest) {
 
   const snapshots = isAll
     ? db.prepare(
-        `SELECT * FROM kpi_snapshots WHERE org_id IN (SELECT id FROM organizations WHERE type = 'portfolio') ORDER BY date DESC LIMIT ?`
+        `SELECT date,
+                AVG(nrr_percent) as nrr_percent,
+                AVG(churn_rate_percent) as churn_rate_percent,
+                SUM(agent_cost_total) as agent_cost_total
+         FROM kpi_snapshots
+         WHERE org_id IN (SELECT id FROM organizations WHERE type = 'portfolio')
+         GROUP BY date
+         ORDER BY date DESC
+         LIMIT ?`
       ).all(days)
     : db.prepare(
         'SELECT * FROM kpi_snapshots WHERE org_id = ? ORDER BY date DESC LIMIT ?'

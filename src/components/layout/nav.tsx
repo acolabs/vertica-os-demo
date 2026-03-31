@@ -16,6 +16,9 @@ import {
   BookOpen,
   FlaskConical,
   Calculator,
+  Briefcase,
+  Activity,
+  Rocket,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,11 +30,19 @@ const navSections = [
     ],
   },
   {
-    label: "OPERATIONS",
+    label: "OPERATE",
     items: [
-      { name: "Dashboard", href: "/", icon: LayoutDashboard },
+      { name: "Command Center", href: "/dashboard", icon: LayoutDashboard },
       { name: "Decision Inbox", href: "/decisions", icon: Inbox },
+      { name: "Deal Room", href: "/deals", icon: Briefcase },
       { name: "Work Queues", href: "/queues", icon: Layers },
+    ],
+  },
+  {
+    label: "MONITOR",
+    items: [
+      { name: "Portfolio Pulse", href: "/portfolio", icon: Activity },
+      { name: "Analytics", href: "/analytics", icon: BarChart3 },
     ],
   },
   {
@@ -43,23 +54,18 @@ const navSections = [
     ],
   },
   {
-    label: "TOOLS",
+    label: "VALUE CREATION",
     items: [
+      { name: "Value Creation Hub", href: "/value-creation", icon: Rocket },
       { name: "Comp Simulator", href: "/simulator", icon: Calculator },
     ],
   },
   {
-    label: "INTELLIGENCE",
+    label: "GOVERNANCE",
     items: [
-      { name: "Analytics", href: "/analytics", icon: BarChart3 },
       { name: "Audit Log", href: "/audit", icon: Shield },
-    ],
-  },
-  {
-    label: "PLATFORM",
-    items: [
-      { name: "Integrations", href: "/integrations", icon: Plug },
       { name: "Policies", href: "/policies", icon: Lock },
+      { name: "Integrations", href: "/integrations", icon: Plug },
     ],
   },
 ];
@@ -94,8 +100,8 @@ export function Nav() {
             </p>
             {section.items.map((item) => {
               const isActive =
-                item.href === "/"
-                  ? pathname === "/"
+                item.href === "/dashboard"
+                  ? pathname === "/dashboard"
                   : pathname.startsWith(item.href);
               return (
                 <Link
