@@ -113,7 +113,7 @@ export function QuotaEconomicsCard({
         {/* Quota-to-OTE Ratio */}
         <div className="space-y-1">
           <DemoTooltip
-            content="Vertica's research shows 5x Quota-to-OTE is the sweet spot. Below 4x means reps are overpaid relative to revenue. Above 6x means quotas are unrealistic."
+            content="Calculated client-side: Quota-to-OTE Ratio = Annual Quota / OTE. Industry benchmark is 4-6x (the '5x rule'). All quota economics are derived from the plan builder inputs — no external data sources."
             side="left"
           >
             <span className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">

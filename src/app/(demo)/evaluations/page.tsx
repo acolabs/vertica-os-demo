@@ -70,7 +70,7 @@ export default function EvaluationsPage() {
       {/* Section 1: Evaluation Scorecards */}
       <div>
         <DemoTooltip
-          content="Run agents on historical data to validate accuracy before production. This is how we prove ROI before a single dollar is spent."
+          content="Sourced from /api/evaluations as org-specific mock scorecards. Each scorecard measures accuracy, precision, recall, and F1 score per agent type. In production, evaluations run against live decision data from the decisions table with statistical validation."
           side="right"
         >
           <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
@@ -87,7 +87,7 @@ export default function EvaluationsPage() {
       {/* Section 2: Before vs After */}
       <div>
         <DemoTooltip
-          content="Before/after comparison using actual historical data. These aren't projections — they're validated results from replay runs."
+          content="Before/after metrics sourced from /api/evaluations (org-specific mock data). Compares pre-deployment baselines vs. current values for churn rate, deflection rate, resolution time, and operator hours. In production, baselines are captured from kpi_snapshots at agent deployment date."
           side="right"
         >
           <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-3">

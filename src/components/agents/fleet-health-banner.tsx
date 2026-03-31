@@ -42,7 +42,7 @@ export function FleetHealthBanner({ agents }: FleetHealthBannerProps) {
               ) : (
                 <Activity className="w-4 h-4 text-amber-400" />
               )}
-              <DemoTooltip content="Aggregate health across all deployed agents. Green indicates all agents are operational with no errors." side="right">
+              <DemoTooltip content="Sourced from the agents table via /api/agents. Aggregates: COUNT by status (active/paused/error), SUM total_runs, SUM total_value_created, AVG accuracy_rate across all agents for the selected org. Polled every 30s." side="right">
                 <span className="text-sm font-medium text-[var(--text-primary)]">
                   Fleet Status
                 </span>

@@ -195,7 +195,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <ToastWrapper />
       {/* Row 1: Welcome + KPI Cards */}
-      <DemoTooltip content="Real-time metrics calculated from agent activity across all connected systems. Updated every 15 seconds." side="right">
+      <DemoTooltip content="Sourced from the kpi_snapshots table (daily per-org metrics). Churn Prevented = monthly snapshot × 3 for quarterly. Support Deflection = auto-resolved tickets / total tickets. Hours Saved = operator time displaced by agent runs. ROI = quarterly value created / quarterly agent costs. Polled via /api/dashboard/summary every 30s." side="right">
         <div>
           <PageHeader
             title="Command Center"
@@ -264,7 +264,7 @@ export default function DashboardPage() {
       {/* Row 2: KPI Trend Chart */}
       {kpiData && kpiData.length > 0 && (
         <div>
-          <DemoTooltip content="90-day trend showing business impact. The inflection point marks agent deployment — before and after is clearly visible." side="right">
+          <DemoTooltip content="Sourced from kpi_snapshots table via /api/kpi?days=90. NRR % (green area) and Churn Rate % (red line) are pulled per-org per-day. When viewing 'All', values are averaged across portfolio companies. Polled every 60s." side="right">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">KPI Trends</h2>
           </DemoTooltip>
           <KpiTrendChart data={kpiData} />
@@ -273,7 +273,7 @@ export default function DashboardPage() {
 
       {/* Row 3: Decision Summary Bar */}
       <div>
-        <DemoTooltip content="Agents continuously monitor your customer base and flag findings requiring human review. Critical items have the highest dollar exposure." side="right">
+        <DemoTooltip content="Sourced from the decisions table via /api/dashboard/summary. Counts are grouped by severity (critical/high/medium/low) where status is 'pending' or 'escalated'. Total exposure = SUM(impact_dollars) for critical + high pending decisions." side="right">
           <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Decision Summary</h2>
         </DemoTooltip>
         <DecisionSummaryBar
@@ -284,7 +284,7 @@ export default function DashboardPage() {
 
       {/* Row 4: Two columns */}
       <div>
-        <DemoTooltip content="Your deployed AI agent fleet. Each agent is specialized for a specific operational function with governed permissions." side="right">
+        <DemoTooltip content="Sourced from the agents table joined with runs for cost data via /api/dashboard/summary. Shows name, type, status, total_runs, total_value_created per agent. Activity feed pulls from the audit_log table (most recent entries). Polled every 30s." side="right">
           <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">
             Active Agents & Activity — {orgId === "all" ? "All Portfolios" : orgName}
           </h2>

@@ -99,7 +99,7 @@ export default function IntegrationsPage() {
       {/* Connected Integration Cards */}
       {integrations && integrations.length > 0 && (
         <div>
-          <DemoTooltip content="Agents connect to your existing tools through governed, audited API channels. Permissions are granular — agents only access what policies allow." side="right">
+          <DemoTooltip content="Sourced from the integrations table via /api/integrations. Each row stores name, type (crm/support/data_warehouse/communication), status (connected/disconnected/error), health_score (0-100%), config JSON, and last_sync_at timestamp. Polled every 30s." side="right">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Connected</h2>
           </DemoTooltip>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -111,7 +111,7 @@ export default function IntegrationsPage() {
       )}
 
       {/* Available Integrations */}
-      <DemoTooltip content="Additional integrations available for deployment. Each connects through the same governed channel with full audit logging." side="right">
+      <DemoTooltip content="Available integrations are a static catalog of supported connectors. When connected, a new row is created in the integrations table with initial config, health_score, and sync scheduling. All connection events are logged to audit_log." side="right">
         <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Available Integrations</h2>
       </DemoTooltip>
       <AvailableIntegrations onConnect={handleConnect} />

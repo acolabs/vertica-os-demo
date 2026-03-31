@@ -177,7 +177,7 @@ export default function AuditPage() {
       </div>
 
       {/* Hash Chain Banner */}
-      <DemoTooltip content="SHA-256 cryptographic hash chain ensures tamper-proof integrity. No entry can be modified or deleted without detection." side="right">
+      <DemoTooltip content="Sourced from the audit_log table via /api/audit. Each entry stores prev_hash + hash (SHA-256 chain), actor, action, resource_type, resource_id, and details JSON. Hash = SHA-256(prev_hash + action + resource_id + timestamp). Paginated with offset/limit." side="right">
         <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Integrity Verification</h2>
       </DemoTooltip>
       <HashChainBanner totalEntries={data?.total || 0} />

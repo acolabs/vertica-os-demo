@@ -192,7 +192,7 @@ export function CompPlanBuilder({
         {/* Accelerator */}
         <div className="space-y-3">
           <DemoTooltip
-            content="Properly structured accelerators are the difference between keeping top performers and losing them to competitors."
+            content="Calculated client-side from user inputs. Accelerator multiplier is applied to variable comp for quota attainment above 100%. No server data — all comp modeling runs entirely in the browser."
             side="right"
           >
             <div className="flex items-center justify-between w-full">

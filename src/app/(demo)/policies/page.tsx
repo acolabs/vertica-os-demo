@@ -203,7 +203,7 @@ export default function PoliciesPage() {
       {/* Enforcement Stats */}
       <Card className="border-[var(--card-border)] bg-[var(--card-bg)]">
         <CardHeader>
-          <DemoTooltip content="Real-time compliance tracking. 100% policy compliance means no agent has ever taken an ungoverned action." side="right">
+          <DemoTooltip content="Sourced from the policies table via /api/policies. Each policy has type (approval_required, auto_approve, two_person, budget_limit), scope, rules JSON (thresholds/conditions), and enabled flag. Compliance tracked by cross-referencing decisions against active policy rules." side="right">
             <CardTitle className="text-base text-[var(--text-primary)]">Policy Enforcement Summary</CardTitle>
           </DemoTooltip>
         </CardHeader>

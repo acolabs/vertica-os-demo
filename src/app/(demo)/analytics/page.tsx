@@ -117,7 +117,7 @@ export default function AnalyticsPage() {
 
       <ToastWrapper />
       {/* Row 1: Big Impact Numbers */}
-      <DemoTooltip content="Executive summary metrics for board reporting. All values are directly attributable to agent actions with full audit trail." side="right">
+      <DemoTooltip content="Sourced from /api/analytics which aggregates across decisions (by status/severity with impact_dollars), agents (total_value_created, accuracy_rate), runs (count, avg duration, total cost/tokens), and kpi_snapshots (trend data). All filtered by org_id." side="right">
         <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Impact Summary</h2>
       </DemoTooltip>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -154,7 +154,7 @@ export default function AnalyticsPage() {
       {/* Row 2: Revenue Impact */}
       {kpiData && kpiData.length > 0 && (
         <div>
-          <DemoTooltip content="Churn prevention is the highest-ROI agent capability for PE-backed SaaS. Each dollar saved compounds at your revenue multiple." side="right">
+          <DemoTooltip content="Revenue Impact chart sourced from the decisions table — decisions grouped by status (approved/rejected/pending) with SUM(impact_dollars) per group. Approved decisions represent confirmed revenue saved or identified." side="right">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Revenue Impact</h2>
           </DemoTooltip>
           <RevenueImpactChart kpiData={kpiData} />
@@ -164,7 +164,7 @@ export default function AnalyticsPage() {
       {/* Row 3: Operational Impact */}
       {kpiData && kpiData.length > 0 && (
         <div>
-          <DemoTooltip content="Support automation delivers immediate cost savings with measurable deflection rates and handle time reduction." side="right">
+          <DemoTooltip content="Support metrics sourced from kpi_snapshots table — support_deflection_rate, support_cost_per_ticket, and avg_handle_time_minutes tracked daily per org. Trend lines show 90-day history." side="right">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Support & Operations</h2>
           </DemoTooltip>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -177,7 +177,7 @@ export default function AnalyticsPage() {
       {/* Row 4: Agent Efficiency */}
       {analytics && (
         <div>
-          <DemoTooltip content="Operational metrics showing agent reliability and cost-effectiveness. Acceptance rate indicates alignment with human judgment." side="right">
+          <DemoTooltip content="Agent efficiency sourced from agents table (total_runs, total_decisions, total_value_created, accuracy_rate) joined with runs table (SUM cost_usd) per agent. Accuracy = approved decisions / total reviewed." side="right">
             <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Agent Efficiency</h2>
           </DemoTooltip>
           <AgentEfficiencyTable
