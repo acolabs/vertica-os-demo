@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center relative overflow-hidden px-4">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center relative overflow-hidden px-4 pt-24">
       {/* Background gradient orb */}
       <div
         aria-hidden="true"
@@ -20,7 +20,7 @@ export default function HeroSection() {
       />
 
       {/* Badge pill */}
-      <span className="landing-glass inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium text-[var(--primary)] border border-[var(--primary)]/20 mb-8">
+      <span className="landing-glass inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium text-[var(--primary)] border border-[var(--primary)]/20 mb-8 mt-4">
         Value Creation Control Plane
       </span>
 
@@ -33,7 +33,7 @@ export default function HeroSection() {
 
       {/* Subhead */}
       <p className="max-w-2xl mx-auto mt-6 text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
-        Agent OS gives PE operating teams a single control plane to govern
+        Portfolio OS gives PE operating teams a single control plane to govern
         agents, orchestrate workflows, and measure attribution — across every
         portfolio company.
       </p>

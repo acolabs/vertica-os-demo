@@ -71,7 +71,7 @@ export default function LandingNav() {
             </svg>
           </div>
           <span className="text-sm font-semibold text-[var(--text-primary)] tracking-tight">
-            AGENT OS
+            PORTFOLIO OS
           </span>
         </a>
 
